@@ -6,6 +6,7 @@ import play.db.jpa.Model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public class Super extends NewModel {
     @ManyToMany
     public List<Caracteristique> desavantage;
 
+	@ManyToOne
+	public Civil civil;
 }
