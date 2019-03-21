@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import play.db.jpa.GenericModel;
 
 @Entity
-public class Organisation extends GenericModel {
+public class Organisation extends NewModel {
 
 	@Column(length=100,nullable=false)
 	public String nom;
@@ -32,9 +32,8 @@ public class Organisation extends GenericModel {
 	public Pays pays;
 	
 	@ManyToOne
-	public Civil dirigents;
+	public Civil dirigeant;
 	
-
 	@ManyToMany
 	public List<Civil> membres;
 }
