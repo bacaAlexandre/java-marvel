@@ -10,13 +10,8 @@ import javax.persistence.ManyToMany;
 import play.db.jpa.Model;
 
 @Entity
-public class Utilisateur extends Model {
-	
-	public String login;
+public class Droit extends Model {
 
-	public String password;
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Droit> droits = new ArrayList<Droit>();
+	public String nom;
 
 }
