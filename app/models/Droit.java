@@ -14,7 +14,4 @@ public class Droit extends Model {
 
 	public String nom;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
-
 }
