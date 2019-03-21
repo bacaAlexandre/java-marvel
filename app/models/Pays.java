@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 public class Pays extends NewModel {
 
-	@Column(length=100,nullable=false)
+	@Column(nullable=false)
 	public String nom;
 	
 }

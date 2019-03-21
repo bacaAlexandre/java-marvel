@@ -43,7 +43,7 @@ public class Civil extends NewModel {
 	public Date dateModification;
 	
 	@ManyToOne
-	public Pays pays;
+	public Pays paysResidence;
 
 	@ManyToOne
 	public Pays paysNatal;
