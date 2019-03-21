@@ -1,6 +1,5 @@
-
-# Created by https://www.gitignore.io/api/java,eclipse,intellij,playframework
-# Edit at https://www.gitignore.io/?templates=java,eclipse,intellij,playframework
+# Created by https://www.gitignore.io/api/java,eclipse,intellij+all,playframework
+# Edit at https://www.gitignore.io/?templates=java,eclipse,intellij+all,playframework
 
 ### Eclipse ###
 
@@ -72,7 +71,7 @@ local.properties
 
 .sts4-cache/
 
-### Intellij ###
+### Intellij+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
@@ -140,13 +139,18 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-### Intellij Patch ###
-# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+### Intellij+all Patch ###
+# Ignores the whole .idea folder and all .iml files
+# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
 
-# *.iml
-# modules.xml
-# .idea/misc.xml
-# *.ipr
+.idea/
+
+# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
 
 # Sonarlint plugin
 .idea/sonarlint
@@ -192,4 +196,4 @@ server.pid
 /dist/
 .cache
 
-# End of https://www.gitignore.io/api/java,eclipse,intellij,playframework
+# End of https://www.gitignore.io/api/java,eclipse,intellij+all,playframework
