@@ -10,8 +10,8 @@ import javax.persistence.ManyToMany;
 import play.db.jpa.Model;
 
 @Entity
-public class Utilisateur extends Model {
-	
+public class Utilisateur extends NewModel {
+
 	public String login;
 
 	public String password;

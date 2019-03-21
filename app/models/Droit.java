@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 import play.db.jpa.Model;
 
 @Entity
-public class Droit extends Model {
+public class Droit extends NewModel {
 
 	public String nom;
 
