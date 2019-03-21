@@ -15,7 +15,7 @@ import play.db.jpa.Model;
 public class Utilisateur extends NewModel {
 
 	@Column(nullable=false)
-	public String login;
+	public String email;
 
 	@Column(nullable=false)
 	public String password;

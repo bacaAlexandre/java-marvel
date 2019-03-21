@@ -21,9 +21,6 @@ public class Civil extends NewModel {
 	@Column(columnDefinition="text")
 	public String adresse;
 
-	@Column(length=255,nullable=false)
-	public String email;
-
 	@Column(length=100)
 	public String tel;
 
@@ -47,4 +44,7 @@ public class Civil extends NewModel {
 
 	@ManyToOne
 	public Pays paysNatal;
+
+	@ManyToOne
+	public GenreSexuel civilite;
 }

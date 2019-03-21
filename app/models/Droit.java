@@ -14,6 +14,6 @@ import play.db.jpa.Model;
 public class Droit extends NewModel {
 
 	@Column(nullable=false)
-	public String nom;
+	public String libelle;
 
 }
