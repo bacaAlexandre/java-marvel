@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.mindrot.jbcrypt.BCrypt;
 import play.db.jpa.Model;
 
 @Entity
@@ -25,5 +26,17 @@ public class Utilisateur extends NewModel {
 	
 	@ManyToOne
 	public Civil civil;
+	
+	public void setPassword(String password) {
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+	}
+
+    public static Utilisateur connect(String email, String password) {
+    	Utilisateur utilisateur = find("byEmail", email).first();
+    	if ((utilisateur != null) && (BCrypt.checkpw(password, utilisateur.password))) {
+    		return utilisateur;
+    	}
+    	return null;
+    }
 
 }

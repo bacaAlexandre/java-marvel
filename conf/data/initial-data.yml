@@ -1,0 +1,15 @@
+Pays(p1):
+  libelle: "France"
+Civil(c1):
+  nom: "Massue"
+  prenom: "Brise"
+  adresse: "Cesi Mont Saint Aignan"
+  tel: "0606060606"
+  dateNaissance: 1986-09-11
+  dateAjout: 2019-03-21
+  paysResidence: p1
+  paysNatal: p1
+Utilisateur(u1):
+  email: "admin"
+  password: "test"
+  civil: c1
