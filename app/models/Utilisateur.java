@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
 
@@ -21,5 +22,8 @@ public class Utilisateur extends NewModel {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Droit> droits = new ArrayList<Droit>();
+	
+	@ManyToOne
+	public Civil civil;
 
 }
