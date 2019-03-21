@@ -15,7 +15,7 @@ import play.db.jpa.Model;
 @Entity
 public class Utilisateur extends NewModel {
 
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	public String email;
 
 	@Column(nullable=false)
@@ -23,10 +23,10 @@ public class Utilisateur extends NewModel {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Droit> droits = new ArrayList<Droit>();
-	
+
 	@ManyToOne
 	public Civil civil;
-	
+
 	public void setPassword(String password) {
 		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
