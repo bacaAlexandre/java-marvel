@@ -4,13 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+import javax.persistence.ManyToOne;
 
 import net.sf.oval.constraint.MaxSize;
 import play.db.jpa.Model;
 
 @Entity
-public class Civil extends Model {
+public class Civil extends NewModel {
 
 	@Column(length=100,nullable=false)
 	public String nom;
@@ -42,4 +42,9 @@ public class Civil extends Model {
 	@Column(columnDefinition="datetime")
 	public Date dateModification;
 	
+	@ManyToOne
+	public Pays pays;
+
+	@ManyToOne
+	public Pays paysNatal;
 }
