@@ -7,10 +7,12 @@ import java.util.*;
 
 import models.*;
 
-public class HeroRightController extends Controller {
+public class HeroRightController extends ConnectedController {
 
     public HeroRightController() {
-
+    	if(! this.user.droits.contains(Droit.find("libelle = ?", "Héros"))) {
+        	redirect("/");
+        }
     }
 
 }
