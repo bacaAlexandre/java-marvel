@@ -36,7 +36,7 @@ public class Registration extends Controller {
         for(String profile : check.value()) {
             boolean hasProfile = check(profile);
             if(!hasProfile) {
-                forbidden();
+                redirect("/");
             }
         }
     }
@@ -129,6 +129,11 @@ public class Registration extends Controller {
     static boolean check(String profile) {
         if("admin".equals(profile)) {
             return Utilisateur.find("byEmail", connected()).<Utilisateur>first().id == 1;
+        }
+        if("civil".equals(profile)) {
+        	Utilisateur user = Utilisateur.find("byEmail", connected()).<Utilisateur>first();
+        	Droit getRight = Droit.find("byLibelle", "Civil").<Droit>first();
+        	return user.droits.contains(getRight);
         }
         return false;
     }

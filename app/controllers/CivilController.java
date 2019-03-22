@@ -3,11 +3,13 @@ package controllers;
 import java.util.List;
 
 import play.mvc.Controller;
-
+import play.mvc.With;
 import models.Civil;
 
-public class CivilController extends CivilRightController {
-
+@With(Registration.class)
+public class CivilController extends Controller {
+	
+	@Check({"civil", "test"})
 	public static void index() {
         List<Civil> civils = Civil.findAll();
 	    render(civils);
