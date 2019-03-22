@@ -5,7 +5,10 @@
 # Home page
 GET     /                                       Application.index
 # Civil home page
-GET     /civil                                  Civil.index
+GET     /civil                                  CivilController.index
+# Civil ajout page
+GET     /civil/add                              CivilController.newCivil
+POST    /civil/add                              CivilController.addNewCivil
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

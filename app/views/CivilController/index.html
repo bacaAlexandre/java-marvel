@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{set title:'Civils' /}
+
+<h2>Index Civil</h2>
+<table>
+    <thead>
+        <tr>
+            <th>PleuPleu</th>
+            <th>Date Naissance</th>
+            <th>Date Deces</th>
+        </tr>
+    </thead>
+    <tbody>
+	#{list civils, as:'civil'}
+		<tr>
+		    <td>${civil.prenom} ${civil.nom}</td>
+		    <td>${civil.dateNaissance}</td>
+		    <td>${civil.dateDeces}</td>
+		</tr>
+	#{/list}
+    </tbody>
+</table>
+<a href="@{CivilController.newCivil()}">Add new civil</a>
