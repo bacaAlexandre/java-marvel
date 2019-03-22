@@ -13,7 +13,7 @@
     <tbody>
 	#{list orgas, as:'orga'}
 		<tr>
-		    <td>${orga.nom}</td>
+		    <td>${orga.nom} <a href="/orga/delete?orga=${orga.id}">DELETE</a></td>
 		</tr>
 	#{/list}
     </tbody>

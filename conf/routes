@@ -12,6 +12,7 @@ POST    /civil/add                              CivilController.addNewCivil
 
 GET     /orga                                   OrganisationController.index
 POST	/orga/add								OrganisationController.addOrga
+GET		/orga/delete							OrganisationController.deleteOrga
 
 
 # Ignore favicon requests
