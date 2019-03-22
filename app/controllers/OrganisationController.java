@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.With;
 import models.Civil;
 import models.Pays;
+import models.Utilisateur;
 import models.GenreSexuel;
 import models.Organisation;
 
@@ -34,6 +35,13 @@ public class OrganisationController extends Controller {
 		organisation.dirigeant = Civil.findById(chef);
 		organisation.membres = Civil.getByIds(membres);
 		organisation._save();
+		redirect("/orga");
+	}
+	
+	public static void deleteOrga(Long orga) {
+		Utilisateur user = Utilisateur.find("byEmail", Registration.connected()).<Utilisateur>first();
+		Organisation organe = Organisation.find("byIdAndDirigeant", orga, user.civil ).<Organisation>first();
+		organe._delete();
 		redirect("/orga");
 	}
 	
