@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+#{set title:'Organisations' /}
+
+<h2>Index Organisations</h2>
+<table>
+    <thead>
+        <tr>
+            <th>PleuPleu</th>
+            <th>Date Naissance</th>
+            <th>Date Deces</th>
+        </tr>
+    </thead>
+    <tbody>
+	#{list orgas, as:'orga'}
+		<tr>
+		    <td>${orga.nom}</td>
+		</tr>
+	#{/list}
+    </tbody>
+</table>
