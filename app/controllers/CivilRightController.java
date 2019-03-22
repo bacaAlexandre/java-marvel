@@ -7,10 +7,10 @@ import java.util.*;
 
 import models.*;
 
-public class HeroController extends Controller {
+public class CivilRightController extends Controller {
 
-    public HeroController() {
-
+    public CivilRightController() {
+        
     }
 
 }
