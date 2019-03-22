@@ -130,9 +130,9 @@ public class Registration extends Controller {
         if("admin".equals(profile)) {
             return Utilisateur.find("byEmail", connected()).<Utilisateur>first().id == 1;
         }
-        if("civil".equals(profile)) {
+        if("Civil".equals(profile)) {
         	Utilisateur user = Utilisateur.find("byEmail", connected()).<Utilisateur>first();
-        	Droit getRight = Droit.find("byLibelle", "Civil").<Droit>first();
+        	Droit getRight = Droit.find("byLibelle", profile).<Droit>first();
         	return user.droits.contains(getRight);
         }
         return false;
