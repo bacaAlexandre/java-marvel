@@ -3,9 +3,13 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import models.*;
+import net.bytebuddy.agent.builder.AgentBuilder.InstallationListener.ErrorSuppressing;
+import play.Logger;
 import play.Play;
 import play.data.validation.Required;
+import play.data.validation.Valid;
 import play.libs.Crypto;
 import play.libs.Time;
 import play.mvc.Before;
@@ -14,7 +18,7 @@ import play.mvc.Http;
 
 public class Registration extends Controller {
 	
-    @Before(unless={"login", "authenticate", "logout"})
+    @Before(unless={"login", "authenticate", "register", "logout"})
     static void checkAccess() throws Throwable {
         // Authentication
         if(!session.contains("username")) {
@@ -66,7 +70,26 @@ public class Registration extends Controller {
         }
         flash.keep("url");
         List<Pays> pays = Pays.findAll();
-        render(pays);
+        List<GenreSexuel> civilites = GenreSexuel.findAll();
+        render(pays, civilites);
+    }
+    
+    public static void register(@Valid Utilisateur utilisateur, @Valid Civil civil, @Required Long civilite, @Required Long paysResidence, @Required Long paysNatal, @Required String confirmPassword) throws Throwable {
+    	if(validation.hasErrors()) {
+    		flash.keep("url");
+        	flash.error("secure.error");
+        	validation.keep();
+        	params.flash();
+        	login();
+    	}
+    	civil.civilite = GenreSexuel.findById(civilite);
+    	civil.paysNatal = Pays.findById(paysNatal);
+    	civil.paysResidence = Pays.findById(paysResidence);
+    	civil.dateAjout = new Date();
+    	civil.save();
+    	utilisateur.civil = civil;
+    	utilisateur.save();
+    	redirectToOriginalURL();
     }
 
     public static void authenticate(@Required String username, String password, boolean remember) throws Throwable {

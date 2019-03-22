@@ -8,14 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import play.data.validation.Required;
 import play.db.jpa.GenericModel;
 
 @Entity
 public class Organisation extends NewModel {
 
+	@Required
 	@Column(length=100,nullable=false)
 	public String nom;
 
+	@Required
 	@Column(columnDefinition="text",nullable=false)
 	public String adresse;
 	

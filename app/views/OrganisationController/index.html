@@ -1,0 +1,44 @@
+#{extends 'main.html' /}
+#{set title:'Organisations' /}
+
+<h2>Index Organisations</h2>
+<table>
+    <thead>
+        <tr>
+            <th>PleuPleu</th>
+        </tr>
+    </thead>
+    <tbody>
+	#{list orgas, as:'orga'}
+		<tr>
+		    <td>${orga.nom} <a href="/orga/delete?orga=${orga.id}">DELETE</a></td>
+		</tr>
+	#{/list}
+    </tbody>
+</table>
+
+
+<form class="" action="@{OrganisationController.addOrga()}" method="post">
+  <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}">
+  <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}">
+  <select name="pays">
+    #{list pays, as:'pay'}
+      <option value="${pay.id}">${pay.libelle}</option>
+    #{/list}
+  </select>
+  <select name="chef">
+    #{list civils, as:'civil'}
+      <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
+    #{/list}
+  </select>
+  <select multiple name="membres">
+    #{list civils, as:'civil'}
+      <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
+    #{/list}
+  </select>
+  <input type="submit" value="Créer">
+</form>
+
+#{list errors, as:'error'}
+  ${error}
+#{/list}
