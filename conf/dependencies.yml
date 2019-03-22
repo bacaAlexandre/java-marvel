@@ -4,5 +4,4 @@ require:
     - play
     - play -> docviewer
     - play -> crud
-    - secure
     - org.mindrot -> jbcrypt 0.3m

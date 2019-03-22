@@ -8,7 +8,7 @@ import models.Civil;
 import models.Pays;
 import models.GenreSexuel;
 
-public class CivilController extends Controller {
+public class CivilController extends CivilRightController {
 
 	public static void index() {
         List<Civil> civils = Civil.findAll();
