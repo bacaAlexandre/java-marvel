@@ -9,6 +9,9 @@ GET     /civil                                  CivilController.index
 # Civil ajout page
 GET     /civil/add                              CivilController.newCivil
 POST    /civil/add                              CivilController.addNewCivil
+# Civil modifier page
+GET     /civil/update                           CivilController.updateCivil
+POST    /civil/update                           CivilController.saveUpdateCivil
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

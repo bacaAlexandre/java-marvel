@@ -8,6 +8,7 @@
             <th>PleuPleu</th>
             <th>Date Naissance</th>
             <th>Date Deces</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +17,11 @@
 		    <td>${civil.prenom} ${civil.nom}</td>
 		    <td>${civil.dateNaissance}</td>
 		    <td>${civil.dateDeces}</td>
+		    <td>
+				<a href="@{CivilController.updateCivil(civil.id)}">Modifier</a>
+			</td>
 		</tr>
 	#{/list}
     </tbody>
 </table>
-<a href="@{CivilController.newCivil()}">Add new civil</a>
+<a href="@{CivilController.newCivil()}">Ajouter civil</a>

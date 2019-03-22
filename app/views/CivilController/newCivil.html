@@ -29,38 +29,38 @@
     <br/>
     
 	<label for="civil.dateNaissance">Date Naissance</label>
-	<input type="date" name="civil.dateNaissance"/>
+	<input type="date" name="civil.dateNaissance" value='${flash.get("civil.dateNaissance")?.format("yyyy-MM-dd")}'/>
     <span>#{error 'civil.dateNaissance'/}</span>
 
     <br/>
     
-	<label for="civil.paysResidence">Pays Residence</label>
-	<select name="civil.paysResidence">
+	<label for="paysResidence">Pays Residence</label>
+	<select name="paysResidence">
     #{list pays, as:'pay'}
-        <option value="${pay.id}">${pay.libelle}</option>
+        <option value="${pay.id}" #{if flash.contains("paysResidence")}${""+pay.id == flash.get("paysResidence") ? "selected" : ""}#{/if}>${pay.libelle}</option>
     #{/list}
     </select>
-    <span>#{error 'civil.paysResidence'/}</span>
+    <span>#{error 'paysResidence'/}</span>
     
     <br/>
     
-	<label for="civil.paysNatal">Pays Natal</label>
-	<select name="civil.paysNatal">
+	<label for="paysNatal">Pays Natal</label>
+	<select name="paysNatal">
     #{list pays, as:'pay'}
-        <option value="${pay.id}">${pay.libelle}</option>
+        <option value="${pay.id}" #{if flash.contains("paysNatal")}${""+pay.id == flash.get("paysNatal") ? "selected" : ""}#{/if}>${pay.libelle}</option>
     #{/list}
     </select>
-    <span>#{error 'civil.paysNatal'/}</span>
+    <span>#{error 'paysNatal'/}</span>
     
     <br/>
     
-	<label for="civil.civilite">Civilite</label>
-	<select name="civil.civilite">
+	<label for="civilite">Civilite</label>
+	<select name="civilite">
     #{list civilites, as:'civilite'}
-        <option value="${civilite.id}">${civilite .libelle}</option>
+        <option value="${civilite.id}" #{if flash.contains("civilite")}${""+civilite.id == flash.get("civilite") ? "selected" : ""}#{/if}>${civilite.libelle}</option>
     #{/list}
     </select>
-    <span>#{error 'civil.civilite'/}</span>
+    <span>#{error 'civilite'/}</span>
     
     <br/>
     

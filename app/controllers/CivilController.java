@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import play.mvc.With;
 import models.Civil;
 import models.Pays;
+import models.Utilisateur;
 import models.GenreSexuel;
 
 @With(Registration.class)
@@ -25,13 +26,38 @@ public class CivilController extends Controller {
         render(pays, civilites);
     }
 	
-	public static void addNewCivil(@Valid Civil civil) {
+	public static void addNewCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+		civil.paysResidence = Pays.findById(paysResidence);
+		civil.paysNatal = Pays.findById(paysNatal);
+		civil.civilite = GenreSexuel.findById(civilite);
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             newCivil();
         }
 		civil.dateAjout = new Date();
+		civil._save();
+		index();
+    }
+
+	public static void updateCivil(long id) {
+        List<Pays> pays = Pays.findAll();
+        List<GenreSexuel> civilites = GenreSexuel.findAll();
+        Civil civil = Civil.findById(id);
+        render(civil, pays, civilites);
+    }
+	
+	public static void saveUpdateCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+		civil.id = Utilisateur.find("byEmail", Registration.connected()).<Utilisateur>first().civil.id;
+		civil.paysResidence = Pays.findById(paysResidence);
+		civil.paysNatal = Pays.findById(paysNatal);
+		civil.civilite = GenreSexuel.findById(civilite);
+		if(validation.hasErrors()) {
+            params.flash();
+            validation.keep();
+            updateCivil(civil.id);
+        }
+		civil.dateModification = new Date();
 		civil._save();
 		index();
     }
