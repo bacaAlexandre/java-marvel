@@ -4,13 +4,15 @@ import java.util.List;
 
 import play.data.validation.Valid;
 import play.mvc.Controller;
-
+import play.mvc.With;
 import models.Civil;
 import models.Pays;
 import models.GenreSexuel;
 
-public class CivilController extends CivilRightController {
-
+@With(Registration.class)
+public class CivilController extends Controller {
+	
+	@Check({"civil", "test"})
 	public static void index() {
         List<Civil> civils = Civil.findAll();
 	    render(civils);
