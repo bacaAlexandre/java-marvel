@@ -29,12 +29,12 @@ Civil(c1):
   paysResidence: p2
   paysNatal: p2
   civilite: g2
-  droits: [d1]
   
 Utilisateur(u1):
   email: "admin"
   password: "test"
   civil: c1
+  droits: [d1]
   
   
   
