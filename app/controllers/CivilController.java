@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import play.data.validation.Valid;
@@ -30,6 +31,8 @@ public class CivilController extends Controller {
             validation.keep();
             newCivil();
         }
+		civil.dateAjout = new Date();
+		civil._save();
 		index();
     }
 	
