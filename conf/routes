@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                                       Application.index
+# Civil home page
+GET     /civil                                  Civil.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
