@@ -12,7 +12,7 @@ import models.GenreSexuel;
 @With(Registration.class)
 public class CivilController extends Controller {
 	
-	@Check({"civil", "test"})
+	@Check({"Civil"})
 	public static void index() {
         List<Civil> civils = Civil.findAll();
 	    render(civils);

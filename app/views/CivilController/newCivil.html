@@ -5,8 +5,32 @@
 <form action="@{CivilController.addNewCivil()}" method="post">
 
 	<label for="civil.nom">Nom</label>
-    <input type="text" name="civil.nom" value="${flash.get('civil.nom')}">
+    <input type="text" name="civil.nom" value="${flash.get('civil.nom')}" maxLength=100 />
     <span>#{error 'civil.nom'/}</span>
+
+    <br/>
+    
+	<label for="civil.prenom">Prenom</label>
+    <input type="text" name="civil.prenom" value="${flash.get('civil.prenom')}" maxLength=100 />
+    <span>#{error 'civil.prenom'/}</span>
+
+    <br/>
+    
+	<label for="civil.adresse">Adresse</label>
+    <textarea name="civil.adresse">${flash.get('civil.adresse')}</textarea>
+    <span>#{error 'civil.adresse'/}</span>
+
+    <br/>
+    
+	<label for="civil.tel">Telephone</label>
+    <input type="text" name="civil.tel" value="${flash.get('civil.tel')}" maxLength=20 />
+    <span>#{error 'civil.tel'/}</span>
+
+    <br/>
+    
+	<label for="civil.dateNaissance">Date Naissance</label>
+	<input type="date" name="civil.dateNaissance"/>
+    <span>#{error 'civil.dateNaissance'/}</span>
 
     <br/>
     

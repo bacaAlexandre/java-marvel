@@ -24,7 +24,7 @@ public class Civil extends NewModel {
 	@Column(columnDefinition="text")
 	public String adresse;
 
-	@Column(length=100)
+	@Column(length=20)
 	public String tel;
 
 	@Column(columnDefinition="datetime",nullable=false)
@@ -38,7 +38,6 @@ public class Civil extends NewModel {
 	public String commentaire;
 	
 	@Column(columnDefinition="datetime",nullable=false)
-	@Required
 	public Date dateAjout;
 	
 	@Column(columnDefinition="datetime")
