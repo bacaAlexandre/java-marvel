@@ -17,7 +17,6 @@ public class Mission extends NewModel {
     public String titre;
 
     @ManyToOne
-    @Column(nullable=false)
     public NatureMission nature;
 
     @Column(columnDefinition="datetime",nullable=false)
@@ -30,10 +29,8 @@ public class Mission extends NewModel {
     public NiveauUrgence niveauUrgence = null;
 
     @ManyToOne
-    @Column(nullable=false)
     public NiveauGravite niveauGravite;
 
     @ManyToMany
-    @Column(nullable=false)
     public List<Super> superHeros;
 }
