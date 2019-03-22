@@ -1,6 +1,8 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,4 +53,12 @@ public class Civil extends NewModel {
 
 	@ManyToOne
 	public GenreSexuel civilite;
+	
+	public static List<Civil> getByIds(List<Long> ids) {
+		List<Civil> liste = new ArrayList<Civil>();
+		for(Long id : ids) {
+			liste.add(Civil.findById(id));
+		}
+		return liste;
+	}
 }
