@@ -2,4 +2,22 @@
 #{set title:'Ajouter Civil' /}
 
 <h2>Add Civil</h2>
-<a href="@{CivilController.index()}">Retour</a>
+<form action="@{CivilController.addNewCivil()}" method="post">
+	<select name="paysResidence">
+    #{list pays, as:'pay'}
+        <option value="${pay.id}">${pay.libelle}</option>
+    #{/list}
+    </select>
+	<select name="paysNatal">
+    #{list pays, as:'pay'}
+        <option value="${pay.id}">${pay.libelle}</option>
+    #{/list}
+    </select>
+	<select name="civilite">
+    #{list civilites, as:'civilite'}
+        <option value="${civilite.id}">${civilite.libelle}</option>
+    #{/list}
+    </select>
+    <input type="submit" value="Save">
+	<a href="@{CivilController.index()}">Retour</a>
+</form>

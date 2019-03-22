@@ -5,6 +5,8 @@ import java.util.List;
 import play.mvc.Controller;
 
 import models.Civil;
+import models.Pays;
+import models.GenreSexuel;
 
 public class CivilController extends Controller {
 
@@ -14,10 +16,12 @@ public class CivilController extends Controller {
 	}
 	
 	public static void newCivil() {
-        render();
+        List<Pays> pays = Pays.findAll();
+        List<GenreSexuel> civilites = GenreSexuel.findAll();
+        render(pays, civilites);
     }
 	
-	public static void addNewCivil(CivilController civil) {
+	public static void addNewCivil(Civil civil) {
         render();
     }
 	

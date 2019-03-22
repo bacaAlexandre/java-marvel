@@ -13,3 +13,22 @@ Utilisateur(u1):
   email: "admin"
   password: "test"
   civil: c1
+  
+GenreSexuel(g1):
+  libelle: "Femme"
+GenreSexuel(g2):
+  libelle: "Homme"
+GenreSexuel(g3):
+  libelle: "Bresilien.ne"
+GenreSexuel(g4):
+  libelle: "Autre"
+  
+  
+Pays(p1):
+  libelle: "MURICA"
+Pays(p2):
+  libelle: "France"
+Pays(p3):
+  libelle: "Chine"
+Pays(p4):
+  libelle: "Mère patrie"
