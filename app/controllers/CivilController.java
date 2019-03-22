@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
 import models.Civil;
@@ -23,8 +24,13 @@ public class CivilController extends Controller {
         render(pays, civilites);
     }
 	
-	public static void addNewCivil(Civil civil) {
-        render();
+	public static void addNewCivil(@Valid Civil civil) {
+		if(validation.hasErrors()) {
+            params.flash();
+            validation.keep();
+            newCivil();
+        }
+		index();
     }
 	
 }

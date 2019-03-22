@@ -3,21 +3,43 @@
 
 <h2>Add Civil</h2>
 <form action="@{CivilController.addNewCivil()}" method="post">
-	<select name="paysResidence">
+
+	<label for="civil.nom">Nom</label>
+    <input type="text" name="civil.nom" value="${flash.get('civil.nom')}">
+    <span>#{error 'civil.nom'/}</span>
+
+    <br/>
+    
+	<label for="civil.paysResidence">Pays Residence</label>
+	<select name="civil.paysResidence">
     #{list pays, as:'pay'}
         <option value="${pay.id}">${pay.libelle}</option>
     #{/list}
     </select>
-	<select name="paysNatal">
+    <span>#{error 'civil.paysResidence'/}</span>
+    
+    <br/>
+    
+	<label for="civil.paysNatal">Pays Natal</label>
+	<select name="civil.paysNatal">
     #{list pays, as:'pay'}
         <option value="${pay.id}">${pay.libelle}</option>
     #{/list}
     </select>
-	<select name="civilite">
+    <span>#{error 'civil.paysNatal'/}</span>
+    
+    <br/>
+    
+	<label for="civil.civilite">Civilite</label>
+	<select name="civil.civilite">
     #{list civilites, as:'civilite'}
-        <option value="${civilite.id}">${civilite.libelle}</option>
+        <option value="${civilite.id}">${civilite .libelle}</option>
     #{/list}
     </select>
+    <span>#{error 'civil.civilite'/}</span>
+    
+    <br/>
+    
     <input type="submit" value="Save">
 	<a href="@{CivilController.index()}">Retour</a>
 </form>
