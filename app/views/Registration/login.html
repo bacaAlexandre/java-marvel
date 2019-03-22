@@ -2,35 +2,110 @@
 
 <div id="login">
 	
-	<h1>&{'secure.title'}</h1>
-		
-	#{form @authenticate()}
-		
-		#{if flash.error}
-			<p class="error">
-				${messages.get(flash.error)}
-			</p>
-		#{/if}
-		#{if flash.success}
-			<p class="success">
-				${messages.get(flash.success)}
-			</p>
-		#{/if}
+	<h1>JAVEL</h1>
 	
-		<p id="username-field">
-			<label for="username">&{'secure.username'}</label>
-			<input type="text" name="username" id="username" value="${flash.username}" />
-		</p>
-		<p id="password-field">
-			<label for="password">&{'secure.password'}</label>
-			<input type="password" name="password" id="password" value="" />
-		</p>
-		<p id="remember-field">
-			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-			<label for="remember">&{'secure.remember'}</label>
-		</p>
-		<p id="signin-field">
-			<input type="submit" id="signin" value="&{'secure.signin'}" />
-		</p>
-	#{/form}
+				#{if flash.error}
+				<p class="error">
+					${messages.get(flash.error)}
+				</p>
+			#{/if}
+			#{if flash.success}
+				<p class="success">
+					${messages.get(flash.success)}
+				</p>
+			#{/if}
+		
+	<div id="content">
+		#{form @authenticate()}
+			<h2>Connexion</h2>		
+			<p id="username-field">
+				<label for="username">Adresse mail: </label>
+				<input type="text" name="username" id="username" value="${flash.username}" />
+			</p>
+			<p id="password-field">
+				<label for="password">Mot de passe: </label>
+				<input type="password" name="password" id="password" value="" />
+			</p>
+			<p id="remember-field">
+				<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+				<label for="remember">Se souvenir de moi: </label>
+			</p>
+			<p id="signin-field">
+				<input type="submit" id="signin" value="Me connecter" />
+			</p>
+		#{/form}
+		
+		#{form @register()}
+			<h2>Inscription</h2>
+			<p id="register-email-field">
+				<label for="register-email">Adresse mail: </label>
+				<input type="text" name="utilisateur.email" id="register-email" value="${flash.get('utilisateur.email')}" />
+				<span>#{error 'utilisateur.email'/}</span>
+			</p>
+			<p id="register-password-field">
+				<label for="register-password">Mot de passe: </label>
+				<input type="password" name="utilisateur.password" id="register-password" value="" />
+				<span>#{error 'utilisateur.password'/}</span>
+			</p>
+			<p id="register-confirm-password-field">
+				<label for="register-confirm-password">Mot de passe: </label>
+				<input type="password" name="confirmPassword" id="register-confirm-password" value="" />
+				<span>#{error 'utilisateur.confirmPassword'/}</span>
+			</p>
+			<p id="register-civility-field">
+				<label for="register-civility">Civilité: </label>
+				<select name="civilite">
+					#{list civilites, as:'c'}
+						<option value="${c.id}" ${ flash.get('civilite') == String.valueOf(c.id) ? "selected" : ""}>${c.libelle}</option>
+					#{/list}
+				</select>
+			</p>
+			<p id="register-name-field">
+				<label for="register-name">Nom: </label>
+				<input type="text" name="civil.nom" id="register-name" value="${flash.get('civil.nom')}" />
+				<span>#{error 'civil.nom'/}</span>
+			</p>
+			<p id="register-firstname-field">
+				<label for="register-firstname">Prénom: </label>
+				<input type="text" name="civil.prenom" id="register-firstname" value="${flash.get('civil.prenom')}" />
+				<span>#{error 'civil.prenom'/}</span>
+			</p>
+			<p id="register-address-field">
+				<label for="register-address">Adresse: </label>
+				<textarea rows="" cols="" name="civil.adresse" id="register-address">
+				
+				</textarea>
+			</p>
+			<p id="register-living-country-field">
+				<label for="register-living-country">Pays de résidence: </label>
+				<select name="paysResidence">
+					#{list pays, as:'p'}
+						<option value="${p.id}" ${flash.get('paysResidence') == String.valueOf(p.id) ? 'selected' : ''}>${p.libelle}</option>
+					#{/list}
+				</select>
+			</p>
+			<p id="register-born-country-field">
+				<label for="register-born-country">Pays natal: </label>
+				<select name="paysNatal">
+					#{list pays, as:'p'}
+						<option value="${p.id}" ${flash.get('paysNatal') == String.valueOf(p.id) ? 'selected' : ''}>${p.libelle}</option>
+					#{/list}
+				</select>
+			</p>
+			<p id="register-telephone-field">
+				<label for="register-telephone">Numéro de téléphone: </label>
+				<input type="tel" name="civil.tel" id="register-telephone" value="${flash.get('civil.tel')}" />
+				<span>#{error 'civil.tel'/}</span>
+			</p>
+			<p>
+				<label for="register-birth-date">Date de naissance: </label>
+				<input type="date" name="civil.dateNaissance" id="register-birth-date" value="${flash.get('civil.dateNaissance')}" />
+				<span>#{error 'civil.dateNaissance'/}</span>
+			</p>
+			<p id="register-signin-field">
+				<input type="submit" id="register-signin" value="Inscription" />
+			</p>
+		#{/form}
+	</div>
+	#{error 'test'/}
 </div>

@@ -10,15 +10,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.mindrot.jbcrypt.BCrypt;
+
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class Utilisateur extends NewModel {
 
 	@Column(nullable=false, unique=true)
+	@Required
 	public String email;
 
 	@Column(nullable=false)
+	@Required
 	public String password;
 
 	@ManyToMany(cascade = CascadeType.ALL)

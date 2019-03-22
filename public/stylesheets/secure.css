@@ -4,9 +4,16 @@ html, body {
 }
 
 #login {
-    width: 500px;
     margin: 50px auto;
     text-align: center;
+}
+
+#content {
+	display: flex;
+}
+
+#content h2 {
+	text-align: center;
 }
 
 #login h1 {
@@ -19,6 +26,7 @@ html, body {
     background: #fff;
     padding: 10px;
     text-align: left;
+    flex: auto;
 }
 
 #login form p {
