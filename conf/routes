@@ -37,5 +37,12 @@ POST    /login                           		Registration.authenticate
 GET     /logout                          		Registration.logout
 POST	/register							               	Registration.register
 
+GET		/superhero								SuperHeroController.index
+GET		/superhero/create						SuperHeroController.create
+POST	/superhero/create						SuperHeroController.postCreate
+GET		/superhero/update						SuperHeroController.update
+POST	/superhero/update						SuperHeroController.postUpdate
+GET		/superhero/delete						SuperHeroController.postDelete					
+
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
