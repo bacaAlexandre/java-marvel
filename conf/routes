@@ -11,6 +11,11 @@ POST    /civils/add                             CivilController.addNewCivil
 GET     /civils/update                          CivilController.updateCivil
 POST    /civils/update                          CivilController.saveUpdateCivil
 POST    /civils/delete                          CivilController.deleteCivil
+GET     /orga                                   OrganisationController.index
+POST    /orga/add								                OrganisationController.addOrga
+GET     /orga/to_update/{id}                    OrganisationController.toUpdate
+POST    /orga/update/{id}                       OrganisationController.updateOrga
+GET		  /orga/delete						                OrganisationController.deleteOrga
 
 
 GET     /vilains                                VilainController.index
@@ -34,8 +39,8 @@ GET     /public/                                staticDir:public
 # Import Secure routes
 GET     /login                           		Registration.login
 POST    /login                           		Registration.authenticate
-GET     /logout                          		Registration.logout 
-POST	/register								Registration.register
+GET     /logout                          		Registration.logout
+POST	/register							               	Registration.register
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
