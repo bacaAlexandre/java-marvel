@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+#{set title:'SuperHeros' /}
+
+<h2>Ajouter un SuperHero</h2>
+<form action="@{SuperHeroController.postCreate()}" method="post">
+
+	<label for="nom">Nom</label>
+    <input type="text" name="superhero.nom" id="nom" value="${flash.get('super.nom')}" maxLength=100 />
+    <span>#{error 'super.nom'/}</span>
+
+    <br/>
+    
+    <label for="civil">Identité</label>
+	<select name="civil" id="civil">
+    #{list civils, as:'civil'}
+        <option value="${civil.id}" ${String.valueOf(civil.id) == flash.get("civil") ? "selected" : ""}>${civil.prenom} ${civil.nom}</option>
+    #{/list}
+    </select>
+    <span>#{error 'civil'/}</span>
+    
+    <br/>
+    
+    
+	<label for="commentaire">Commentaire</label>
+	<textarea name="superhero.commentaire" id="commentaire" rows="5" cols="33">
+          ${flash.get('super.commentaire')}
+    </textarea>
+    <span>#{error 'super.commentaire'/}</span>
+
+    <br/>
+    
+    <input type="submit" value="Save">
+	<a href="@{SuperHeroController.index()}">Retour</a>
+</form>

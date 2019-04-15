@@ -5,37 +5,44 @@
 <table>
     <thead>
         <tr>
-            <th>PleuPleu</th>
+            <th>Nom</th>
+            <th>Siège social</th>
+            <th>Dirigeant</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
 	#{list orgas, as:'orga'}
 		<tr>
-		    <td>${orga.nom} <a href="/orga/to_update/${orga.id}">UPDATE</a> <a href="/orga/delete?orga=${orga.id}">DELETE</a></td>
+		    <td>${orga.nom}</td>
+        <td>${orga.pays.libelle}</td>
+        <td>${orga.dirigeant.nom}</td>
+        <td><a href="/orga/to_update/${orga.id}">UPDATE</a> <a href="/orga/delete?orga=${orga.id}">DELETE</a></td>
 		</tr>
 	#{/list}
     </tbody>
 </table>
 
 
-<form class="" action="@{OrganisationController.addOrga()}" method="post">
-  <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}">
-  <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}">
-  <select name="pays">
+<p class="margin-top">Créer une organisation : </p>
+<form action="@{OrganisationController.addOrga()}" method="post">
+  <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}" placeholder="Nom de l'organisation"><br>
+  <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}" placeholder="Adresse"><br>
+  Pays : <select name="pays">
     #{list pays, as:'pay'}
       <option value="${pay.id}">${pay.libelle}</option>
     #{/list}
-  </select>
-  <select name="chef">
+  </select><br>
+  Dirigeant : <select name="chef">
     #{list civils, as:'civil'}
       <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
     #{/list}
-  </select>
-  <select multiple name="membres">
+  </select><br>
+  Membres : <select multiple name="membres">
     #{list civils, as:'civil'}
       <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
     #{/list}
-  </select>
+  </select><br>
   <input type="submit" value="Créer">
 </form>
 

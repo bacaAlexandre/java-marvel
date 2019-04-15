@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 public class Super extends NewModel {
 
+	@Required
     @Column(length = 100, nullable = false)
 	@Required
     public String nom;
@@ -33,24 +34,8 @@ public class Super extends NewModel {
 	@ManyToOne
 	public Civil civil;
 	
-	public static List<Super> getSuperType(boolean isHero){
-        List<Super> supers = Super.findAll();
-        List<Super> heros = new ArrayList<Super>();
-        List<Super> vilains = new ArrayList<Super>();
-    	for(Super thisSuper : supers) {
-    		if(thisSuper.isHero) {
-    			heros.add(thisSuper);
-    		}
-    		else{
-    			vilains.add(thisSuper);
-    		}
-		}
-
-        if(isHero) {
-        	return heros;
-        }
-        else {
-        	return vilains;
-        }
-	}
+    public static List<Super> getSuperType(boolean isHero) {
+    	List<Super> superheros = find("byIsHero", isHero).fetch();
+    	return superheros;
+    }
 }
