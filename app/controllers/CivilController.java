@@ -13,9 +13,9 @@ import models.GenreSexuel;
 import models.Organisation;
 
 @With(Registration.class)
+@Check({"Civil"})
 public class CivilController extends Controller {
 	
-	@Check({"Civil"})
 	public static void index() {
         List<Civil> civils = Civil.findAll();
 	    render(civils);

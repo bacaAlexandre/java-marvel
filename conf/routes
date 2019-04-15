@@ -4,23 +4,26 @@
 
 # Home page
 GET     /                                       Application.index
-# Civil home page
-GET     /civil                                  CivilController.index
-# Civil ajout page
-GET     /civil/add                              CivilController.newCivil
-POST    /civil/add                              CivilController.addNewCivil
-# Civil modifier page
-GET     /civil/update                           CivilController.updateCivil
-POST    /civil/update                           CivilController.saveUpdateCivil
-# Civil supprimer page
-GET     /civil/delete                           CivilController.deleteCivil
 
-GET     /orga                                   OrganisationController.index
-POST    /orga/add								                OrganisationController.addOrga
-GET     /orga/to_update/{id}                    OrganisationController.toUpdate
-POST    /orga/update/{id}                       OrganisationController.updateOrga
-GET		  /orga/delete						                OrganisationController.deleteOrga
+GET     /civil                                 CivilController.index
+GET     /civil/add                             CivilController.newCivil
+POST    /civil/add                             CivilController.addNewCivil
+GET     /civil/update                          CivilController.updateCivil
+POST    /civil/update                          CivilController.saveUpdateCivil
+POST    /civil/delete                          CivilController.deleteCivil
 
+GET     /vilain                                VilainController.index
+GET     /vilain/add                            VilainController.newVilain
+POST    /vilain/add                            VilainController.addNewVilain
+GET     /vilain/update                         VilainController.updateVilain
+POST    /vilain/update                         VilainController.saveUpdateVilain
+POST    /vilain/delete                         VilainController.deleteVilain
+
+GET     /orga                                  OrganisationController.index
+POST    /orga/add							   OrganisationController.addOrga
+GET     /orga/to_update/{id}                   OrganisationController.toUpdate
+POST    /orga/update/{id}                      OrganisationController.updateOrga
+GET		/orga/delete						   OrganisationController.deleteOrga
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

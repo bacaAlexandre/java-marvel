@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 import net.sf.oval.constraint.MaxSize;
 import play.data.validation.Required;
@@ -41,6 +42,7 @@ public class Civil extends NewModel {
 	public String commentaire;
 	
 	@Column(columnDefinition="datetime",nullable=false)
+	@Required
 	public Date dateAjout;
 	
 	@Column(columnDefinition="datetime")

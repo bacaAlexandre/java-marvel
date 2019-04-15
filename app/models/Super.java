@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,4 +30,25 @@ public class Super extends NewModel {
 
 	@ManyToOne
 	public Civil civil;
+	
+	public static List<Super> getSuperType(boolean isHero){
+        List<Super> supers = Super.findAll();
+        List<Super> heros = new ArrayList<Super>();
+        List<Super> vilains = new ArrayList<Super>();
+    	for(Super thisSuper : supers) {
+    		if(thisSuper.isHero) {
+    			heros.add(thisSuper);
+    		}
+    		else{
+    			vilains.add(thisSuper);
+    		}
+		}
+
+        if(isHero) {
+        	return heros;
+        }
+        else {
+        	return vilains;
+        }
+	}
 }
