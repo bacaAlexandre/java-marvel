@@ -1,0 +1,58 @@
+html, body {
+    font-family: 'Lucida grande', verdana, sans-serif;
+}
+
+.login {
+    margin: 50px auto;
+    text-align: center;
+}
+
+.login_content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.login_content h2 {
+    text-align: center;
+}
+
+
+.login_content form {
+    padding: 10px;
+    text-align: left;
+    max-width: 400px;
+    flex: auto;
+}
+
+.login_content form p {
+    /*margin: 3px;*/
+}
+.bloc_input{
+    display: flex;
+    justify-content: space-between;
+}
+.bloc_input input,.bloc_input textarea,.bloc_input select{
+
+}
+
+.bloc_input textarea{
+    resize: none;
+}
+.login_erreur_input{
+    border: 2px solid red;
+}
+
+.login .error {
+    background: #c00
+}
+
+.login .success {
+    background: #008800
+}
+
+.bloc_button{
+    align-items: center;
+}
+.bloc_button input{
+   color: #008800;
+}
