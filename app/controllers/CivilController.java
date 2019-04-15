@@ -10,6 +10,7 @@ import models.Civil;
 import models.Pays;
 import models.Utilisateur;
 import models.GenreSexuel;
+import models.Organisation;
 
 @With(Registration.class)
 public class CivilController extends Controller {
@@ -48,7 +49,6 @@ public class CivilController extends Controller {
     }
 	
 	public static void saveUpdateCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
-		civil.id = Utilisateur.find("byEmail", Registration.connected()).<Utilisateur>first().civil.id;
 		civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
@@ -61,5 +61,11 @@ public class CivilController extends Controller {
 		civil._save();
 		index();
     }
+	
+	public static void deleteCivil(long id) {
+        Civil civil = Civil.findById(id);
+        civil._delete();
+		index();
+	}
 	
 }
