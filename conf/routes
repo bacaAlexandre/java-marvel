@@ -4,20 +4,25 @@
 
 # Home page
 GET     /                                       Application.index
-# Civil home page
-GET     /civil                                  CivilController.index
-# Civil ajout page
-GET     /civil/add                              CivilController.newCivil
-POST    /civil/add                              CivilController.addNewCivil
-# Civil modifier page
-GET     /civil/update                           CivilController.updateCivil
-POST    /civil/update                           CivilController.saveUpdateCivil
-# Civil supprimer page
-GET     /civil/delete                           CivilController.deleteCivil
 
-GET     /orga                                   OrganisationController.index
-POST	/orga/add								OrganisationController.addOrga
-GET		/orga/delete							OrganisationController.deleteOrga
+GET     /civils                                 CivilController.index
+GET     /civils/add                             CivilController.newCivil
+POST    /civils/add                             CivilController.addNewCivil
+GET     /civils/update                          CivilController.updateCivil
+POST    /civils/update                          CivilController.saveUpdateCivil
+POST    /civils/delete                          CivilController.deleteCivil
+
+
+GET     /vilains                                VilainController.index
+GET     /vilains/add                            VilainController.newVilain
+POST    /vilains/add                            VilainController.addNewVilain
+GET     /vilains/update                         VilainController.updateVilain
+POST    /vilains/update                         VilainController.saveUpdateVilain
+POST    /vilains/delete                         VilainController.deleteVilain
+
+GET     /orgas                                  OrganisationController.index
+POST	/orgas/add								OrganisationController.addOrga
+GET		/orgas/delete							OrganisationController.deleteOrga
 
 
 # Ignore favicon requests

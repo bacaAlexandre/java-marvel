@@ -9,7 +9,7 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 @With(Registration.class)
-public class HeroController extends Controller {
+public class VilainController extends Controller {
 	
 	public static void index() {
         List<Super> heroes = Super.getSuperType(true);
