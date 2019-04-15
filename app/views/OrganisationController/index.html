@@ -8,6 +8,7 @@
             <th>Nom</th>
             <th>Siege social</th>
             <th>Dirigeant</th>
+            <th>Date d'ajout</th>
             <th>Nbre d'incidents</th>
             <th>Nbre de missions</th>
             <th>Actions</th>
@@ -19,6 +20,7 @@
 		    <td>${orga.nom}</td>
         <td>${orga.pays.libelle}</td>
         <td>${orga.dirigeant.nom}</td>
+        <td>${orga.dateAjout}</td>
         <td>${orga.getIncidentNumber()}</td>
         <td>${orga.getMissionNumber()}</td>
         <td><a href="/orga/to_update/${orga.id}">UPDATE</a> <a href="/orga/delete?orga=${orga.id}">DELETE</a></td>
