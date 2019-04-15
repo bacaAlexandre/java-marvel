@@ -3,6 +3,8 @@ package models;
 
 import play.db.jpa.Model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -17,4 +19,9 @@ public class Caracteristique extends NewModel {
     public String description;
 
     public Boolean isAvantage = false;
+    
+    public static List<Caracteristique> getCaracteristiqueType(boolean isAvantage) {
+    	List<Caracteristique> caracteristiques = find("byIsAvantage", isAvantage).fetch();
+    	return caracteristiques;
+    }
 }

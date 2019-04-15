@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Super extends NewModel {
@@ -25,10 +26,7 @@ public class Super extends NewModel {
     public Boolean isHero = false;
 
     @ManyToMany
-    public List<Caracteristique> avantage;
-
-    @ManyToMany
-    public List<Caracteristique> desavantage;
+    public List<Caracteristique> caracteristique;
 
 	@ManyToOne
 	public Civil civil;
@@ -36,5 +34,9 @@ public class Super extends NewModel {
     public static List<Super> getSuperType(boolean isHero) {
     	List<Super> superheros = find("byIsHero", isHero).fetch();
     	return superheros;
+    }
+    
+    public List<Caracteristique> getCaracteristiqueType(boolean isAvantage) {
+    	return this.caracteristique.stream().filter(p -> p.isAvantage == isAvantage).collect(Collectors.toList());
     }
 }
