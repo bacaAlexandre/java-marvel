@@ -8,6 +8,8 @@
             <th>Hero</th>
             <th>Identite</th>
             <th>Commentaire</th>
+            <th>Avantages</th>
+            <th>Desavantages</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -17,6 +19,20 @@
 		    <td>${superhero.nom}</td>
 		    <td>${superhero.civil.prenom} ${superhero.civil.nom}</td>
 		    <td>${superhero.commentaire}</td>
+		    <td>
+		    	<ul>
+			    	#{list superhero.getCaracteristiqueType(true), as:'avantage'}
+			    		<li>${avantage.libelle}</li>
+			    	#{/list}
+		    	</ul>
+		    </td>
+		    <td>
+		    	<ul>
+			    	#{list superhero.getCaracteristiqueType(false), as:'desavantage'}
+			    		<li>${desavantage.libelle}</li>
+			    	#{/list}
+		    	</ul>
+		    </td>
 		    <td align="center">
 		    	<a href="@{SuperHeroController.update(superhero.id)}">Modifier</a>
 		    	<br/>
