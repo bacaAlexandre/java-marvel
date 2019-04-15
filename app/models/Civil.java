@@ -62,4 +62,12 @@ public class Civil extends NewModel {
 		}
 		return liste;
 	}
+
+	public static List<Civil> getByIds(String[] strings) {
+		List<Civil> liste = new ArrayList<Civil>();
+		for(String id : strings) {
+			liste.add(Civil.findById(Long.parseLong(id)));
+		}
+		return liste;
+	}
 }

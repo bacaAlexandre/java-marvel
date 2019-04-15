@@ -16,8 +16,10 @@ POST    /civil/update                           CivilController.saveUpdateCivil
 GET     /civil/delete                           CivilController.deleteCivil
 
 GET     /orga                                   OrganisationController.index
-POST	/orga/add								OrganisationController.addOrga
-GET		/orga/delete							OrganisationController.deleteOrga
+POST    /orga/add								                OrganisationController.addOrga
+GET     /orga/to_update/{id}                    OrganisationController.toUpdate
+POST    /orga/update/{id}                       OrganisationController.updateOrga
+GET		  /orga/delete						                OrganisationController.deleteOrga
 
 
 # Ignore favicon requests
@@ -29,8 +31,8 @@ GET     /public/                                staticDir:public
 # Import Secure routes
 GET     /login                           		Registration.login
 POST    /login                           		Registration.authenticate
-GET     /logout                          		Registration.logout 
-POST	/register								Registration.register
+GET     /logout                          		Registration.logout
+POST	/register							               	Registration.register
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

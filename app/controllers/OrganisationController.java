@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Controller;
@@ -35,7 +36,33 @@ public class OrganisationController extends Controller {
 		organisation.dirigeant = Civil.findById(chef);
 		organisation.membres = Civil.getByIds(membres);
 		organisation._save();
-		redirect("/orga");
+		index();
+	}
+	
+	public static void toUpdate(Long id) {
+		Organisation orga = Organisation.findById(id);
+        List<Civil> civils = Civil.findAll();
+        List<Pays> pays = Pays.findAll();
+		render(orga, pays, civils);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void updateOrga(Long id) {
+		Organisation organisation = Organisation.findById(id);
+		organisation.edit("organisation", params.all());
+		//MERCI PLAY POUR L'UTILISATION DE METHODES DEPRECIEES !!!
+		organisation.pays = Pays.findById(Long.parseLong(params.data.get("pays")[0]));
+		organisation.dirigeant = Civil.findById(Long.parseLong(params.data.get("chef")[0]));
+		organisation.membres = Civil.getByIds(params.data.get("membres"));
+	    validation.valid(organisation);
+	    if(validation.hasErrors()) {
+	    	params.flash();
+            validation.keep();
+            toUpdate(id);
+	    } else{
+	    	organisation.save();
+	    	index();
+	    }
 	}
 	
 	public static void deleteOrga(Long orga) {
