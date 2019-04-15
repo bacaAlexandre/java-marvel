@@ -1,0 +1,29 @@
+#{extends 'main.html' /}
+#{set title:'Organisations' /}
+
+<h2>Index SuperHeros</h2>
+<table border="" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Hero</th>
+            <th>Identité</th>
+            <th>Commentaire</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+	#{list superheros, as:'superhero'}
+		<tr>
+		    <td>${superhero.nom}</td>
+		    <td>${superhero.civil.prenom} ${superhero.civil.nom}</td>
+		    <td>${superhero.commentaire}</td>
+		    <td align="center">
+		    	<a href="@{SuperHeroController.update(superhero.id)}">Modifier</a>
+		    	<br/>
+		    	<a href="@{SuperHeroController.postDelete(superhero.id)}" onclick="return confirm('Êtes vous-sûr?');">Supprimer</a>
+		    </td>
+		</tr>
+	#{/list}
+    </tbody>
+</table>
+<a href="@{SuperHeroController.create()}">Ajouter un SuperHero</a>

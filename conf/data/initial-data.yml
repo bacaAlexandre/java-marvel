@@ -26,8 +26,30 @@ Civil(c1):
   tel: "0606060606"
   dateNaissance: 1986-09-11
   dateAjout: 2019-03-21
+  paysResidence: p4
+  paysNatal: p4
+  civilite: g2
+
+Civil(c2):
+  nom: ""
+  prenom: ""
+  adresse: ""
+  tel: "0606060606"
+  dateNaissance: 1986-09-11
+  dateAjout: 2019-03-21
   paysResidence: p2
   paysNatal: p2
+  civilite: g4
+
+Civil(c3):
+  nom: "Tony"
+  prenom: "Stark"
+  adresse: ""
+  tel: "0606060606"
+  dateNaissance: 1986-09-11
+  dateAjout: 2019-03-21
+  paysResidence: p1
+  paysNatal: p1
   civilite: g2
   
 Utilisateur(u1):
@@ -36,5 +58,12 @@ Utilisateur(u1):
   civil: c1
   droits: [d1]
   
-  
-  
+Super(s1):
+  nom: "Thanos"
+  isHero: false
+  civil: c2
+
+Super(s2):
+  nom: "IronMan"
+  isHero: true
+  civil: c3
