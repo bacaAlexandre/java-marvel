@@ -39,4 +39,12 @@ public class Organisation extends NewModel {
 	
 	@ManyToMany
 	public List<Civil> membres;
+	
+	public long getIncidentNumber() {
+		return Incident.count("byOrganisation", this );
+	}
+	
+	public long getMissionNumber() {
+		return Incident.count("byOrganisationAndMissionIsNotNull", this);
+	}
 }
