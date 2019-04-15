@@ -67,3 +67,9 @@ Super(s2):
   nom: "IronMan"
   isHero: true
   civil: c3
+  
+TypeDelit(td1):
+  libelle: "Vole"
+
+TypeDelit(td2):
+  libelle: "Meurtre"

@@ -29,15 +29,14 @@ public class VilainController extends Controller {
     }
 	
 	public static void addNewVilain(@Valid Super vilain, Long civil) {
+		if(civil != null) {
+			vilain.civil = Civil.findById(civil);
+		}
 		if(validation.hasErrors()) {
-			Logger.info(civil == null ? "zer" : civil.toString());
             params.flash();
             validation.keep();
             newVilain();
         }
-		if(civil != null) {
-			vilain.civil = Civil.findById(civil);
-		}
 		vilain._save();
 		index();
     }

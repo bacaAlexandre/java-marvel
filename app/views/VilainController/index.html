@@ -19,7 +19,7 @@
 	#{list vilains, as:'vilain'}
 		<tr>
 		    <td>${vilain.nom}</td>
-		    <td>${vilain.civil.prenom} ${vilain.civil.nom}</td>
+		    <td>#{if vilain.civil != null} ${vilain.civil.prenom} ${vilain.civil.nom} #{/if}</td>
 		    <td>x%</td>
 		    <td>x</td>
 		    <td>

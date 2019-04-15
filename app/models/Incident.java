@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import play.data.validation.Required;
+
 @Entity
 public class Incident extends NewModel {
 
@@ -13,9 +15,11 @@ public class Incident extends NewModel {
     public Mission mission;
 
     @Column(columnDefinition = "text", nullable = false)
+    @Required
     public String lieu;
 
     @Column(columnDefinition = "text", nullable = false)
+    @Required
     public String description;
 
     @ManyToOne
