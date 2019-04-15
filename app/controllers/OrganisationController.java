@@ -46,11 +46,9 @@ public class OrganisationController extends Controller {
 		render(orga, pays, civils);
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void updateOrga(Long id) {
 		Organisation organisation = Organisation.findById(id);
-		organisation.edit("organisation", params.all());
-		//MERCI PLAY POUR L'UTILISATION DE METHODES DEPRECIEES !!!
+		organisation.edit(params.getRootParamNode(), "organisation");
 		organisation.pays = Pays.findById(Long.parseLong(params.data.get("pays")[0]));
 		organisation.dirigeant = Civil.findById(Long.parseLong(params.data.get("chef")[0]));
 		organisation.membres = Civil.getByIds(params.data.get("membres"));
