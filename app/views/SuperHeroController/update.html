@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+#{set title:'SuperHeros' /}
+
+<h2>Modifier un SuperHero</h2>
+<form action="@{SuperHeroController.postUpdate(superhero.id)}" method="post">
+
+	<label for="nom">Nom</label>
+    <input type="text" name="superhero.nom" id="nom" value="${flash.contains('superhero.nom') ? flash.get('superhero.nom') : superhero.nom}" maxLength=100 />
+    <span>#{error 'super.nom'/}</span>
+
+    <br/>
+    
+    <label for="civil">Identité</label>
+	<select name="civil" id="civil">
+    #{list civils, as:'civil'}
+        <option value="${civil.id}" #{if flash.contains("civil")}
+        	${String.valueOf(civil.id) == flash.get("civil") ? "selected" : ""}
+        #{/if}#{else}
+        	${civil.id == superhero.civil.id ? "selected" : ""}
+        #{/else}>${civil.prenom} ${civil.nom}</option>
+    #{/list}
+    </select>
+    <span>#{error 'civil'/}</span>
+    
+    <br/>
+    
+    
+	<label for="commentaire">Commentaire</label>
+	<textarea name="superhero.commentaire" id="commentaire" rows="5" cols="33">${flash.contains('superhero.commentaire') ? flash.get('superhero.commentaire') : superhero.commentaire}</textarea>
+    <span>#{error 'super.commentaire'/}</span>
+
+    <br/>
+    
+    <input type="submit" value="Save">
+	<a href="@{SuperHeroController.index()}">Retour</a>
+</form>
