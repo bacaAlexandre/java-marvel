@@ -5,7 +5,7 @@
 <table>
     <thead>
         <tr>
-            <th>PleuPleu</th>
+            <th>Identite</th>
             <th>Date Naissance</th>
             <th>Date Deces</th>
             <th>Actions</th>
@@ -18,10 +18,7 @@
 		    <td>${civil.dateNaissance}</td>
 		    <td>${civil.dateDeces}</td>
 		    <td>
-				<a href="@{CivilController.updateCivil(civil.id)}">Modifier</a>
-			</td>
-		    <td>
-				<a href="@{CivilController.deleteCivil(civil.id)}">Supprimer</a>
+				<a href="@{CivilController.updateCivil(civil.id)}">Modifier</a> | <a href="@{CivilController.deleteCivil(civil.id)}">Supprimer</a>
 			</td>
 		</tr>
 	#{/list}

@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <th>Nom</th>
-            <th>Siège social</th>
+            <th>Siege social</th>
             <th>Dirigeant</th>
             <th>Actions</th>
         </tr>
@@ -24,7 +24,7 @@
 </table>
 
 
-<p class="margin-top">Créer une organisation : </p>
+<p class="margin-top">Creer une organisation : </p>
 <form action="@{OrganisationController.addOrga()}" method="post">
   <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}" placeholder="Nom de l'organisation"><br>
   <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}" placeholder="Adresse"><br>

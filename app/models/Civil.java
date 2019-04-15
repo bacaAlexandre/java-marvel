@@ -42,7 +42,6 @@ public class Civil extends NewModel {
 	public String commentaire;
 	
 	@Column(columnDefinition="datetime",nullable=false)
-	@Required
 	public Date dateAjout;
 	
 	@Column(columnDefinition="datetime")

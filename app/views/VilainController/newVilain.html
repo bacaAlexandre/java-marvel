@@ -10,15 +10,20 @@
     
     <br/>
     
-    <label for="vilain.avantage">Pouvoir(s)</label>
-
-    <span>#{error 'vilain.avantage'/}</span>
+    <label for="civil">Identite?</label>
+	<select name="civil">
+		<option>-Unknown-</option>
+    #{list civils, as:'civil'}
+        <option value="${civil.id}" #{if String.valueOf(civil.id) == flash.get("civil")} selected #{/if}>${civil.prenom} ${civil.nom}</option>
+    #{/list}
+    </select>
+    <span>#{error 'civil'/}</span>
     
     <br/>
     
-    <label for="vilain.desavantage">Faiblesse(s)</label>
-
-    <span>#{error 'vilain.desavantage'/}</span>
+	<label for="vilain.commentaire">Commentaire</label>
+	<textarea name="vilain.commentaire" rows="5" cols="33">${flash.get('vilain.commentaire')}</textarea>
+    <span>#{error 'vilain.commentaire'/}</span>
     
     <br/>
     

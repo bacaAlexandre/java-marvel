@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 public class Super extends NewModel {
 
-	@Required
     @Column(length = 100, nullable = false)
 	@Required
     public String nom;

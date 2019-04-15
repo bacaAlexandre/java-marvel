@@ -23,20 +23,20 @@ public class VilainController extends Controller {
 	
 	public static void newVilain() {
 		List<Caracteristique> caras = Caracteristique.findAll();
-        render(caras);
+        List<Civil> civils = Civil.findAll();
+        render(caras, civils);
     }
 	
-	public static void addNewVilain(@Valid Super vilain) {
-		/*civil.paysResidence = Pays.findById(paysResidence);
-		civil.paysNatal = Pays.findById(paysNatal);
-		civil.civilite = GenreSexuel.findById(civilite);*/
+	public static void addNewVilain(@Valid Super vilain, Long civil) {
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             newVilain();
         }
-		/*civil.dateAjout = new Date();
-		civil._save();*/
+		if(civil != null) {
+			vilain.civil = Civil.findById(civil);
+		}
+		vilain._save();
 		index();
     }
 
@@ -45,7 +45,7 @@ public class VilainController extends Controller {
         render(vilain);
     }
 	
-	public static void saveUpdateVilain(@Valid Super vilain) {
+	public static void saveUpdateVilain(@Valid Super vilain, Long civil) {
 		/*civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);

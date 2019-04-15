@@ -3,21 +3,21 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                      Application.index
 
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.newCivil
 POST    /civil/add                             CivilController.addNewCivil
 GET     /civil/update                          CivilController.updateCivil
 POST    /civil/update                          CivilController.saveUpdateCivil
-POST    /civil/delete                          CivilController.deleteCivil
+GET     /civil/delete                          CivilController.deleteCivil
 
 GET     /vilain                                VilainController.index
 GET     /vilain/add                            VilainController.newVilain
 POST    /vilain/add                            VilainController.addNewVilain
 GET     /vilain/update                         VilainController.updateVilain
 POST    /vilain/update                         VilainController.saveUpdateVilain
-POST    /vilain/delete                         VilainController.deleteVilain
+GET     /vilain/delete                         VilainController.deleteVilain
 
 GET     /orga                                  OrganisationController.index
 POST    /orga/add							   OrganisationController.addOrga

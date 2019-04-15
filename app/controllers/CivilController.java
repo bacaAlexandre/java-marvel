@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
