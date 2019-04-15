@@ -52,6 +52,7 @@ public class OrganisationController extends Controller {
 		organisation.pays = Pays.findById(Long.parseLong(params.data.get("pays")[0]));
 		organisation.dirigeant = Civil.findById(Long.parseLong(params.data.get("chef")[0]));
 		organisation.membres = Civil.getByIds(params.data.get("membres"));
+		organisation.dateModification = new Date();
 	    validation.valid(organisation);
 	    if(validation.hasErrors()) {
 	    	params.flash();
