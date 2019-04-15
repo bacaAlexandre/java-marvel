@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+#{set title:'Ajouter Vilain' /}
+
+<h2>Add Vilain</h2>
+<form action="@{VilainController.addNewVilain()}" method="post">
+
+	<label for="vilain.nom">Nom</label>
+    <input type="text" name="vilain.nom" value="${flash.get('vilain.nom')}" maxLength=100 />
+    <span>#{error 'vilain.nom'/}</span>
+
+    <br/>
+
+    <label for="civil">Identite?</label>
+	<select name="civil">
+		<option value="">-Unknown-</option>
+    #{list civils, as:'civil'}
+        <option value="${civil.id}" #{if String.valueOf(civil.id) == flash.get("civil")} selected #{/if}>${civil.prenom} ${civil.nom}</option>
+    #{/list}
+    </select>
+    <span>#{error 'civil'/}</span>
+
+    <br/>
+
+	<label for="vilain.commentaire">Commentaire</label>
+	<textarea name="vilain.commentaire" rows="5" cols="33">${flash.get('vilain.commentaire')}</textarea>
+    <span>#{error 'vilain.commentaire'/}</span>
+
+    <br/>
+
+    <input type="submit" value="Save">
+	<a href="@{VilainController.index()}">Retour</a>
+</form>

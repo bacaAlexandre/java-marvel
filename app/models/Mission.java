@@ -4,13 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import java.sql.Date;
 import java.util.List;
 
 @Entity
 public class Mission extends NewModel {
 
-    @ManyToOne
+    @OneToOne
     public Incident incident;
 
     @Column(nullable=false)

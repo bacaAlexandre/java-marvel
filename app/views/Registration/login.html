@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
 
 <div class="login">
+
     <div class="login_content">
     #{form @authenticate(),class:"form_connexion"}
         <h2>Connexion</h2>
@@ -105,7 +106,7 @@
             </select>
         </p>
         <p id="register-telephone-field" class="bloc_input">
-            <label for="register-telephone">Numéro de téléphone: </label>
+            <label for="register-telephone">Numéro de téléphone*: </label>
             #{ifError "civil.tel"}
                 <input type="tel" name="civil.tel" class="login_erreur_input" id="register-telephone"
                        value="${flash.get('civil.tel')}" required/>

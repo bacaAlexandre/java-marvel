@@ -51,7 +51,7 @@
 	<label for="paysResidence">Pays Residence</label>
 	<select name="paysResidence">
     #{list pays, as:'pay'}
-        <option value="${pay.id}" ${pay.id == civil.paysResidence.id ? "selected" : ""} >${pay.libelle}</option>
+        <option value="${pay.id}" #{if pay.id == civil.paysResidence.id} selected #{/if}>${pay.libelle}</option>
     #{/list}
     </select>
     <span>#{error 'paysResidence'/}</span>
@@ -61,7 +61,7 @@
 	<label for="paysNatal">Pays Natal</label>
 	<select name="paysNatal">
     #{list pays, as:'pay'}
-        <option value="${pay.id}" ${pay.id == civil.paysNatal.id ? "selected" : ""}>${pay.libelle}</option>
+        <option value="${pay.id}" #{if pay.id == civil.paysNatal.id} selected #{/if}>${pay.libelle}</option>
     #{/list}
     </select>
     <span>#{error 'paysNatal'/}</span>
@@ -71,7 +71,7 @@
 	<label for="civilite">Civilite</label>
 	<select name="civilite">
     #{list civilites, as:'civilite'}
-        <option value="${civilite.id}" ${civilite.id == civil.civilite.id ? "selected" : ""}>${civilite .libelle}</option>
+        <option value="${civilite.id}" #{if civilite.id == civil.civilite.id} selected #{/if}>${civilite .libelle}</option>
     #{/list}
     </select>
     <span>#{error 'civilite'/}</span>

@@ -6,7 +6,7 @@
 
 	<label for="nom">Nom</label>
     <input type="text" name="superhero.nom" id="nom" value="${flash.contains('superhero.nom') ? flash.get('superhero.nom') : superhero.nom}" maxLength=100 />
-    <span>#{error 'super.nom'/}</span>
+    <span>#{error 'superhero.nom'/}</span>
 
     <br/>
     
@@ -29,7 +29,33 @@
 	<textarea name="superhero.commentaire" id="commentaire" rows="5" cols="33">${flash.contains('superhero.commentaire') ? flash.get('superhero.commentaire') : superhero.commentaire}</textarea>
     <span>#{error 'super.commentaire'/}</span>
 
-    <br/>
+        <p>
+	    <label for="avantages">Avantages</label>
+		<select name="avantages[]" id="avantages" multiple>
+	    #{list avantages, as:'avantage'}
+	        <option value="${avantage.id}" #{if flash.contains("avantages[]")}
+        		${flash.get("avantages[]").contains(String.valueOf(avantage.id)) ? "selected" : ""}
+        	#{/if}#{else}
+        		${superhero.getCaracteristiqueType(true).contains(avantage) ? "selected" : ""}
+        	#{/else}>${avantage.libelle}</option>
+	    #{/list}
+	    </select>
+	    <span>#{error 'avantages[]'/}</span>
+    </p>
+    
+    <p>
+	    <label for="desavantages">Désavantages</label>
+		<select name="desavantages[]" id="desavantages" multiple>
+	    #{list desavantages, as:'desavantage'}
+	        <option value="${desavantage.id}" #{if flash.contains("desavantages[]")}
+        		${flash.get("desavantages[]").contains(String.valueOf(desavantageid)) ? "selected" : ""}
+        	#{/if}#{else}
+        		${superhero.getCaracteristiqueType(false).contains(desavantage) ? "selected" : ""}
+        	#{/else}>${desavantage.libelle}</option>
+	    #{/list}
+	    </select>
+	    <span>#{error 'desavantages[]'/}</span>
+    </p>
     
     <input type="submit" value="Save">
 	<a href="@{SuperHeroController.index()}">Retour</a>

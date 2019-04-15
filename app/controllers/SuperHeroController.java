@@ -1,8 +1,11 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
 import models.Organisation;
@@ -25,17 +28,31 @@ public class SuperHeroController extends Controller {
 	
 	public static void create() {
         List<Civil> civils = Civil.findAll();
-        render(civils);
+        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
+        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
+        render(civils, avantages, desavantages);
     }
 	
 	public static void update(long id) {
 		List<Civil> civils = Civil.findAll();
         Super superhero = Super.findById(id);
-        render(superhero, civils);
+        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
+        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
+        render(superhero, civils, avantages, desavantages);
 	}
 	
 	public static void postCreate(@Valid Super superhero, long civil) {
 		superhero.civil = Civil.findById(civil);
+		Long[] avantages = params.get("avantages", Long[].class);
+		Long[] desavantages = params.get("desavantages", Long[].class);
+		List<Caracteristique> caracteristiques = new ArrayList<Caracteristique>();
+		if (avantages != null) {
+			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+		}
+		if (desavantages != null) {
+			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+		}
+		superhero.caracteristique = caracteristiques;
 		superhero.isHero = true;
 		if(validation.hasErrors()) {
             params.flash();
@@ -49,7 +66,17 @@ public class SuperHeroController extends Controller {
 	public static void postUpdate(long id) {
 		Super superhero = Super.findById(id);
 		superhero.edit(params.getRootParamNode(), "superhero");
-		superhero.civil = Civil.findById(Long.parseLong(params.data.get("civil")[0]));
+		Long[] avantages = params.get("avantages", Long[].class);
+		Long[] desavantages = params.get("desavantages", Long[].class);
+		List<Caracteristique> caracteristiques = new ArrayList<Caracteristique>();
+		if (avantages != null) {
+			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+		}
+		if (desavantages != null) {
+			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+		}
+		superhero.caracteristique = caracteristiques;
+		superhero.civil = Civil.findById(params.get("civil", Long.class));
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();

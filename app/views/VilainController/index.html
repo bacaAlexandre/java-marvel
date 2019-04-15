@@ -6,17 +6,20 @@
     <thead>
         <tr>
             <th>Nom</th>
+            <th>Identite?</th>
             <th>Degre malveillance</th>
             <th>Nombre mefaits</th>
             <th>Pouvoir(s)</th>
             <th>Faiblesse(s)</th>
             <th>Commentaire</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
 	#{list vilains, as:'vilain'}
 		<tr>
 		    <td>${vilain.nom}</td>
+		    <td>${vilain.civil.prenom} ${vilain.civil.nom}</td>
 		    <td>x%</td>
 		    <td>x</td>
 		    <td>
@@ -31,10 +34,7 @@
 		    </td>
 		    <td>${vilain.commentaire}</td>
 		    <td>
-				<a href="@{VilainController.updateVilain(vilain.id)}">Modifier</a>
-			</td>
-		    <td>
-				<a href="@{VilainController.deleteVilain(vilain.id)}">Supprimer</a>
+				<a href="@{VilainController.updateVilain(vilain.id)}">Modifier</a> | <a href="@{VilainController.deleteVilain(vilain.id)}">Supprimer</a>
 			</td>
 		</tr>
 	#{/list}

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
 import models.Pays;
 import models.Super;
+import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -21,20 +23,22 @@ public class VilainController extends Controller {
 	}
 	
 	public static void newVilain() {
-        render();
+		List<Caracteristique> caras = Caracteristique.findAll();
+        List<Civil> civils = Civil.findAll();
+        render(caras, civils);
     }
 	
-	public static void addNewVilain(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
-		/*civil.paysResidence = Pays.findById(paysResidence);
-		civil.paysNatal = Pays.findById(paysNatal);
-		civil.civilite = GenreSexuel.findById(civilite);
+	public static void addNewVilain(@Valid Super vilain, Long civil) {
 		if(validation.hasErrors()) {
+			Logger.info(civil == null ? "zer" : civil.toString());
             params.flash();
             validation.keep();
-            newCivil();
+            newVilain();
         }
-		civil.dateAjout = new Date();
-		civil._save();*/
+		if(civil != null) {
+			vilain.civil = Civil.findById(civil);
+		}
+		vilain._save();
 		index();
     }
 
@@ -43,7 +47,7 @@ public class VilainController extends Controller {
         render(vilain);
     }
 	
-	public static void saveUpdateVilain(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+	public static void saveUpdateVilain(@Valid Super vilain, Long civil) {
 		/*civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
