@@ -30,7 +30,7 @@ public class Super extends NewModel {
     @ManyToMany
     public List<Caracteristique> desavantage;
 
-	@ManyToOne(optional = true)
+	@ManyToOne
 	public Civil civil;
 	
     public static List<Super> getSuperType(boolean isHero) {

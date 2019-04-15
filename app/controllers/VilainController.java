@@ -9,6 +9,7 @@ import models.Civil;
 import models.GenreSexuel;
 import models.Pays;
 import models.Super;
+import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -29,6 +30,7 @@ public class VilainController extends Controller {
 	
 	public static void addNewVilain(@Valid Super vilain, Long civil) {
 		if(validation.hasErrors()) {
+			Logger.info(civil == null ? "zer" : civil.toString());
             params.flash();
             validation.keep();
             newVilain();
