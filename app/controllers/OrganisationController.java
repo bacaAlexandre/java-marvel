@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import lib.Genform;
 import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.Valid;
@@ -22,7 +23,8 @@ public class OrganisationController extends Controller {
         List<Organisation> orgas = Organisation.findAll();
         List<Civil> civils = Civil.findAll();
         List<Pays> pays = Pays.findAll();
-	    render(orgas, civils, pays);
+        String form = new Genform(new Organisation(), "").generate();
+	    render(orgas, civils, pays, form);
 	}
 	
 	public static void addOrga(@Valid Organisation organisation, @Required Long pays, @Required Long chef, @Required List<Long> membres) {
@@ -43,7 +45,8 @@ public class OrganisationController extends Controller {
 		Organisation orga = Organisation.findById(id);
         List<Civil> civils = Civil.findAll();
         List<Pays> pays = Pays.findAll();
-		render(orga, pays, civils);
+        String form = new Genform(orga, "").generate();
+		render(orga, pays, civils, form);
 	}
 	
 	public static void updateOrga(Long id) {

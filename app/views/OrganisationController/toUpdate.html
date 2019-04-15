@@ -1,27 +1,4 @@
 #{extends 'main.html' /}
 #{set title:'Organisations' /}
 
-<form class="" action="@{OrganisationController.updateOrga(orga.id)}" method="post">
-  <input type="text" name="organisation.nom" value="${orga.nom}">
-  <input type="text" name="organisation.adresse" value="${orga.adresse}">
-  <select name="pays">
-    #{list pays, as:'pay'}
-      <option value="${pay.id}" #{if pay.id == orga.pays.id} selected #{/if}>${pay.libelle}</option>
-    #{/list}
-  </select>
-  <select name="chef">
-    #{list civils, as:'civil'}
-      <option value="${civil.id}" #{if civil.id == orga.dirigeant.id} selected #{/if}>${civil.nom} ${civil.prenom}</option>
-    #{/list}
-  </select>
-  <select multiple name="membres">
-    #{list civils, as:'civil'}
-      <option value="${civil.id}" #{if civil in orga.membres} selected #{/if}>${civil.nom} ${civil.prenom}</option>
-    #{/list}
-  </select>
-  <input type="submit" value="Mettre à jour">
-</form>
-
-#{list errors, as:'error'}
-  ${error}
-#{/list}
+${form.raw()}

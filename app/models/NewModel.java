@@ -27,5 +27,9 @@ public class NewModel extends GenericModel {
     public Object _key() {
         return getId();
     }
+	
+	public String getIdForDropdown() {
+		return this.id.toString();
+	}
 
 }
