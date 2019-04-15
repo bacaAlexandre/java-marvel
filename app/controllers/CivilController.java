@@ -25,6 +25,7 @@ public class CivilController extends Controller {
 	public static void newCivil() {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
+        
         render(pays, civilites);
     }
 	

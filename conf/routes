@@ -5,6 +5,9 @@
 # Home page
 GET     /                                      Application.index
 
+GET     /incident/declaration                  IncidentController.declaration
+POST    /incident/declaration                  IncidentController.declarer
+
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.newCivil
 POST    /civil/add                             CivilController.addNewCivil
