@@ -27,7 +27,7 @@
     </p>
     
     <p>
-	    <label for="avantages">Avantages</label>
+	    <label for="avantages">Pouvoir</label>
 		<select name="avantages[]" id="avantages" multiple>
 	    #{list avantages, as:'avantage'}
 	        <option value="${avantage.id}" #{if flash.contains("avantages[]")}
@@ -39,7 +39,7 @@
     </p>
 
     <p>
-	    <label for="desavantages">Désavantages</label>
+	    <label for="desavantages">Point faible</label>
 		<select name="desavantages[]" id="desavantages" multiple>
 	    #{list desavantages, as:'desavantage'}
 	        <option value="${desavantage.id}" #{if flash.contains("desavantages[]")}
