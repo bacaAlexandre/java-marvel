@@ -4,6 +4,8 @@
 <h2>Update Civil</h2>
 <form action="@{CivilController.saveUpdateCivil()}" method="post">
 
+	<input type="hidden" name="civil.id" value="${flash.contains('id') ? flash.get('civil.id') : civil.id}" />
+
 	<label for="civil.nom">Nom</label>
     <input type="text" name="civil.nom" value="${flash.contains('civil.nom') ? flash.get('civil.nom') : civil.nom}" maxLength=100 />
     <span>#{error 'civil.nom'/}</span>

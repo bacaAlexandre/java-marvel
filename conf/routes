@@ -12,6 +12,8 @@ POST    /civil/add                              CivilController.addNewCivil
 # Civil modifier page
 GET     /civil/update                           CivilController.updateCivil
 POST    /civil/update                           CivilController.saveUpdateCivil
+# Civil supprimer page
+GET     /civil/delete                           CivilController.deleteCivil
 
 GET     /orga                                   OrganisationController.index
 POST	/orga/add								OrganisationController.addOrga
