@@ -1,6 +1,7 @@
 package models;
 
 
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Super extends NewModel {
 
     @Column(length = 100, nullable = false)
+	@Required
     public String nom;
 
     @Column(columnDefinition = "text")

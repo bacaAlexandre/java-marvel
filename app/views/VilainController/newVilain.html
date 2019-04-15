@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+#{set title:'Ajouter Vilain' /}
+
+<h2>Add Vilain</h2>
+<form action="@{VilainController.addNewVilain()}" method="post">
+
+	<label for="vilain.nom">Nom</label>
+    <input type="text" name="vilain.nom" value="${flash.get('vilain.nom')}" maxLength=100 />
+    <span>#{error 'vilain.nom'/}</span>
+    
+    <br/>
+    
+    <label for="vilain.avantage">Pouvoir(s)</label>
+
+    <span>#{error 'vilain.avantage'/}</span>
+    
+    <br/>
+    
+    <label for="vilain.desavantage">Faiblesse(s)</label>
+
+    <span>#{error 'vilain.desavantage'/}</span>
+    
+    <br/>
+    
+    <input type="submit" value="Save">
+	<a href="@{VilainController.index()}">Retour</a>
+</form>

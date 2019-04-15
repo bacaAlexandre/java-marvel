@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
 import models.Pays;
@@ -21,19 +22,20 @@ public class VilainController extends Controller {
 	}
 	
 	public static void newVilain() {
-        render();
+		List<Caracteristique> caras = Caracteristique.findAll();
+        render(caras);
     }
 	
-	public static void addNewVilain(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+	public static void addNewVilain(@Valid Super vilain) {
 		/*civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
-		civil.civilite = GenreSexuel.findById(civilite);
+		civil.civilite = GenreSexuel.findById(civilite);*/
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
-            newCivil();
+            newVilain();
         }
-		civil.dateAjout = new Date();
+		/*civil.dateAjout = new Date();
 		civil._save();*/
 		index();
     }
@@ -43,7 +45,7 @@ public class VilainController extends Controller {
         render(vilain);
     }
 	
-	public static void saveUpdateVilain(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+	public static void saveUpdateVilain(@Valid Super vilain) {
 		/*civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
