@@ -5,27 +5,27 @@
     #{form @authenticate(),class:"form_connexion"}
         <h2>Connexion</h2>
         <p id="username-field" class="bloc_input">
-            <label for="username">Adresse mail: </label>
+            <label for="username">Email: </label>
             <input type="text" name="username" id="username" value="${flash.username}" required/>
         </p>
         <p id="password-field" class="bloc_input">
             <label for="password">Mot de passe: </label>
             <input type="password" name="password" id="password" value="" required/>
         </p>
-        <p id="remember-field">
-            <input type="checkbox" name="remember" id="remember"
-                   value="true" ${flash.remember ? 'checked="true"' : ''} />
-            <label for="remember">Se souvenir de moi: </label>
-        </p>
+        *{<p id="remember-field">}*
+            *{<input type="checkbox" name="remember" id="remember"}*
+                   *{value="true" ${flash.remember ? 'checked="true"' : ''} />}*
+            *{<label for="remember">Se souvenir de moi: </label>}*
+        *{</p>}*
         <p id="signin-field" class="bloc_button">
             <input type="submit" id="signin" value="Me connecter"/>
         </p>
     #{/form}
-
+        <hr class="hr_vertical">
     #{form @register()}
         <h2>Inscription</h2>
         <p id="register-email-field" class="bloc_input">
-            <label for="register-email">Adresse mail: </label>
+            <label for="register-email">Email*: </label>
             #{ifError "utilisateur.email"}
                 <input type="text" name="utilisateur.email" id="register-email" class="login_erreur_input"
                        value="${flash.get('utilisateur.email')}" required/>
@@ -36,7 +36,7 @@
             #{/else}
         </p>
         <p id="register-password-field" class="bloc_input">
-            <label for="register-password">Mot de passe: </label>
+            <label for="register-password">Mot de passe*: </label>
             #{ifError "utilisateur.password"}
                 <input type="password" name="utilisateur.password" class="login_erreur_input" id="register-password"
                        value="" required/>
@@ -46,7 +46,7 @@
             #{/else}
         </p>
         <p id="register-confirm-password-field" class="bloc_input">
-            <label for="register-confirm-password">Mot de passe: </label>
+            <label for="register-confirm-password">Mot de passe*: </label>
             #{ifError "utilisateur.confirmPassword"}
                 <input type="password" name="confirmPassword" class="login_erreur_input" id="register-confirm-password"
                        value="" required/>
@@ -56,7 +56,7 @@
             #{/else}
         </p>
         <p id="register-civility-field" class="bloc_input">
-            <label for="register-civility">Civilité: </label>
+            <label for="register-civility">Civilité*: </label>
             <select name="civilite">
                 #{list civilites, as:'c'}
                     <option value="${c.id}" ${ flash.get('civilite') == String.valueOf(c.id) ? "selected" : ""}>${c.libelle}</option>
@@ -64,7 +64,7 @@
             </select>
         </p>
         <p id="register-name-field" class="bloc_input">
-            <label for="register-name">Nom: </label>
+            <label for="register-name">Nom*: </label>
             #{ifError "civil.nom"}
                 <input type="text" name="civil.nom" id="register-name" class="login_erreur_input"
                        value="${flash.get('civil.nom')}" required/>
@@ -74,7 +74,7 @@
             #{/else}
         </p>
         <p id="register-firstname-field" class="bloc_input">
-            <label for="register-firstname">Prénom: </label>
+            <label for="register-firstname">Prénom*: </label>
             #{ifError "civil.prenom"}
                 <input type="text" name="civil.prenom" class="login_erreur_input" id="register-firstname"
                        value="${flash.get('civil.prenom')} " required/>
@@ -85,11 +85,11 @@
             #{/else}
         </p>
         <p id="register-address-field" class="bloc_input">
-            <label for="register-address">Adresse: </label>
+            <label for="register-address">Adresse*: </label>
             <textarea name="civil.adresse" id="register-address"></textarea>
         </p>
         <p id="register-living-country-field" class="bloc_input">
-            <label for="register-living-country">Pays de résidence: </label>
+            <label for="register-living-country">Pays de résidence*: </label>
             <select name="paysResidence">
                 #{list pays, as:'p'}
                     <option value="${p.id}" ${flash.get('paysResidence') == String.valueOf(p.id) ? 'selected' : ''}>${p.libelle}</option>
@@ -97,7 +97,7 @@
             </select>
         </p>
         <p id="register-born-country-field" class="bloc_input">
-            <label for="register-born-country">Pays natal: </label>
+            <label for="register-born-country">Pays natal*: </label>
             <select name="paysNatal">
                 #{list pays, as:'p'}
                     <option value="${p.id}" ${flash.get('paysNatal') == String.valueOf(p.id) ? 'selected' : ''}>${p.libelle}</option>
@@ -115,7 +115,7 @@
             #{/else}
         </p>
         <p class="bloc_input">
-            <label for="register-birth-date">Date de naissance: </label>
+            <label for="register-birth-date">Date de naissance*: </label>
             #{ifError "civil.dateNaissance"}
                 <input type="date" name="civil.dateNaissance" class="login_erreur_input" id="register-birth-date"
                        value="${flash.get('civil.dateNaissance')}" required/>
