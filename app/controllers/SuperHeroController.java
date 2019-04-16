@@ -39,8 +39,10 @@ public class SuperHeroController extends Controller {
 	
 	public static void postCreate(@Valid SurEtre suretre) {
 		Long civilID = params.get("suretre.civil", Long.class);
-		if(validation.hasErrors() || civilID != -1) {
-			/*MESSAGE ERREUR SI -1*/
+		if(civilID == -1) {
+			validation.addError("suretre.civil", "Required", "");
+		}
+		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             create();
@@ -70,8 +72,10 @@ public class SuperHeroController extends Controller {
 	
 	public static void postUpdate(long id) {
 		Long civilID = params.get("suretre.civil", Long.class);
-		if(validation.hasErrors() || civilID != -1) {
-			/*MESSAGE ERREUR SI -1*/
+		if(civilID == -1) {
+			validation.addError("suretre.civil", "Required", "");
+		}
+		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             update(id);
