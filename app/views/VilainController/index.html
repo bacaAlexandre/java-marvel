@@ -25,14 +25,18 @@
 			<td>x%</td>
 			<td>x</td>
 			<td>
-				#{list vilain.avantages, as:'av'}
-				${av.libelle};
-				#{/list}
+				<ul>
+					#{list vilain.avantages, as:'av'}
+						<li>${av.libelle}</li>
+					#{/list}
+				</ul>
 			</td>
 			<td>
-				#{list vilain.desavantages, as:'de'}
-				${de.libelle};
-				#{/list}
+				<ul>
+					#{list vilain.desavantages, as:'de'}
+						<li>${de.libelle}</li>
+					#{/list}
+				</ul>
 			</td>
 			<td>${vilain.commentaire}</td>
 			<td class="table_cel_action">

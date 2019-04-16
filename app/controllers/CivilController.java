@@ -27,7 +27,12 @@ public class CivilController extends Controller {
 	public static void create() {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
-        String form = new Genform(new Civil(), "/civil/add", "crudform").generate();
+        /*for(play.data.validation.Error errro : validation.errors()) {
+        		Logger.info(errro.getKey());
+        		Logger.info(errro.message());
+        		Logger.info("----------------------");
+    	}*/
+        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap());
         render("CivilController/form.html", pays, civilites, form);
     }
 	
@@ -61,7 +66,7 @@ public class CivilController extends Controller {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
-        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate();
+        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap());
         render("CivilController/form.html", pays, civilites, form);
     }
 	
