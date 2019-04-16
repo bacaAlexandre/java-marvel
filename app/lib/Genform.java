@@ -79,7 +79,7 @@ public class Genform {
 		input += "type=\"";
 		String type = "text";
 		switch(field.getType().toString()) {
-			case "Date":	type = "date";
+			case "class java.util.Date":	type = "date";
 							break;
 			case "Integer":	type = "number";
 							break;
