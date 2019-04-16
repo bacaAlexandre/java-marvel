@@ -17,7 +17,7 @@
 	#{list superheros, as:'superhero'}
 		<tr>
 		    <td>${superhero.nom}</td>
-		    <td>${superhero.civil.prenom} ${superhero.civil.nom}</td>
+		    <td>#{if superhero.civil != null} ${superhero.civil.prenom} ${superhero.civil.nom} #{/if}</td>
 		    <td>${superhero.commentaire}</td>
 		    <td>
 		    	<ul>

@@ -18,10 +18,10 @@
 		    <td>${civil.dateNaissance}</td>
 		    <td>${civil.dateDeces}</td>
 		    <td>
-				<a href="@{CivilController.updateCivil(civil.id)}">Modifier</a> | <a href="@{CivilController.deleteCivil(civil.id)}">Supprimer</a>
+				<a href="@{CivilController.update(civil.id)}">Modifier</a> | <a href="@{CivilController.delete(civil.id)}">Supprimer</a>
 			</td>
 		</tr>
 	#{/list}
     </tbody>
 </table>
-<a href="@{CivilController.newCivil()}">Ajouter civil</a>
+<a href="@{CivilController.create()}">Ajouter civil</a>

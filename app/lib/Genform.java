@@ -104,7 +104,7 @@ public class Genform {
 	
 	private String selectField(Field field) {
 		String input = "<select " + setIdAndName(field, false) + " >";
-		input += "<option value=\"\"></option>";
+		input += "<option value=\"-1\"></option>";
 		try {
 			List liste = (List) field.getType().getMethod("findAll").invoke(field);
 			for(Object obj : liste) {

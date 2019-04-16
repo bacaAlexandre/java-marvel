@@ -55,7 +55,7 @@ Utilisateur(u2):
   civil: c2
   droits: [d2]
 
-Super(s2):
+SurEtre(s2):
   nom: "IronMan"
   isHero: true
   civil: c2

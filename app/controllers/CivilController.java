@@ -31,10 +31,10 @@ public class CivilController extends Controller {
         render("CivilController/form.html", pays, civilites, form);
     }
 	
-	public static void postCreate(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
-		civil.paysResidence = Pays.findById(paysResidence);
-		civil.paysNatal = Pays.findById(paysNatal);
-		civil.civilite = GenreSexuel.findById(civilite);
+	public static void postCreate(@Valid Civil civil) {
+		civil.paysResidence = params.get("civil.paysResidence", Long.class) != -1 ? Pays.findById(params.get("civil.paysResidence", Long.class)) : null;
+		civil.paysNatal = params.get("civil.paysNatal", Long.class) != -1 ? Pays.findById(params.get("civil.paysNatal", Long.class)) : null;
+		civil.civilite = params.get("civil.civilite", Long.class) != -1 ? GenreSexuel.findById(params.get("civil.civilite", Long.class)) : null;
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
@@ -50,15 +50,14 @@ public class CivilController extends Controller {
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
         String form = new Genform(civil, "/civil/update/"+id, "crudform").generate();
-        render("CivilController/form.html", civil, pays, civilites, form);
+        render("CivilController/form.html", pays, civilites, form);
     }
 	
-	public static void postUpdate(long id) {
-		Civil civil = Civil.findById(id);
-		civil.edit(params.getRootParamNode(), "civil");
-		civil.paysResidence = Pays.findById(Long.parseLong(params.data.get("civil.paysResidence")[0]));
-		civil.paysNatal = Pays.findById(Long.parseLong(params.data.get("civil.paysNatal")[0]));
-		civil.civilite = GenreSexuel.findById(Long.parseLong(params.data.get("civil.civilite")[0]));
+	public static void postUpdate(@Valid Civil civil, long id) {
+		civil = Civil.findById(id);
+		civil.paysResidence = params.get("civil.paysResidence", Long.class) != -1 ? Pays.findById(params.get("civil.paysResidence", Long.class)) : null;
+		civil.paysNatal = params.get("civil.paysNatal", Long.class) != -1 ? Pays.findById(params.get("civil.paysNatal", Long.class)) : null;
+		civil.civilite = params.get("civil.civilite", Long.class) != -1 ? GenreSexuel.findById(params.get("civil.civilite", Long.class)) : null;
 		civil.dateModification = new Date();
 		if(validation.hasErrors()) {
             params.flash();

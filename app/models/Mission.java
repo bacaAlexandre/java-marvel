@@ -34,5 +34,5 @@ public class Mission extends NewModel {
     public NiveauGravite niveauGravite;
 
     @ManyToMany
-    public List<Super> superHeros;
+    public List<SurEtre> superHeros;
 }
