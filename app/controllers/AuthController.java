@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
+import lib.Check;
 import models.*;
 import net.bytebuddy.agent.builder.AgentBuilder.InstallationListener.ErrorSuppressing;
 import play.Logger;
@@ -16,7 +17,7 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http;
 
-public class Registration extends Controller {
+public class AuthController extends Controller {
 	
     @Before(unless={"login", "authenticate", "register", "logout"})
     public static void checkAccess() throws Throwable {
@@ -73,7 +74,7 @@ public class Registration extends Controller {
     public static void register(@Valid Utilisateur utilisateur, @Valid Civil civil, @Required Long civilite, @Required Long paysResidence, @Required Long paysNatal, @Required String confirmPassword) throws Throwable {
     	if(validation.hasErrors()) {
     		flash.keep("url");
-        	flash.error("secure.error");
+        	flash.error("Une erreur anxiogène.");
         	validation.keep();
         	params.flash();
         	login();
@@ -92,7 +93,7 @@ public class Registration extends Controller {
         Boolean allowed = Utilisateur.connect(username, password) != null;
         if(validation.hasErrors() || !allowed) {
             flash.keep("url");
-            flash.error("secure.error");
+            flash.error("Adresse mail ou mot de passe invalide.");
             params.flash();
             login();
         }
@@ -110,7 +111,7 @@ public class Registration extends Controller {
     public static void logout() throws Throwable {
         session.clear();
         response.removeCookie("rememberme");
-        flash.success("secure.logout");
+        flash.success("Vous vous êtes déconnecté.");
         login();
     }
 

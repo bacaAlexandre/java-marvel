@@ -14,7 +14,7 @@ import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
 
-@With(Registration.class)
+@With(AuthController.class)
 public class VilainController extends Controller {
 	
 	public static void index() {
