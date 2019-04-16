@@ -24,28 +24,28 @@ public class CivilController extends Controller {
 	    render(civils);
 	}
 	
-	public static void newCivil() {
+	public static void create() {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         String form = new Genform(new Civil(), "/civil/add", "crudform").generate();
         render("CivilController/form.html", pays, civilites, form);
     }
 	
-	public static void addNewCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+	public static void postCreate(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
 		civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
-            newCivil();
+            create();
         }
 		civil.dateAjout = new Date();
 		civil._save();
 		index();
     }
 
-	public static void updateCivil(long id) {
+	public static void update(long id) {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
@@ -53,21 +53,7 @@ public class CivilController extends Controller {
         render("CivilController/form.html", civil, pays, civilites, form);
     }
 	
-	/*public static void saveUpdateCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
-		civil.paysResidence = Pays.findById(paysResidence);
-		civil.paysNatal = Pays.findById(paysNatal);
-		civil.civilite = GenreSexuel.findById(civilite);
-		if(validation.hasErrors()) {
-            params.flash();
-            validation.keep();
-            updateCivil(civil.id);
-        }
-		civil.dateModification = new Date();
-		civil._save();
-		index();
-    }*/
-	
-	public static void saveUpdateCivil(long id) {
+	public static void postUpdate(long id) {
 		Civil civil = Civil.findById(id);
 		civil.edit(params.getRootParamNode(), "civil");
 		civil.paysResidence = Pays.findById(Long.parseLong(params.data.get("civil.paysResidence")[0]));
@@ -77,13 +63,13 @@ public class CivilController extends Controller {
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
-            updateCivil(civil.id);
+            update(civil.id);
         }
 		civil._save();
 		index();
     }
 	
-	public static void deleteCivil(long id) {
+	public static void delete(long id) {
         Civil civil = Civil.findById(id);
         civil._delete();
 		index();

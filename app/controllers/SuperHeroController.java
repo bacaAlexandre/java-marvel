@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import lib.Check;
+import lib.Genform;
 import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
@@ -31,29 +32,20 @@ public class SuperHeroController extends Controller {
         List<Civil> civils = Civil.findAll();
         List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
         List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
-        render(civils, avantages, desavantages);
+        String form = new Genform(new Super(), "/superhero/add", "crudform").generate();
+        render("SuperHeroController/form.html", civils, avantages, desavantages, form);
     }
-	
-	public static void update(long id) {
-		List<Civil> civils = Civil.findAll();
-        Super superhero = Super.findById(id);
-        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
-        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
-        render(superhero, civils, avantages, desavantages);
-	}
 	
 	public static void postCreate(@Valid Super superhero, long civil) {
 		superhero.civil = Civil.findById(civil);
 		Long[] avantages = params.get("avantages", Long[].class);
 		Long[] desavantages = params.get("desavantages", Long[].class);
-		List<Caracteristique> caracteristiques = new ArrayList<Caracteristique>();
 		if (avantages != null) {
-			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+			superhero.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
 		}
 		if (desavantages != null) {
-			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+			superhero.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 		}
-		superhero.caracteristique = caracteristiques;
 		superhero.isHero = true;
 		if(validation.hasErrors()) {
             params.flash();
@@ -64,19 +56,26 @@ public class SuperHeroController extends Controller {
 		index();
     }
 	
+	public static void update(long id) {
+		List<Civil> civils = Civil.findAll();
+        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
+        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
+        Super superhero = Super.findById(id);
+        String form = new Genform(superhero, "/superhero/add", "crudform").generate();
+        render("SuperHeroController/form.html", superhero, civils, avantages, desavantages, form);
+	}
+	
 	public static void postUpdate(long id) {
 		Super superhero = Super.findById(id);
 		superhero.edit(params.getRootParamNode(), "superhero");
 		Long[] avantages = params.get("avantages", Long[].class);
 		Long[] desavantages = params.get("desavantages", Long[].class);
-		List<Caracteristique> caracteristiques = new ArrayList<Caracteristique>();
 		if (avantages != null) {
-			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+			superhero.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
 		}
 		if (desavantages != null) {
-			caracteristiques.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+			superhero.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 		}
-		superhero.caracteristique = caracteristiques;
 		superhero.civil = Civil.findById(params.get("civil", Long.class));
 		if(validation.hasErrors()) {
             params.flash();
@@ -87,7 +86,7 @@ public class SuperHeroController extends Controller {
 		index();
     }
 	
-	public static void postDelete(long id) {
+	public static void delete(long id) {
 		Super superhero = Super.findById(id);
 		superhero.delete();
 		index();

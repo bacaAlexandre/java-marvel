@@ -24,11 +24,11 @@ public class OrganisationController extends Controller {
         List<Organisation> orgas = Organisation.findAll();
         List<Civil> civils = Civil.findAll();
         List<Pays> pays = Pays.findAll();
-        String form = new Genform(new Organisation(), "").generate();
+        String form = new Genform(new Organisation(), "crudform").generate();
 	    render(orgas, civils, pays, form);
 	}
 	
-	public static void addOrga(@Valid Organisation organisation, @Required Long pays, @Required Long chef, @Required List<Long> membres) {
+	public static void postCreate(@Valid Organisation organisation, @Required Long pays, @Required Long chef, @Required List<Long> membres) {
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
@@ -42,15 +42,15 @@ public class OrganisationController extends Controller {
 		index();
 	}
 	
-	public static void toUpdate(Long id) {
+	public static void update(Long id) {
 		Organisation orga = Organisation.findById(id);
         List<Civil> civils = Civil.findAll();
         List<Pays> pays = Pays.findAll();
-        String form = new Genform(orga, "").generate();
+        String form = new Genform(orga, "/orga/update/"+id, "crudform").generate();
 		render(orga, pays, civils, form);
 	}
 	
-	public static void updateOrga(Long id) {
+	public static void postUpdate(Long id) {
 		Organisation organisation = Organisation.findById(id);
 		organisation.edit(params.getRootParamNode(), "organisation");
 		organisation.pays = Pays.findById(Long.parseLong(params.data.get("pays")[0]));
@@ -61,18 +61,18 @@ public class OrganisationController extends Controller {
 	    if(validation.hasErrors()) {
 	    	params.flash();
             validation.keep();
-            toUpdate(id);
+            update(id);
 	    } else{
 	    	organisation.save();
 	    	index();
 	    }
 	}
 	
-	public static void deleteOrga(Long orga) {
+	public static void delete(Long orga) {
 		Utilisateur user = Utilisateur.find("byEmail", AuthController.connected()).<Utilisateur>first();
 		Organisation organe = Organisation.find("byIdAndDirigeant", orga, user.civil ).<Organisation>first();
 		organe._delete();
-		redirect("/orga");
+    	index();
 	}
 	
 }

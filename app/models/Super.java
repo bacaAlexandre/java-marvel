@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import lib.To_form;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,27 +18,31 @@ import java.util.stream.Collectors;
 @Entity
 public class Super extends NewModel {
 
+	@To_form
     @Column(length = 100, nullable = false)
 	@Required
     public String nom;
 
+	@To_form
     @Column(columnDefinition = "text")
     public String commentaire;
 
     public Boolean isHero = false;
 
+	@To_form
     @ManyToMany
-    public List<Caracteristique> caracteristique;
+    public List<Caracteristique> avantages;
 
+	@To_form
+    @ManyToMany
+    public List<Caracteristique> desavantages;
+
+	@To_form
 	@ManyToOne
 	public Civil civil;
 	
     public static List<Super> getSuperType(boolean isHero) {
     	List<Super> superheros = find("byIsHero", isHero).fetch();
     	return superheros;
-    }
-    
-    public List<Caracteristique> getCaracteristiqueType(boolean isAvantage) {
-    	return this.caracteristique.stream().filter(p -> p.isAvantage == isAvantage).collect(Collectors.toList());
     }
 }
