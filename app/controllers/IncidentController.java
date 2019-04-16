@@ -13,7 +13,7 @@ public class IncidentController extends Controller {
 
 	public static void declaration() {
 		List<TypeDelit> delits = TypeDelit.findAll();
-		String form = new Genform(new Incident(), "/incident/declaration", "crudform").generate(validation.errorsMap());
+		String form = new Genform(new Incident(), "/incident/declaration", "crudform").generate(validation.errorsMap(), flash);
 	    render("IncidentController/declaration.html", delits, form);
 	}
 	
