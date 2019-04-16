@@ -14,7 +14,7 @@ import models.GenreSexuel;
 import models.Organisation;
 
 @With(Registration.class)
-@Check({"Civil"})
+@Check({"civil"})
 public class CivilController extends Controller {
 	
 	public static void index() {

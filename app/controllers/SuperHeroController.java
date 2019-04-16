@@ -20,7 +20,7 @@ import play.mvc.With;
 @With(Registration.class)
 public class SuperHeroController extends Controller {
 
-	@Check({"Civil"})
+	@Check({"civil"})
 	public static void index() {
         List<Super> superheros = Super.getSuperType(true);
 	    render(superheros);

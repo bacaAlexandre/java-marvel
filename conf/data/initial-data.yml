@@ -17,7 +17,9 @@ GenreSexuel(g4):
   libelle: "Autre"
   
 Droit(d1):
-  libelle: "Civil"
+  libelle: "admin"
+Droit(d2):
+  libelle: "civil"
   
 Civil(c1):
   nom: "Massue"
@@ -31,17 +33,6 @@ Civil(c1):
   civilite: g2
 
 Civil(c2):
-  nom: ""
-  prenom: ""
-  adresse: ""
-  tel: "0606060606"
-  dateNaissance: 1986-09-11
-  dateAjout: 2019-03-21
-  paysResidence: p2
-  paysNatal: p2
-  civilite: g4
-
-Civil(c3):
   nom: "Tony"
   prenom: "Stark"
   adresse: ""
@@ -56,17 +47,18 @@ Utilisateur(u1):
   email: "admin"
   password: "test"
   civil: c1
-  droits: [d1]
-  
-Super(s1):
-  nom: "Thanos"
-  isHero: false
+  droits: [d1,d2]
+
+Utilisateur(u2):
+  email: "tony.stark@jarvis.com"
+  password: "warmachine"
   civil: c2
+  droits: [d2]
 
 Super(s2):
   nom: "IronMan"
   isHero: true
-  civil: c3
+  civil: c2
   
 TypeDelit(td1):
   libelle: "Vole"
