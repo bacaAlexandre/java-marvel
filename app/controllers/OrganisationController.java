@@ -21,25 +21,38 @@ public class OrganisationController extends Controller {
 	
 	@Check({"Civil"})
 	public static void index() {
+		List<Organisation> orgas = Organisation.findAll(); 
         String form;
         if(validation.hasErrors()) {
         	form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap(), flash);
         } else {
         	form = new Genform(new Organisation(), "/orga/add", "crudform").generate();
         }
-        render(form);
+        render(form, orgas);
 	}
 	
 	public static void postCreate(@Valid Organisation organisation) {
+		Long pays = params.get("organisation.pays", Long.class);
+		Long dirigeant = params.get("organisation.dirigeant", Long.class);
+		Long membres = params.get("organisation.membres", Long.class);
+		if(pays == -1) {
+			validation.addError("organisation.pays", "Required", "");
+		}
+		if(dirigeant == -1) {
+			validation.addError("organisation.dirigeant", "Required", "");
+		}
+		if(membres == -1) {
+			validation.addError("organisation.membres", "Required", "");
+		}
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             index();
         }
 		organisation.dateAjout = new Date();
-		organisation.pays = params.data.get("organisation.pays") != null ? Pays.findById(Long.parseLong(params.data.get("organisation.pays")[0])) : null;
-		organisation.dirigeant = params.data.get("organisation.dirigeant") != null ? Civil.findById(Long.parseLong(params.data.get("organisation.dirigeant")[0])) : null;
-		organisation.membres = params.data.get("organisation.membres") != null ? Civil.getByIds(params.data.get("organisation.membres")) : null;
+		organisation.pays = Pays.findById(pays);
+		organisation.dirigeant = Civil.findById(dirigeant);
+		organisation.membres = Civil.getByIds(params.data.get("organisation.membres"));
 		organisation._save();
 		index();
 	}
@@ -54,20 +67,29 @@ public class OrganisationController extends Controller {
 	
 	public static void postUpdate(Long id) {
 		Organisation organisation = Organisation.findById(id);
-		organisation.edit(params.getRootParamNode(), "organisation");
-		organisation.pays = Pays.findById(Long.parseLong(params.data.get("pays")[0]));
-		organisation.dirigeant = Civil.findById(Long.parseLong(params.data.get("chef")[0]));
-		organisation.membres = Civil.getByIds(params.data.get("membres"));
-		organisation.dateModification = new Date();
-	    validation.valid(organisation);
-	    if(validation.hasErrors()) {
-	    	params.flash();
+	    Long pays = params.get("organisation.pays", Long.class);
+		Long dirigeant = params.get("organisation.dirigeant", Long.class);
+		Long membres = params.get("organisation.membres", Long.class);
+		if(pays == -1) {
+			validation.addError("organisation.pays", "Required", "");
+		}
+		if(dirigeant == -1) {
+			validation.addError("organisation.dirigeant", "Required", "");
+		}
+		if(membres == -1) {
+			validation.addError("organisation.membres", "Required", "");
+		}
+		if(validation.hasErrors()) {
+            params.flash();
             validation.keep();
-            update(id);
-	    } else{
-	    	organisation.save();
-	    	index();
-	    }
+            index();
+        }
+		organisation.dateModification = new Date();
+		organisation.pays = Pays.findById(pays);
+		organisation.dirigeant = Civil.findById(dirigeant);
+		organisation.membres = Civil.getByIds(params.data.get("organisation.membres"));
+		organisation._save();
+		index();
 	}
 	
 	public static void delete(Long orga) {
