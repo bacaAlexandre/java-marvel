@@ -18,7 +18,7 @@ import models.Organisation;
 @With(Registration.class)
 public class OrganisationController extends Controller {
 	
-	@Check({"civil"})
+	@Check({"Civil"})
 	public static void index() {
         List<Organisation> orgas = Organisation.findAll();
         List<Civil> civils = Civil.findAll();
