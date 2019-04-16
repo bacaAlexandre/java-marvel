@@ -31,6 +31,7 @@ public class OrganisationController extends Controller {
 	}
 	
 	public static void postCreate(@Valid Organisation organisation) {
+		validation.addError("organisation.pays", "TA MERE LA POMME DE TERRE", "");
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
