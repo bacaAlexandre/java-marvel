@@ -32,9 +32,6 @@ html, body {
     resize: none;
 }
 
-.login_erreur_input {
-    border: 2px solid red;
-}
 
 .bloc_button {
     text-align: center;

@@ -40,7 +40,7 @@ public class OrganisationController extends Controller {
 		if(dirigeant == -1) {
 			validation.addError("organisation.dirigeant", "Required", "");
 		}
-		if(membres.length < 1) {
+		if(membres == null || membres.length <= 0) {
 			validation.addError("organisation.membres", "Required", "");
 		}
 		if(validation.hasErrors()) {
@@ -73,7 +73,7 @@ public class OrganisationController extends Controller {
 		if(dirigeant == -1) {
 			validation.addError("organisation.dirigeant", "Required", "");
 		}
-		if(membres.length < 1) {
+		if(membres == null || membres.length <= 0) {
 			validation.addError("organisation.membres", "Required", "");
 		}
 		if(validation.hasErrors()) {
