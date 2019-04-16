@@ -11,8 +11,8 @@ POST    /incident/declaration                  IncidentController.declarer
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.newCivil
 POST    /civil/add                             CivilController.addNewCivil
-GET     /civil/update                          CivilController.updateCivil
-POST    /civil/update                          CivilController.saveUpdateCivil
+GET     /civil/update/{id}                     CivilController.updateCivil
+POST    /civil/update/{id}                     CivilController.saveUpdateCivil
 GET     /civil/delete                          CivilController.deleteCivil
 
 GET     /vilain                                VilainController.index

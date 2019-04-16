@@ -11,4 +11,8 @@ public class GenreSexuel extends NewModel {
 	@Column(nullable=false)
 	public String libelle;
 	
+	public String getNameForDropdown() {
+		return this.libelle.toString();
+	}
+	
 }

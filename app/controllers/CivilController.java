@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import lib.Genform;
 import lib.Check;
 import play.Logger;
 import play.data.validation.Valid;
@@ -26,8 +27,8 @@ public class CivilController extends Controller {
 	public static void newCivil() {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
-        
-        render(pays, civilites);
+        String form = new Genform(new Civil(), "").generate();
+        render("CivilController/form.html", pays, civilites, form);
     }
 	
 	public static void addNewCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
@@ -48,10 +49,11 @@ public class CivilController extends Controller {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
-        render(civil, pays, civilites);
+        String form = new Genform(civil, "").generate();
+        render("CivilController/form.html", civil, pays, civilites, form);
     }
 	
-	public static void saveUpdateCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
+	/*public static void saveUpdateCivil(@Valid Civil civil, long paysResidence, long paysNatal, long civilite) {
 		civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
@@ -61,6 +63,22 @@ public class CivilController extends Controller {
             updateCivil(civil.id);
         }
 		civil.dateModification = new Date();
+		civil._save();
+		index();
+    }*/
+	
+	public static void saveUpdateCivil(long id) {
+		Civil civil = Civil.findById(id);
+		civil.edit(params.getRootParamNode(), "civil");
+		civil.paysResidence = Pays.findById(Long.parseLong(params.data.get("paysResidence")[0]));
+		civil.paysNatal = Pays.findById(Long.parseLong(params.data.get("paysNatal")[0]));
+		civil.civilite = GenreSexuel.findById(Long.parseLong(params.data.get("civilite")[0]));
+		civil.dateModification = new Date();
+		if(validation.hasErrors()) {
+            params.flash();
+            validation.keep();
+            updateCivil(civil.id);
+        }
 		civil._save();
 		index();
     }

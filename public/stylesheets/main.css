@@ -108,3 +108,18 @@ th, td {
     color: white;
     background-color: black;
 }
+
+
+/***************FORM*****************/
+form{
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+	justify-content: space-evenly;
+}
+form > div{
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+}
