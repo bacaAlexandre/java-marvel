@@ -127,6 +127,11 @@ public class AuthController extends Controller {
         return session.get("username");
     }
 
+    public static Utilisateur getUtilisateurConnected(){
+        Utilisateur utilisateur = Utilisateur.find("byEmail", connected()).first();
+        return utilisateur;
+    }
+
     public static boolean isConnected() {
         return session.contains("username");
     }

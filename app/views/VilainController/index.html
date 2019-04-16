@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Vilains' /}
 
-<h2 class="titre_partie">Index Vilain</h2>
+<h2 class="titre_partie">Liste des vilains</h2>
 <div class="wrappe_tableau">
 	<a class="btn_bleu" href="@{VilainController.create()}">Ajouter vilain</a>
 	<table class="tableau">
@@ -25,18 +25,22 @@
 			<td>x%</td>
 			<td>x</td>
 			<td>
-				#{list vilain.avantages, as:'av'}
-				${av.libelle};
-				#{/list}
+				<ul>
+					#{list vilain.avantages, as:'av'}
+						<li>${av.libelle}</li>
+					#{/list}
+				</ul>
 			</td>
 			<td>
-				#{list vilain.desavantages, as:'de'}
-				${de.libelle};
-				#{/list}
+				<ul>
+					#{list vilain.desavantages, as:'de'}
+						<li>${de.libelle}</li>
+					#{/list}
+				</ul>
 			</td>
 			<td>${vilain.commentaire}</td>
 			<td class="table_cel_action">
-				<a href="@{VilainController.update(vilain.id)}">Modifier</a> | <a href="@{VilainController.delete(vilain.id)}">Supprimer</a>
+				<a class="table_btn_modifier" href="@{VilainController.update(vilain.id)}">Modifier</a>  <a class="table_btn_supprimer" href="@{VilainController.delete(vilain.id)}">Supprimer</a>
 			</td>
 		</tr>
 		#{/list}
