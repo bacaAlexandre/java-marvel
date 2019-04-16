@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 
 import play.Logger;
 import play.data.validation.Error;
-
+import play.mvc.Scope.Flash;
 import models.*;
 
 public class Genform {
@@ -37,10 +37,10 @@ public class Genform {
 	}
 	
 	public String generate() {
-		return this.generate(null);
+		return this.generate(null, null);
 	}
 	
-	public String generate(Map<String, List<Error>> errors) {
+	public String generate(Map<String, List<Error>> errors, Flash flash) {
 		String form = "<form method=\"post\" action=\"";
 		form += this.action + "\" class=\"" + this.classes + "\">";
 		Class<?> classe = this.model.getClass();
@@ -49,14 +49,18 @@ public class Genform {
 	        if (field.isAnnotationPresent(To_form.class)) {
 		        form += "<div>";
 		        form += labelField(field);
+        		String add_params = null;
+        		if(flash != null && flash.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()) != null) {
+        			add_params = flash.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName());
+        		}
 	        	if (field.isAnnotationPresent(Column.class)) {
-	        		form += this.classicField(field);
+	        		form += this.classicField(field, add_params);
 	        	} else if(field.getType().toString() == "Boolean") {
-	        		form += this.booleanField(field);
+	        		form += this.booleanField(field, add_params);
 	        	} else if (field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class)) {
-	        		form += this.selectField(field);
+	        		form += this.selectField(field, add_params);
 	        	} else if (field.isAnnotationPresent(ManyToMany.class)) {
-	        		form += this.selectMultipleField(field);
+	        		form += this.selectMultipleField(field, add_params);
 	        	}
         		if(errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName())) {
 	        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()).get(0).message() + "</span>";
@@ -70,7 +74,7 @@ public class Genform {
 		return form;
 	}
 	
-	private String classicField(Field field) {
+	private String classicField(Field field, String add_params) {
 		String input = "<input " + setIdAndName(field, false);
 		input += "type=\"";
 		String type = "text";
@@ -85,9 +89,13 @@ public class Genform {
 		input += type + "\" ";
 		
 		try {
-			final Field champ = this.model.getClass().getDeclaredField(field.getName());
-			champ.setAccessible(true);
-			input += "value=\"" + champ.get(this.model).toString() + "\" ";
+			if(add_params != null) {
+				input += "value=\"" + add_params + "\" ";
+			} else {
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				input += "value=\"" + champ.get(this.model).toString() + "\" ";
+			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
 		}
@@ -96,13 +104,17 @@ public class Genform {
 		return input;
 	}
 	
-	private String booleanField(Field field) {
+	private String booleanField(Field field, String add_params) {
 		String input = "<input " + setIdAndName(field, false);
 		try {
-			final Field champ = this.model.getClass().getDeclaredField(field.getName());
-			champ.setAccessible(true);
-			if(champ.get(this.model).toString() == "true") {
+			if(add_params != null) {
 				input += " checked ";
+			} else {
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				if(champ.get(this.model).toString() == "true") {
+					input += " checked ";
+				}
 			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
@@ -111,17 +123,21 @@ public class Genform {
 		return input;
 	}
 	
-	private String selectField(Field field) {
+	private String selectField(Field field, String add_params) {
 		String input = "<select " + setIdAndName(field, false) + " >";
 		input += "<option value=\"-1\"></option>";
 		try {
 			List liste = (List) field.getType().getMethod("findAll").invoke(field);
 			for(Object obj : liste) {
 				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
-				final Field champ = this.model.getClass().getDeclaredField(field.getName());
-				champ.setAccessible(true);
-				if(obj == champ.get(this.model )) {
+				if(add_params != null && add_params != "-1" && obj.getClass().getMethod("getIdForDropdown").invoke(obj).toString().equals(add_params)) {
 					input += " selected ";
+				} else {
+					final Field champ = this.model.getClass().getDeclaredField(field.getName());
+					champ.setAccessible(true);
+					if(obj == champ.get(this.model )) {
+						input += " selected ";
+					}
 				}
 				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
 			}
@@ -133,7 +149,7 @@ public class Genform {
 		return input;
 	}
 	
-	private String selectMultipleField(Field field) {
+	private String selectMultipleField(Field field, String add_params) {
 		String input = "<select multiple " + setIdAndName(field, false) + " >";
 		try {
 			ParameterizedType listType= (ParameterizedType) field.getGenericType();
@@ -142,10 +158,14 @@ public class Genform {
 			List base_list = (List) this.model.getClass().getDeclaredField(field.getName().toString()).get(this.model);
 			for(Object obj : liste) {
 				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
-				final Field champ = this.model.getClass().getDeclaredField(field.getName());
-				champ.setAccessible(true);
-				if(base_list != null && base_list.contains(obj)) {
+				if(add_params != null && add_params != "-1" && obj.getClass().getMethod("getIdForDropdown").invoke(obj).toString().equals(add_params)) {
 					input += " selected ";
+				} else {
+					final Field champ = this.model.getClass().getDeclaredField(field.getName());
+					champ.setAccessible(true);
+					if(base_list != null && base_list.contains(obj)) {
+						input += " selected ";
+					}
 				}
 				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
 			}
