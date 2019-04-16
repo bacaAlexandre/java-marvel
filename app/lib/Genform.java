@@ -24,6 +24,8 @@ public class Genform {
 	private String action;
 	private String classes;
 	
+	final private String ERROR_CLASS = "erreur_input";
+	
 	public Genform(Object object, String action) {
 		this.model = object;
 		this.action = action;
@@ -47,25 +49,26 @@ public class Genform {
 		for (Field field : classe.getDeclaredFields()) {
 	        field.setAccessible(true);
 	        if (field.isAnnotationPresent(To_form.class)) {
-		        form += "<div>";
+	        	Boolean has_error = (errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()));
+	        	form += "<div><div>";
 		        form += labelField(field);
         		String add_params = null;
         		if(flash != null && flash.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()) != null) {
         			add_params = flash.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName());
         		}
 	        	if (field.isAnnotationPresent(Column.class)) {
-	        		form += this.classicField(field, add_params);
+	        		form += this.classicField(field, add_params, has_error);
 	        	} else if(field.getType().toString() == "Boolean") {
-	        		form += this.booleanField(field, add_params);
+	        		form += this.booleanField(field, add_params, has_error);
 	        	} else if (field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class)) {
-	        		form += this.selectField(field, add_params);
+	        		form += this.selectField(field, add_params, has_error);
 	        	} else if (field.isAnnotationPresent(ManyToMany.class)) {
-	        		form += this.selectMultipleField(field, add_params);
+	        		form += this.selectMultipleField(field, add_params, has_error);
 	        	}
-        		if(errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName())) {
+	        	form += "</div>";
+        		if(has_error) {
 	        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()).get(0).message() + "</span>";
 	        	}
-        		
 		        form += "</div>";
 	        }
 	    } 
@@ -74,7 +77,7 @@ public class Genform {
 		return form;
 	}
 	
-	private String classicField(Field field, String add_params) {
+	private String classicField(Field field, String add_params, Boolean has_error) {
 		String input = "<input " + setIdAndName(field, false);
 		input += "type=\"";
 		String type = "text";
@@ -99,12 +102,14 @@ public class Genform {
 		} catch(Exception e) {
 			Logger.error(e.toString());
 		}
-		
+		if(has_error) {
+			input += " class=\"" + ERROR_CLASS + "\" ";
+		}
 		input += " />";
 		return input;
 	}
 	
-	private String booleanField(Field field, String add_params) {
+	private String booleanField(Field field, String add_params, Boolean has_error) {
 		String input = "<input " + setIdAndName(field, false);
 		try {
 			if(add_params != null) {
@@ -119,12 +124,19 @@ public class Genform {
 		} catch(Exception e) {
 			Logger.error(e.toString());
 		}
+		if(has_error) {
+			input += " class=\"" + ERROR_CLASS + "\" ";
+		}
 		input += "type=\"checkbox\" />";
 		return input;
 	}
 	
-	private String selectField(Field field, String add_params) {
-		String input = "<select " + setIdAndName(field, false) + " >";
+	private String selectField(Field field, String add_params, Boolean has_error) {
+		String input = "<select " + setIdAndName(field, false);
+		if(has_error) {
+			input += " class=\"" + ERROR_CLASS + "\" ";
+		}
+		input += " >";
 		input += "<option value=\"-1\"></option>";
 		try {
 			List liste = (List) field.getType().getMethod("findAll").invoke(field);
@@ -149,8 +161,12 @@ public class Genform {
 		return input;
 	}
 	
-	private String selectMultipleField(Field field, String add_params) {
-		String input = "<select multiple " + setIdAndName(field, false) + " >";
+	private String selectMultipleField(Field field, String add_params, Boolean has_error) {
+		String input = "<select multiple " + setIdAndName(field, false);
+		if(has_error) {
+			input += " class=\"" + ERROR_CLASS + "\" ";
+		}
+		input += " >";
 		try {
 			ParameterizedType listType= (ParameterizedType) field.getGenericType();
 			Class contentClass = (Class) listType.getActualTypeArguments()[0];
