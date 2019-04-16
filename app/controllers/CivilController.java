@@ -27,7 +27,7 @@ public class CivilController extends Controller {
 	public static void newCivil() {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
-        String form = new Genform(new Civil(), "").generate();
+        String form = new Genform(new Civil(), "/civil/add", "crudform").generate();
         render("CivilController/form.html", pays, civilites, form);
     }
 	
@@ -49,7 +49,7 @@ public class CivilController extends Controller {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
-        String form = new Genform(civil, "").generate();
+        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate();
         render("CivilController/form.html", civil, pays, civilites, form);
     }
 	
@@ -70,9 +70,9 @@ public class CivilController extends Controller {
 	public static void saveUpdateCivil(long id) {
 		Civil civil = Civil.findById(id);
 		civil.edit(params.getRootParamNode(), "civil");
-		civil.paysResidence = Pays.findById(Long.parseLong(params.data.get("paysResidence")[0]));
-		civil.paysNatal = Pays.findById(Long.parseLong(params.data.get("paysNatal")[0]));
-		civil.civilite = GenreSexuel.findById(Long.parseLong(params.data.get("civilite")[0]));
+		civil.paysResidence = Pays.findById(Long.parseLong(params.data.get("civil.paysResidence")[0]));
+		civil.paysNatal = Pays.findById(Long.parseLong(params.data.get("civil.paysNatal")[0]));
+		civil.civilite = GenreSexuel.findById(Long.parseLong(params.data.get("civil.civilite")[0]));
 		civil.dateModification = new Date();
 		if(validation.hasErrors()) {
             params.flash();
