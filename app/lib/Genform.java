@@ -135,7 +135,7 @@ public class Genform {
 				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
 				final Field champ = this.model.getClass().getDeclaredField(field.getName());
 				champ.setAccessible(true);
-				if(base_list.contains(obj)) {
+				if(base_list != null && base_list.contains(obj)) {
 					input += " selected ";
 				}
 				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
