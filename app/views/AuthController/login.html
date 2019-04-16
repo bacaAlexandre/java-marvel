@@ -1,7 +1,17 @@
 #{extends 'main.html' /}
 
 <div class="login">
-
+#{if flash.error}
+    <p class="error">
+    ${messages.get(flash.error)}
+    </p>
+#{/if}
+#{if flash.success}
+    <p class="success">
+    ${messages.get(flash.success)}
+    </p>
+#{/if}
+#{error 'test'/}
     <div class="login_content">
     #{form @authenticate(),class:"form_connexion"}
         <h2>Connexion</h2>
@@ -13,11 +23,11 @@
             <label for="password">Mot de passe: </label>
             <input type="password" name="password" id="password" value="" required/>
         </p>
-        *{<p id="remember-field">}*
-            *{<input type="checkbox" name="remember" id="remember"}*
-                   *{value="true" ${flash.remember ? 'checked="true"' : ''} />}*
-            *{<label for="remember">Se souvenir de moi: </label>}*
-        *{</p>}*
+    *{<p id="remember-field">}*
+    *{<input type="checkbox" name="remember" id="remember"}*
+    *{value="true" ${flash.remember ? 'checked="true"' : ''} />}*
+    *{<label for="remember">Se souvenir de moi: </label>}*
+    *{</p>}*
         <p id="signin-field" class="bloc_button">
             <input type="submit" id="signin" value="Me connecter"/>
         </p>
@@ -131,15 +141,4 @@
         </p>
     #{/form}
     </div>
-#{if flash.error}
-    <p class="error">
-    ${messages.get(flash.error)}
-    </p>
-#{/if}
-#{if flash.success}
-    <p class="success">
-    ${messages.get(flash.success)}
-    </p>
-#{/if}
-#{error 'test'/}
 </div>
