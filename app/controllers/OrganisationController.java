@@ -23,7 +23,7 @@ public class OrganisationController extends Controller {
 	public static void index() {
         String form;
         if(validation.hasErrors()) {
-        	form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap());
+        	form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap(), flash);
         } else {
         	form = new Genform(new Organisation(), "/orga/add", "crudform").generate();
         }
@@ -31,7 +31,6 @@ public class OrganisationController extends Controller {
 	}
 	
 	public static void postCreate(@Valid Organisation organisation) {
-		validation.addError("organisation.pays", "TA MERE LA POMME DE TERRE", "");
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
