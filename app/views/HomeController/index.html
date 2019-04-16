@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{if session.username && controllers.Registration.check("admin")}
+#{if session.username && controllers.AuthController.check("admin")}
 <div class="home_btn_admin">
     <div class="home_col_left">
         <a href="@{CivilController.index}">Civils</a>
