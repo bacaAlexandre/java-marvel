@@ -18,7 +18,7 @@
 #{/if}
 #{else}
 <div class="home_btn_incident">
-    <h2>Bienvenue  %XXXXXXX%</h2>
+    <h2>Bienvenue  ${controllers.AuthController.getUtilisateurConnected().civil.nom}</h2>
     <a href="@{IncidentController.declaration()}" >Signaler un incident</a>
 </div>
 #{/else}
