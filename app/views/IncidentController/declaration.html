@@ -1,29 +1,4 @@
 #{extends 'main.html' /}
 #{set title:'Declaration' /}
 
-<form action="@{IncidentController.declarer()}" method="post">
-
-	<label for="typeDelit">Delit :</label>
-	<select name="typeDelit">
-	#{list delits, as:'delit'}
-      <option value="${delit.id}" #{if flash.contains("delits")}${""+delit.id == flash.get("delits") ? "selected" : ""}#{/if}>${delit.libelle}</option>
-    #{/list}
-  	</select>
-	<span>#{error 'typeDelit'/}</span>
-  
-  <br/>
-  
-	<label for="incident.lieu">Lieu :</label>
-	<input type="text" name="incident.lieu" value="${flash.get('incident.lieu')}">
-	<span>#{error 'incident.lieu'/}</span>
-  
-  <br/>
-  
-	<label for="incident.description">Description :</label>
-	<input type="text" name="incident.description" value="${flash.get('incident.description')}">
-	<span>#{error 'incident.description'/}</span>
-  
-  <br/>
-  
-  <input type="submit" value="Declarer">
-</form>
+${form.raw()}

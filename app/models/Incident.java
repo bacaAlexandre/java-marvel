@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lib.To_form;
 import play.data.validation.Required;
 
 @Entity
@@ -14,14 +15,17 @@ public class Incident extends NewModel {
     @OneToOne
     public Mission mission;
 
+	@To_form
     @Column(columnDefinition = "text", nullable = false)
     @Required
     public String lieu;
 
+	@To_form
     @Column(columnDefinition = "text", nullable = false)
     @Required
     public String description;
 
+	@To_form
     @ManyToOne
     public TypeDelit typeDelit;
 
