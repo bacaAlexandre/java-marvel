@@ -44,9 +44,14 @@ html, body {
 .bloc_button input {
     background: #34c802;
     padding: 10px 30px 10px 30px;
-    border: none;
+    border: 1px solid #34c802;
     color: white;
     border-radius: 10px;
+}
+
+.bloc_button input:hover {
+    background: white;
+    color: #34c802;
 }
 
 .login .error {
