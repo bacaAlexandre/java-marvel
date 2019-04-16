@@ -182,15 +182,27 @@
 
 /***************FORM*****************/
 .crudform {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: space-evenly;
+    margin: 50px auto 0 auto;
+    min-width: 300px;
+    max-width: 500px;
 }
 
 .crudform > div {
     display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.crudform input[type=submit] {
+    margin-top: 30px;
+    background: #34c802;
+    padding: 10px 30px 10px 30px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #34c802;
+    float: right;
+}
+
+.crudform input[type=submit]:hover {
+    background-color: white;
+    color: #34c802;
 }

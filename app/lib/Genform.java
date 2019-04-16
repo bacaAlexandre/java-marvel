@@ -51,9 +51,6 @@ public class Genform {
 		        form += labelField(field);
 	        	if (field.isAnnotationPresent(Column.class)) {
 	        		form += this.classicField(field);
-	        		if(errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName())) {
-		        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()) + "</span>";
-		        	}
 	        	} else if(field.getType().toString() == "Boolean") {
 	        		form += this.booleanField(field);
 	        	} else if (field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class)) {
@@ -61,9 +58,10 @@ public class Genform {
 	        	} else if (field.isAnnotationPresent(ManyToMany.class)) {
 	        		form += this.selectMultipleField(field);
 	        	}
-	        	
-	        	
-	        	
+        		if(errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName())) {
+	        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()).get(0).message() + "</span>";
+	        	}
+        		
 		        form += "</div>";
 	        }
 	    } 
