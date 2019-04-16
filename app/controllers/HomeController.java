@@ -11,7 +11,11 @@ import models.*;
 public class HomeController extends Controller {
 
     public static void index() {
-        render();
+		Utilisateur utilisateur = AuthController.connected();
+		if (utilisateur.can("HomeController", "read")) {
+			render(utilisateur);
+		}
+        forbidden();
     }
 
 }

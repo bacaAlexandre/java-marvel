@@ -47,17 +47,18 @@ Utilisateur(u1):
   email: "admin"
   password: "test"
   civil: c1
-  droits: [d1,d2]
+  role: role1
+  isAdmin: "true"
 
 Utilisateur(u2):
   email: "tony.stark@jarvis.com"
   password: "warmachine"
   civil: c2
-  droits: [d2]
+  role: role2
 
 SurEtre(s2):
   nom: "IronMan"
-  isHero: true
+  isHero: "true"
   civil: c2
   
 TypeDelit(td1):

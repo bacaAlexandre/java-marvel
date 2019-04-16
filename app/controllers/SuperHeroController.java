@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import lib.Check;
 import lib.Genform;
 import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
 import models.Organisation;
 import models.Pays;
+import models.RolePermission;
 import models.SurEtre;
 import models.Utilisateur;
 import play.Logger;
@@ -23,74 +24,102 @@ import play.mvc.With;
 @With(AuthController.class)
 public class SuperHeroController extends Controller {
 
-	@Check({"civil"})
 	public static void index() {
-        List<SurEtre> superheros = SurEtre.getSurEtreType(true);
-	    render(superheros);
+		Utilisateur utilisateur = AuthController.connected();
+		RolePermission permission = utilisateur.getPermission("SuperHeroController", "read");
+		if (utilisateur.isAdmin || permission != null) {
+			List<SurEtre> superheros = SurEtre.getSurEtreType(true);
+			if (!utilisateur.isAdmin && !permission.hasAll) {
+				superheros = superheros.stream().filter(s -> {
+					return s.civil.id == utilisateur.civil.id;	
+				}).collect(Collectors.toList());
+			}
+			render(superheros);
+		}
+		redirect("/");
 	}
 	
 	public static void create() {
-        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
-        render("SuperHeroController/form.html", form);
+		Utilisateur utilisateur = AuthController.connected();
+		if (utilisateur.can("SuperHeroController", "create")) {
+	        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
+	        render("SuperHeroController/form.html", form);
+		}
+        index();
     }
 	
 	public static void postCreate(@Valid SurEtre suretre) {
-		Long civilID = params.get("suretre.civil", Long.class);
-		if(civilID == -1) {
-			validation.addError("suretre.civil", "Required", "");
+		Utilisateur utilisateur = AuthController.connected();
+		if (utilisateur.can("SuperHeroController", "create")) {
+			Long civilID = params.get("suretre.civil", Long.class);
+			if(civilID == -1) {
+				validation.addError("suretre.civil", "Required", "");
+			}
+			if(validation.hasErrors()) {
+	            params.flash();
+	            validation.keep();
+	            create();
+	        }
+			suretre.civil = Civil.findById(civilID);
+			Long[] avantages = params.get("suretre.avantages", Long[].class);
+			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+			if (avantages != null) {
+				suretre.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+			}
+			if (desavantages != null) {
+				suretre.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+			}
+			suretre.isHero = true;
+			suretre.save();
 		}
-		if(validation.hasErrors()) {
-            params.flash();
-            validation.keep();
-            create();
-        }
-		suretre.civil = Civil.findById(civilID);
-		Long[] avantages = params.get("suretre.avantages", Long[].class);
-		Long[] desavantages = params.get("suretre.desavantages", Long[].class);
-		if (avantages != null) {
-			suretre.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
-		}
-		if (desavantages != null) {
-			suretre.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
-		}
-		suretre.isHero = true;
-		suretre.save();
 		index();
     }
 	
 	public static void update(long id) {
-        SurEtre superhero = SurEtre.findById(id);
-        String form = new Genform(superhero, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-        render("SuperHeroController/form.html", superhero, form);
+		Utilisateur utilisateur = AuthController.connected();
+		SurEtre superhero = SurEtre.findById(id);
+		if (utilisateur.can("SuperHeroController", "update", superhero.civil.id)) {
+	        String form = new Genform(superhero, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
+	        render("SuperHeroController/form.html", superhero, form);
+		}
+		index();
 	}
 	
 	public static void postUpdate(long id) {
-		Long civilID = params.get("suretre.civil", Long.class);
-		if(civilID == -1) {
-			validation.addError("suretre.civil", "Required", "");
-		}
-		if(validation.hasErrors()) {
-            params.flash();
-            validation.keep();
-            update(id);
-        }
+		Utilisateur utilisateur = AuthController.connected();
 		SurEtre superhero = SurEtre.findById(id);
-		Long[] avantages = params.get("suretre.avantages", Long[].class);
-		Long[] desavantages = params.get("suretre.desavantages", Long[].class);
-		if (avantages != null) {
-			superhero.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+		if (utilisateur.can("SuperHeroController", "update", superhero.civil.id)) {
+			Long civilID = params.get("suretre.civil", Long.class);
+			if(civilID == -1) {
+				validation.addError("suretre.civil", "Required", "");
+			}
+			if(validation.hasErrors()) {
+	            params.flash();
+	            validation.keep();
+	            update(id);
+	        }
+			Long[] avantages = params.get("suretre.avantages", Long[].class);
+			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+			if (avantages != null) {
+				superhero.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+			}
+			if (desavantages != null) {
+				superhero.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+			}
+			superhero.nom = params.get("suretre.nom");
+			superhero.commentaire = params.get("suretre.commentaire");
+			superhero.civil = Civil.findById(civilID);
+			superhero.save();
 		}
-		if (desavantages != null) {
-			superhero.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
-		}
-		superhero.civil = Civil.findById(civilID);
-		superhero.save();
 		index();
     }
 	
 	public static void delete(long id) {
+		Utilisateur utilisateur = AuthController.connected();
 		SurEtre superhero = SurEtre.findById(id);
-		superhero.delete();
+		if (utilisateur.can("SuperHeroController", "delete", superhero.civil.id)) {
+			superhero.delete();
+		}
 		index();
 	}
 }

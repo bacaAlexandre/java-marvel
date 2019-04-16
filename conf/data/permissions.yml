@@ -1,0 +1,105 @@
+Permission(perm1):
+  libelle: "create"
+Permission(perm2):
+  libelle: "read"
+Permission(perm3):
+  libelle: "update"
+Permission(perm4):
+  libelle: "delete"
+Permission(perm5):
+  libelle: "*"
+
+Role(role1):
+  libelle: "admin"
+Role(role2):
+  libelle: "hero"
+Role(role3):
+  libelle: "civil"
+
+RolePermission(rolePerm1):
+  controller: "HomeController"
+  permission: perm2
+  role: role3
+RolePermission(rolePerm2):
+  controller: "IncidentController"
+  permission: perm1
+  role: role3
+RolePermission(rolePerm3):
+  controller: "OrganisationController"
+  permission: perm1
+  role: role3
+RolePermission(rolePerm4):
+  controller: "OrganisationController"
+  permission: perm2
+  role: role3
+RolePermission(rolePerm5):
+  controller: "OrganisationController"
+  permission: perm3
+  role: role3
+
+RolePermission(rolePerm6):
+  controller: "HomeController"
+  permission: perm2
+  role: role2
+RolePermission(rolePerm7):
+  controller: "IncidentController"
+  permission: perm1
+  role: role2
+RolePermission(rolePerm8):
+  controller: "IncidentController"
+  hasAll: "true"
+  permission: perm2
+  role: role2
+RolePermission(rolePerm9):
+  controller: "OrganisationController"
+  permission: perm1
+  role: role2
+RolePermission(rolePerm10):
+  controller: "OrganisationController"
+  permission: perm2
+  role: role2
+RolePermission(rolePerm11):
+  controller: "OrganisationController"
+  permission: perm3
+  role: role2
+RolePermission(rolePerm12):
+  controller: "SuperHeroController"
+  hasAll: "true"
+  permission: perm2
+  role: role2
+RolePermission(rolePerm13):
+  controller: "VilainController"
+  hasAll: "true"
+  permission: perm2
+  role: role2
+
+RolePermission(rolePerm14):
+  controller: "CivilController"
+  hasAll: "true"
+  permission: perm5
+  role: role1
+RolePermission(rolePerm15):
+  controller: "HomeController"
+  hasAll: "true"
+  permission: perm5
+  role: role1
+RolePermission(rolePerm16):
+  controller: "IncidentController"
+  hasAll: "true"
+  permission: perm5
+  role: role1
+RolePermission(rolePerm17):
+  controller: "OrganisationController"
+  hasAll: "true"
+  permission: perm5
+  role: role1
+RolePermission(rolePerm18):
+  controller: "SuperHeroController"
+  hasAll: "true"
+  permission: perm5
+  role: role1
+RolePermission(rolePerm19):
+  controller: "VilainController"
+  hasAll: "true"
+  permission: perm5
+  role: role1

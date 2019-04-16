@@ -2,9 +2,9 @@ package controllers;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
-import lib.Check;
 import models.*;
 import net.bytebuddy.agent.builder.AgentBuilder.InstallationListener.ErrorSuppressing;
 import play.Logger;
@@ -21,30 +21,16 @@ public class AuthController extends Controller {
 	
     @Before(unless={"login", "authenticate", "register", "logout"})
     public static void checkAccess() throws Throwable {
-        if(!session.contains("username")) {
-            flash.put("url", "GET".equals(request.method) ? request.url : Play.ctxPath + "/"); // seems a good default
+        if(!isConnected()) {
+            flash.put("url", "GET".equals(request.method) ? request.url : Play.ctxPath + "/");
             login();
-        }
-        Check check = getActionAnnotation(Check.class);
-        if(check != null) {
-            check(check);
-        }
-        check = getControllerInheritedAnnotation(Check.class);
-        if(check != null) {
-            check(check);
-        }
-    }
-
-    private static void check(Check check) throws Throwable {
-        for(String profile : check.value()) {
-            boolean hasProfile = check(profile);
-            if(!hasProfile) {
-                redirect("/");
-            }
         }
     }
 
     public static void login() throws Throwable {
+    	if (isConnected()) {
+    		redirect("/");
+    	}
         Http.Cookie remember = request.cookies.get("rememberme");
         if(remember != null) {
             int firstIndex = remember.value.indexOf("-");
@@ -117,31 +103,17 @@ public class AuthController extends Controller {
 
     public static void redirectToOriginalURL() throws Throwable {
         String url = flash.get("url");
-        if(url == null) {
-            url = Play.ctxPath + "/";
-        }
-        redirect(url);
+        redirect(url != null ? url : "/");
     }
     
-    public static String connected() {
-        return session.get("username");
-    }
-
-    public static Utilisateur getUtilisateurConnected(){
-        Utilisateur utilisateur = Utilisateur.find("byEmail", connected()).first();
-        return utilisateur;
+    public static Utilisateur connected() {
+    	if (isConnected()) {
+    		return Utilisateur.find("byEmail", session.get("username")).first();
+    	}
+        return null;
     }
 
     public static boolean isConnected() {
         return session.contains("username");
     }
-
-    public static boolean check(String profile) {
-    	Utilisateur user = Utilisateur.find("byEmail", connected()).<Utilisateur>first();
-    	Droit getRight = Droit.find("byLibelle", profile).<Droit>first();
-    	return user.droits.contains(getRight);
-    }
-
-
-
 }
