@@ -2,7 +2,7 @@
 #{set title:'Ajouter Vilain' /}
 
 <h2>Ajouter Vilain</h2>
-<form action="@{VilainController.addNewVilain()}" method="post">
+<form action="@{VilainController.create()}" method="post">
 
 	<label for="vilain.nom">Nom</label>
     <input type="text" name="vilain.nom" value="${flash.get('vilain.nom')}" maxLength=100 />
