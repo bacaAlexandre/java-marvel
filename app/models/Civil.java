@@ -1,6 +1,7 @@
 package models;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.PrePersist;
 
 import lib.To_form;
 import net.sf.oval.constraint.MaxSize;
+import play.data.validation.InPast;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -57,17 +59,14 @@ public class Civil extends NewModel {
 	
 	@To_form
 	@ManyToOne
-	@Required
 	public Pays paysResidence;
 
 	@To_form
 	@ManyToOne
-	@Required
 	public Pays paysNatal;
 
 	@To_form
 	@ManyToOne
-	@Required
 	public GenreSexuel civilite;
 	
 	public static List<Civil> getByIds(List<Long> ids) {

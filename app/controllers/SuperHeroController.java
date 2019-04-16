@@ -77,7 +77,6 @@ public class SuperHeroController extends Controller {
             update(id);
         }
 		SurEtre superhero = SurEtre.findById(id);
-		superhero.edit(params.getRootParamNode(), "superhero");
 		Long[] avantages = params.get("suretre.avantages", Long[].class);
 		Long[] desavantages = params.get("suretre.desavantages", Long[].class);
 		if (avantages != null) {

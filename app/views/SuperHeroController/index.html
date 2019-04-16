@@ -1,45 +1,46 @@
 #{extends 'main.html' /}
 #{set title:'Organisations' /}
 
-<h2>Index SuperHeros</h2>
-<table border="" cellpadding="8">
-    <thead>
-        <tr>
-            <th>Hero</th>
-            <th>Identite</th>
-            <th>Commentaire</th>
-            <th>Avantages</th>
-            <th>Desavantages</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-	#{list superheros, as:'superhero'}
+<h2 class="titre_partie">Liste des super héros</h2>
+<div class="wrappe_tableau">
+	<a  class="btn_bleu" href="@{SuperHeroController.create()}">Ajouter un SuperHero</a>
+	<table class="tableau">
+		<thead>
 		<tr>
-		    <td>${superhero.nom}</td>
-		    <td>#{if superhero.civil != null} ${superhero.civil.prenom} ${superhero.civil.nom} #{/if}</td>
-		    <td>${superhero.commentaire}</td>
-		    <td>
-		    	<ul>
-			    	#{list superhero.avantages, as:'avantage'}
-			    		<li>${avantage.libelle}</li>
-			    	#{/list}
-		    	</ul>
-		    </td>
-		    <td>
-		    	<ul>
-			    	#{list superhero.desavantages, as:'desavantage'}
-			    		<li>${desavantage.libelle}</li>
-			    	#{/list}
-		    	</ul>
-		    </td>
-		    <td align="center">
-		    	<a href="@{SuperHeroController.update(superhero.id)}">Modifier</a>
-		    	<br/>
-		    	<a href="@{SuperHeroController.delete(superhero.id)}" onclick="return confirm('Êtes vous-sûr?');">Supprimer</a>
-		    </td>
+			<th>Héro</th>
+			<th>Identité</th>
+			<th>Commentaire</th>
+			<th>Pouvoir(s)</th>
+			<th>Faiblesse(s)</th>
+			<th>Actions</th>
 		</tr>
-	#{/list}
-    </tbody>
-</table>
-<a href="@{SuperHeroController.create()}">Ajouter un SuperHero</a>
+		</thead>
+		<tbody>
+		#{list superheros, as:'superhero'}
+		<tr>
+			<td>${superhero.nom}</td>
+			<td>#{if superhero.civil != null} ${superhero.civil.prenom} ${superhero.civil.nom} #{/if}</td>
+			<td>${superhero.commentaire}</td>
+			<td>
+				<ul>
+					#{list superhero.avantages, as:'avantage'}
+						<li>${avantage.libelle}</li>
+					#{/list}
+				</ul>
+			</td>
+			<td>
+				<ul>
+					#{list superhero.desavantages, as:'desavantage'}
+						<li>${desavantage.libelle}</li>
+					#{/list}
+				</ul>
+			</td>
+			<td class="table_cel_action">
+				<a class="table_btn_modifier" href="@{SuperHeroController.update(superhero.id)}">Modifier</a>  <a class="table_btn_supprimer" href="@{SuperHeroController.delete(superhero.id)}">Supprimer</a>
+			</td>
+		</tr>
+		#{/list}
+		</tbody>
+	</table>
+</div>
+
