@@ -52,7 +52,7 @@ public class Genform {
 	        	if (field.isAnnotationPresent(Column.class)) {
 	        		form += this.classicField(field);
 	        		if(errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName())) {
-		        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()) + "</span>";
+		        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()).get(0).message() + "</span>";
 		        	}
 	        	} else if(field.getType().toString() == "Boolean") {
 	        		form += this.booleanField(field);
