@@ -24,20 +24,25 @@ public class OrganisationController extends Controller {
         List<Organisation> orgas = Organisation.findAll();
         List<Civil> civils = Civil.findAll();
         List<Pays> pays = Pays.findAll();
-        String form = new Genform(new Organisation(), "crudform").generate();
-	    render(orgas, civils, pays, form);
+        String form;
+        if(validation.hasErrors()) {
+        	form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap());
+        } else {
+        	form = new Genform(new Organisation(), "/orga/add", "crudform").generate();
+        }
+        render(orgas, civils, pays, form);
 	}
 	
-	public static void postCreate(@Valid Organisation organisation, @Required Long pays, @Required Long chef, @Required List<Long> membres) {
+	public static void postCreate(@Valid Organisation organisation) {
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             index();
         }
 		organisation.dateAjout = new Date();
-		organisation.pays = Pays.findById(pays);
-		organisation.dirigeant = Civil.findById(chef);
-		organisation.membres = Civil.getByIds(membres);
+		organisation.pays = params.data.get("organisation.pays") != null ? Pays.findById(Long.parseLong(params.data.get("organisation.pays")[0])) : null;
+		organisation.dirigeant = params.data.get("organisation.dirigeant") != null ? Civil.findById(Long.parseLong(params.data.get("organisation.dirigeant")[0])) : null;
+		organisation.membres = params.data.get("organisation.membres") != null ? Civil.getByIds(params.data.get("organisation.membres")) : null;
 		organisation._save();
 		index();
 	}

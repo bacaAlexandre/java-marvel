@@ -1,7 +1,7 @@
 package lib;
 
 import java.util.List;
-
+import java.util.Map;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.ManyToMany;
 
 import play.Logger;
+import play.data.validation.Error;
 
 import models.*;
 
@@ -36,6 +37,10 @@ public class Genform {
 	}
 	
 	public String generate() {
+		return this.generate(null);
+	}
+	
+	public String generate(Map<String, List<Error>> errors) {
 		String form = "<form method=\"post\" action=\"";
 		form += this.action + "\" class=\"" + this.classes + "\">";
 		Class<?> classe = this.model.getClass();
@@ -46,6 +51,9 @@ public class Genform {
 		        form += labelField(field);
 	        	if (field.isAnnotationPresent(Column.class)) {
 	        		form += this.classicField(field);
+	        		if(errors != null && errors.containsKey(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName())) {
+		        		form += "<span>" + errors.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName()) + "</span>";
+		        	}
 	        	} else if(field.getType().toString() == "Boolean") {
 	        		form += this.booleanField(field);
 	        	} else if (field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class)) {
@@ -53,6 +61,9 @@ public class Genform {
 	        	} else if (field.isAnnotationPresent(ManyToMany.class)) {
 	        		form += this.selectMultipleField(field);
 	        	}
+	        	
+	        	
+	        	
 		        form += "</div>";
 	        }
 	    } 
