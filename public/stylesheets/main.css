@@ -1,3 +1,4 @@
+
 .main_header h1 {
     margin: 0.5em auto 0.5em auto;
     text-align: center;
@@ -169,14 +170,14 @@
     margin-bottom: 40px;
     padding: 30px;
     text-align: center;
-    color: black;
-    border: solid 2px black;
+    color: #a80202;
+    border: solid 2px #a80202;
     border-radius: 10px;
 }
 
 .home_btn_admin a:hover {
     color: white;
-    background-color: black;
+    background-color: #a80202;
 }
 
 
@@ -185,6 +186,10 @@
     margin: 50px auto 0 auto;
     min-width: 300px;
     max-width: 500px;
+    padding: 20px;
+    background-color: rgba(234, 228, 228, 0.64);
+    border: 20px solid #dadada;
+    border-radius: 20px;
 }
 
 .crudform > div {
@@ -199,7 +204,6 @@
     color: white;
     border-radius: 10px;
     border: 1px solid #34c802;
-    float: right;
 }
 
 .crudform input[type=submit]:hover {
