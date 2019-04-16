@@ -57,17 +57,24 @@
     text-align: center;
 }
 
+.erreur_input {
+    border: 2px solid red;
+
+}
+
 /**********TABLE***************/
 .wrappe_tableau {
     max-width: 90%;
     margin: auto;
 }
-.wrappe_tableau>a {
+
+.wrappe_tableau > a {
     border-radius: 10px;
     text-decoration: none;
     margin-bottom: 0.5em;
     float: right;
 }
+
 .tableau {
     width: 100%;
     border-collapse: collapse;
@@ -192,11 +199,22 @@
     border-radius: 20px;
 }
 
-.crudform > div {
+.crudform > div > div {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
+
+.crudform > div > span {
+    display: block;
+    padding: 0.5em;
+    text-align: center;
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    margin-top: 10px;
+}
+
 .crudform input[type=submit] {
     margin-top: 30px;
     background: #34c802;

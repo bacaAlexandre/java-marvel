@@ -38,7 +38,7 @@
         <p id="register-email-field" class="bloc_input">
             <label for="register-email">Email*: </label>
             #{ifError "utilisateur.email"}
-                <input type="text" name="utilisateur.email" id="register-email" class="login_erreur_input"
+                <input type="text" name="utilisateur.email" id="register-email" class="erreur_input"
                        value="${flash.get('utilisateur.email')}" required/>
             #{/ifError}
             #{else}
@@ -49,7 +49,7 @@
         <p id="register-password-field" class="bloc_input">
             <label for="register-password">Mot de passe*: </label>
             #{ifError "utilisateur.password"}
-                <input type="password" name="utilisateur.password" class="login_erreur_input" id="register-password"
+                <input type="password" name="utilisateur.password" class="erreur_input" id="register-password"
                        value="" required/>
             #{/ifError}
             #{else}
@@ -59,7 +59,7 @@
         <p id="register-confirm-password-field" class="bloc_input">
             <label for="register-confirm-password">Mot de passe*: </label>
             #{ifError "utilisateur.confirmPassword"}
-                <input type="password" name="confirmPassword" class="login_erreur_input" id="register-confirm-password"
+                <input type="password" name="confirmPassword" class="erreur_input" id="register-confirm-password"
                        value="" required/>
             #{/ifError}
             #{else}
@@ -77,7 +77,7 @@
         <p id="register-name-field" class="bloc_input">
             <label for="register-name">Nom*: </label>
             #{ifError "civil.nom"}
-                <input type="text" name="civil.nom" id="register-name" class="login_erreur_input"
+                <input type="text" name="civil.nom" id="register-name" class="erreur_input"
                        value="${flash.get('civil.nom')}" required/>
             #{/ifError}
             #{else}
@@ -87,7 +87,7 @@
         <p id="register-firstname-field" class="bloc_input">
             <label for="register-firstname">Prénom*: </label>
             #{ifError "civil.prenom"}
-                <input type="text" name="civil.prenom" class="login_erreur_input" id="register-firstname"
+                <input type="text" name="civil.prenom" class="erreur_input" id="register-firstname"
                        value="${flash.get('civil.prenom')} " required/>
             #{/ifError}
             #{else}
@@ -118,7 +118,7 @@
         <p id="register-telephone-field" class="bloc_input">
             <label for="register-telephone">Numéro de téléphone*: </label>
             #{ifError "civil.tel"}
-                <input type="tel" name="civil.tel" class="login_erreur_input" id="register-telephone"
+                <input type="tel" name="civil.tel" class="erreur_input" id="register-telephone"
                        value="${flash.get('civil.tel')}" required/>
             #{/ifError}
             #{else}
@@ -128,7 +128,7 @@
         <p class="bloc_input">
             <label for="register-birth-date">Date de naissance*: </label>
             #{ifError "civil.dateNaissance"}
-                <input type="date" name="civil.dateNaissance" class="login_erreur_input" id="register-birth-date"
+                <input type="date" name="civil.dateNaissance" class="erreur_input" id="register-birth-date"
                        value="${flash.get('civil.dateNaissance')}" required/>
             #{/ifError}
             #{else}
