@@ -1,27 +1,30 @@
 #{extends 'main.html' /}
 #{set title:'Civils' /}
 
-<h2>Index Civil</h2>
-<table>
-    <thead>
+<h2 class="titre_partie">Liste des civils</h2>
+<div class="wrappe_tableau">
+    <a class="btn_bleu" href="@{CivilController.create()}">Ajouter civil</a>
+    <table class="tableau">
+        <thead>
         <tr>
-            <th>Identite</th>
+            <th>Identité</th>
             <th>Date Naissance</th>
-            <th>Date Deces</th>
+            <th>Date Décès</th>
             <th>Actions</th>
         </tr>
-    </thead>
-    <tbody>
-	#{list civils, as:'civil'}
-		<tr>
-		    <td>${civil.prenom} ${civil.nom}</td>
-		    <td>${civil.dateNaissance}</td>
-		    <td>${civil.dateDeces}</td>
-		    <td>
-				<a href="@{CivilController.update(civil.id)}">Modifier</a> | <a href="@{CivilController.delete(civil.id)}">Supprimer</a>
-			</td>
-		</tr>
-	#{/list}
-    </tbody>
-</table>
-<a href="@{CivilController.create()}">Ajouter civil</a>
+        </thead>
+        <tbody>
+        #{list civils, as:'civil'}
+        <tr>
+            <td>${civil.prenom} ${civil.nom}</td>
+            <td>${civil.dateNaissance!= null?civil.dateNaissance.format('dd/MM/yyyy'):""}</td>
+            <td>${civil.dateDeces != null?civil.dateDeces.format('dd/MM/yyyy'):""}</td>
+            <td class="table_cel_action">
+                <a class="table_btn_modifier" href="@{CivilController.update(civil.id)}">Modifier</a>  <a class="table_btn_supprimer" href="@{CivilController.delete(civil.id)}">Supprimer</a>
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
+</div>
+
