@@ -57,14 +57,17 @@ public class Civil extends NewModel {
 	
 	@To_form
 	@ManyToOne
+	@Required
 	public Pays paysResidence;
 
 	@To_form
 	@ManyToOne
+	@Required
 	public Pays paysNatal;
 
 	@To_form
 	@ManyToOne
+	@Required
 	public GenreSexuel civilite;
 	
 	public static List<Civil> getByIds(List<Long> ids) {

@@ -11,7 +11,7 @@ public class Rapport extends NewModel {
     public Mission mission;
 
     @ManyToOne
-    public Super affectation;
+    public SurEtre affectation;
 
     @ManyToOne
     public Civil interlocuteur;

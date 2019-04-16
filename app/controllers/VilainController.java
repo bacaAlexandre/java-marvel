@@ -8,7 +8,7 @@ import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
 import models.Pays;
-import models.Super;
+import models.SurEtre;
 import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
@@ -18,7 +18,7 @@ import play.mvc.With;
 public class VilainController extends Controller {
 	
 	public static void index() {
-        List<Super> vilains = Super.getSuperType(false);
+        List<SurEtre> vilains = SurEtre.getSurEtreType(false);
 	    render(vilains);
 	}
 	
@@ -28,7 +28,7 @@ public class VilainController extends Controller {
         render(caras, civils);
     }
 	
-	public static void postCreate(@Valid Super vilain, Long civil) {
+	public static void postCreate(@Valid SurEtre vilain, Long civil) {
 		if(civil != null) {
 			vilain.civil = Civil.findById(civil);
 		}
@@ -42,11 +42,11 @@ public class VilainController extends Controller {
     }
 
 	public static void update(long id) {
-		Super vilain = Super.findById(id);
+		SurEtre vilain = SurEtre.findById(id);
         render(vilain);
     }
 	
-	public static void postUpdate(@Valid Super vilain, Long civil) {
+	public static void postUpdate(@Valid SurEtre vilain, Long civil) {
 		/*civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
@@ -61,7 +61,7 @@ public class VilainController extends Controller {
     }
 	
 	public static void delete(long id) {
-		Super vilain = Super.findById(id);
+		SurEtre vilain = SurEtre.findById(id);
 		vilain._delete();
 		index();
 	}

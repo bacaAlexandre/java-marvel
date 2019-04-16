@@ -29,7 +29,7 @@ public class Incident extends NewModel {
     public Civil civil = null;
 
     @ManyToOne
-    public Super superHeros = null;
+    public SurEtre superHeros = null;
 
     @ManyToOne
     public Organisation organisation = null;

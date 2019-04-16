@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Super extends NewModel {
+public class SurEtre extends NewModel {
 
 	@To_form
     @Column(length = 100, nullable = false)
@@ -41,8 +41,8 @@ public class Super extends NewModel {
 	@ManyToOne
 	public Civil civil;
 	
-    public static List<Super> getSuperType(boolean isHero) {
-    	List<Super> superheros = find("byIsHero", isHero).fetch();
+    public static List<SurEtre> getSurEtreType(boolean isHero) {
+    	List<SurEtre> superheros = find("byIsHero", isHero).fetch();
     	return superheros;
     }
 }
