@@ -34,14 +34,14 @@ public class OrganisationController extends Controller {
 	public static void postCreate(@Valid Organisation organisation) {
 		Long pays = params.get("organisation.pays", Long.class);
 		Long dirigeant = params.get("organisation.dirigeant", Long.class);
-		Long membres = params.get("organisation.membres", Long.class);
+		Long[] membres = params.get("organisation.membres", Long[].class);
 		if(pays == -1) {
 			validation.addError("organisation.pays", "Required", "");
 		}
 		if(dirigeant == -1) {
 			validation.addError("organisation.dirigeant", "Required", "");
 		}
-		if(membres == -1) {
+		if(membres == null || membres.length <= 0) {
 			validation.addError("organisation.membres", "Required", "");
 		}
 		if(validation.hasErrors()) {
@@ -69,14 +69,14 @@ public class OrganisationController extends Controller {
 		Organisation organisation = Organisation.findById(id);
 	    Long pays = params.get("organisation.pays", Long.class);
 		Long dirigeant = params.get("organisation.dirigeant", Long.class);
-		Long membres = params.get("organisation.membres", Long.class);
+		Long[] membres = params.get("organisation.membres", Long[].class);
 		if(pays == -1) {
 			validation.addError("organisation.pays", "Required", "");
 		}
 		if(dirigeant == -1) {
 			validation.addError("organisation.dirigeant", "Required", "");
 		}
-		if(membres == -1) {
+		if(membres == null || membres.length <= 0) {
 			validation.addError("organisation.membres", "Required", "");
 		}
 		if(validation.hasErrors()) {
