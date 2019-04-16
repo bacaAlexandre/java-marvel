@@ -40,8 +40,9 @@ public class Genform {
 		Class<?> classe = this.model.getClass();
 		for (Field field : classe.getDeclaredFields()) {
 	        field.setAccessible(true);
-	        
 	        if (field.isAnnotationPresent(To_form.class)) {
+		        form += "<div>";
+		        form += labelField(field);
 	        	if (field.isAnnotationPresent(Column.class)) {
 	        		form += this.classicField(field);
 	        	} else if(field.getType().toString() == "Boolean") {
@@ -51,6 +52,7 @@ public class Genform {
 	        	} else if (field.isAnnotationPresent(ManyToMany.class)) {
 	        		form += this.selectMultipleField(field);
 	        	}
+		        form += "</div>";
 	        }
 	    } 
 		form += "<input type=\"submit\" value=\"Envoyer\" />";
@@ -59,7 +61,7 @@ public class Genform {
 	}
 	
 	private String classicField(Field field) {
-		String input = "<input name=\"" + this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName() + "\" ";
+		String input = "<input " + setIdAndName(field, false);
 		input += "type=\"";
 		String type = "text";
 		switch(field.getType().toString()) {
@@ -85,7 +87,7 @@ public class Genform {
 	}
 	
 	private String booleanField(Field field) {
-		String input = "<input name=\"" + this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName() + "\" ";
+		String input = "<input " + setIdAndName(field, false);
 		try {
 			final Field champ = this.model.getClass().getDeclaredField(field.getName());
 			champ.setAccessible(true);
@@ -100,7 +102,7 @@ public class Genform {
 	}
 	
 	private String selectField(Field field) {
-		String input = "<select name=\"" + this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName() + "\" >";
+		String input = "<select " + setIdAndName(field, false) + " >";
 		
 		try {
 			List liste = (List) field.getType().getMethod("findAll").invoke(field);
@@ -116,7 +118,7 @@ public class Genform {
 	}
 	
 	private String selectMultipleField(Field field) {
-		String input = "<select multiple name=\"" + this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName() + "\" >";
+		String input = "<select multiple " + setIdAndName(field, false) + " >";
 		
 		try {
 			ParameterizedType listType= (ParameterizedType) field.getGenericType();
@@ -131,6 +133,19 @@ public class Genform {
 		
 		input += "</select>";
 		return input;
+	}
+	
+	private String labelField(Field field) {
+		return "<label " + setIdAndName(field, true) + ">"+field.getName()+"</label>";
+	}
+	
+	private String setIdAndName(Field field, boolean isLabel) {
+		String thisName = this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName();
+		if(isLabel) {
+			return "for=\"" + thisName + "\"";
+		} else {
+			return "name=\"" + thisName + "\" id=\"" + thisName + "\"";
+		}
 	}
 	
 }
