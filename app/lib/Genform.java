@@ -8,6 +8,7 @@ import java.lang.reflect.ParameterizedType;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
 import javax.persistence.ManyToMany;
@@ -47,7 +48,7 @@ public class Genform {
 	        		form += this.classicField(field);
 	        	} else if(field.getType().toString() == "Boolean") {
 	        		form += this.booleanField(field);
-	        	} else if (field.isAnnotationPresent(ManyToOne.class)) {
+	        	} else if (field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class)) {
 	        		form += this.selectField(field);
 	        	} else if (field.isAnnotationPresent(ManyToMany.class)) {
 	        		form += this.selectMultipleField(field);
@@ -103,11 +104,17 @@ public class Genform {
 	
 	private String selectField(Field field) {
 		String input = "<select " + setIdAndName(field, false) + " >";
-		
+		input += "<option value=\"\"></option>";
 		try {
 			List liste = (List) field.getType().getMethod("findAll").invoke(field);
 			for(Object obj : liste) {
-				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
+				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				if(obj == champ.get(this.model )) {
+					input += " selected ";
+				}
+				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
 			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
@@ -119,13 +126,19 @@ public class Genform {
 	
 	private String selectMultipleField(Field field) {
 		String input = "<select multiple " + setIdAndName(field, false) + " >";
-		
 		try {
 			ParameterizedType listType= (ParameterizedType) field.getGenericType();
 			Class contentClass = (Class) listType.getActualTypeArguments()[0];
 			List liste = (List) contentClass.getMethod("findAll").invoke(field);
+			List base_list = (List) this.model.getClass().getDeclaredField(field.getName().toString()).get(this.model);
 			for(Object obj : liste) {
-				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
+				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				if(base_list.contains(obj)) {
+					input += " selected ";
+				}
+				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
 			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
@@ -136,7 +149,9 @@ public class Genform {
 	}
 	
 	private String labelField(Field field) {
-		return "<label " + setIdAndName(field, true) + ">"+field.getName()+"</label>";
+		String chaine = field.getName();
+		String finalchaine = chaine.substring(0, 1).toUpperCase()+ chaine.substring(1).toLowerCase();
+		return "<label " + setIdAndName(field, true) + ">" + finalchaine + " : </label>";
 	}
 	
 	private String setIdAndName(Field field, boolean isLabel) {
