@@ -1,9 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Organisations' /}
 
-<h2>Index Organisations</h2>
-<table>
-    <thead>
+<h2 class="titre_partie">Liste des organisations</h2>
+<div class="wrappe_tableau">
+    <a class="btn_bleu" href="">Ajouter organisation</a>
+    <table class="tableau">
+        <thead>
         <tr>
             <th>Nom</th>
             <th>Siege social</th>
@@ -13,47 +15,53 @@
             <th>Nbre de missions</th>
             <th>Actions</th>
         </tr>
-    </thead>
-    <tbody>
-	#{list orgas, as:'orga'}
-		<tr>
-		    <td>${orga.nom}</td>
-        <td>${orga.pays.libelle}</td>
-        <td>${orga.dirigeant.nom}</td>
-        <td>${orga.dateAjout}</td>
-        <td>${orga.getIncidentNumber()}</td>
-        <td>${orga.getMissionNumber()}</td>
-        <td><a href="/orga/to_update/${orga.id}">MAJ</a> <a href="/orga/delete?orga=${orga.id}">SUPPR.</a></td>
-		</tr>
-	#{/list}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        #{list orgas, as:'orga'}
+        <tr>
+            <td>${orga.nom}</td>
+            <td>${orga.pays.libelle}</td>
+            <td>${orga.dirigeant.nom}</td>
+            <td>${orga.dateAjout!= null?orga.dateAjout.format('dd/MM/yyyy'):""}</td>
+            <td>${orga.getIncidentNumber()}</td>
+            <td>${orga.getMissionNumber()}</td>
+            <td class="table_cel_action">
+                <a class="table_btn_modifier" href="@{OrganisationController.toUpdate(orga.id)}">Modifier</a> <a
+                    class="table_btn_supprimer" href="@{OrganisationController.deleteOrga(orga.id)}">Supprimer</a>
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
+</div>
 
 
 <p class="margin-top">Creer une organisation : </p>
 <form action="@{OrganisationController.addOrga()}" method="post">
-  <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}" placeholder="Nom de l'organisation"><br>
-  <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}" placeholder="Adresse"><br>
-  Pays : <select name="pays">
-    #{list pays, as:'pay'}
-      <option value="${pay.id}">${pay.libelle}</option>
-    #{/list}
-  </select><br>
-  Dirigeant : <select name="chef">
-    #{list civils, as:'civil'}
-      <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
-    #{/list}
-  </select><br>
-  Membres : <select multiple name="membres">
-    #{list civils, as:'civil'}
-      <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
-    #{/list}
-  </select><br>
-  <input type="submit" value="Créer">
+    <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}"
+           placeholder="Nom de l'organisation"><br>
+    <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}"
+           placeholder="Adresse"><br>
+    Pays : <select name="pays">
+#{list pays, as:'pay'}
+    <option value="${pay.id}">${pay.libelle}</option>
+#{/list}
+</select><br>
+    Dirigeant : <select name="chef">
+#{list civils, as:'civil'}
+    <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
+#{/list}
+</select><br>
+    Membres : <select multiple name="membres">
+#{list civils, as:'civil'}
+    <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
+#{/list}
+</select><br>
+    <input type="submit" value="Créer">
 </form>
 
 #{list errors, as:'error'}
-  ${error}
+${error}
 #{/list}
 
 

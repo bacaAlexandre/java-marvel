@@ -37,23 +37,93 @@
     margin-right: 50px;
 }
 
-.nav a {
+.btn_bleu {
     text-decoration: none;
     color: white;
     padding: 10px 20px;
     background-color: dodgerblue;
     border-radius: 10px;
+    display: inline-block;
+    border: 1px solid dodgerblue;
 }
 
-.nav a:hover {
-    background-color: black;
+.btn_bleu:hover {
+    background-color: white;
+    color: dodgerblue;
+}
+
+.titre_partie {
+    text-align: center;
 }
 
 /**********TABLE***************/
+.wrappe_tableau {
+    max-width: 90%;
+    margin: auto;
+}
+.wrappe_tableau>a {
+    border-radius: 10px;
+    text-decoration: none;
+    margin-bottom: 0.5em;
+    float: right;
+}
+.tableau {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-th, td {
-    border: 1px solid #000000;
-    text-align: center;
+.tableau th, .tableau td {
+    padding: 1em;
+    text-align: left;
+}
+
+.tableau th {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.tableau tbody td {
+    border-bottom: 1px solid #ddd;
+}
+
+.tableau tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.tableau tbody tr:hover {
+    background-color: rgba(207, 212, 255, 0.82);
+}
+
+.tableau .table_cel_action {
+    display: flex;
+}
+
+.tableau .table_btn_modifier, .tableau .table_btn_supprimer {
+    padding: 1em;
+    text-decoration: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.tableau .table_btn_modifier {
+    background-color: orange;
+    border: 1px solid orange;
+    margin-right: 1em;
+}
+
+.tableau .table_btn_supprimer {
+    background-color: red;
+    border: 1px solid red;
+}
+
+.tableau .table_btn_modifier:hover {
+    color: orange;
+    background-color: white;
+}
+
+.tableau .table_btn_supprimer:hover {
+    color: red;
+    background-color: white;
 }
 
 /***************HOME*****************/
@@ -111,15 +181,16 @@ th, td {
 
 
 /***************FORM*****************/
-.crudform{
-	display: flex;
-	flex-flow: column wrap;
-	align-items: center;
-	justify-content: space-evenly;
+.crudform {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: space-evenly;
 }
-.crudform > div{
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	justify-content: center;
+
+.crudform > div {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
 }
