@@ -1,11 +1,11 @@
 #{extends 'main.html' /}
-#{set title:'Ajouter Vilain' /}
+#{set title:'Vilain' /}
 
-<h2>Ajouter Vilain</h2>
-<form action="@{VilainController.addNewVilain()}" method="post">
+<h2>Modifier un Vilain</h2>
+<form action="@{VilainController.saveUpdateVilain(vilain.id)}" method="post">
 
 	<label for="vilain.nom">Nom</label>
-    <input type="text" name="vilain.nom" value="${flash.get('vilain.nom')}" maxLength=100 />
+    <input type="text" name="vilain.nom" value="${flash.contains('vilain.nom') ? flash.get('vilain.nom') : vilain.nom" maxLength=100 />
     <span>#{error 'vilain.nom'/}</span>
 
     <br/>
@@ -22,11 +22,11 @@
     <br/>
 
 	<label for="vilain.commentaire">Commentaire</label>
-	<textarea name="vilain.commentaire" rows="5" cols="33">${flash.get('vilain.commentaire')}</textarea>
+	<textarea name="vilain.commentaire" rows="5" cols="33">${flash.contains('vilain.commentaire') ? flash.get('vilain.commentaire') : vilain.commentaire}</textarea>
     <span>#{error 'vilain.commentaire'/}</span>
 
     <br/>
-
-    <input type="submit" value="Ajouter">
+    
+    <input type="submit" value="Modifier">
 	<a href="@{VilainController.index()}">Retour</a>
 </form>

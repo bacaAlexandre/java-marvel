@@ -71,4 +71,8 @@ public class Civil extends NewModel {
 		}
 		return liste;
 	}
+	
+	public String getNameForDropdown() {
+		return this.nom.toString() + " " + this.prenom.toString();
+	}
 }

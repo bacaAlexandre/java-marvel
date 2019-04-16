@@ -19,13 +19,11 @@ import play.mvc.Http;
 public class Registration extends Controller {
 	
     @Before(unless={"login", "authenticate", "register", "logout"})
-    static void checkAccess() throws Throwable {
-        // Authentication
+    public static void checkAccess() throws Throwable {
         if(!session.contains("username")) {
             flash.put("url", "GET".equals(request.method) ? request.url : Play.ctxPath + "/"); // seems a good default
             login();
         }
-        // Checks
         Check check = getActionAnnotation(Check.class);
         if(check != null) {
             check(check);
@@ -45,8 +43,6 @@ public class Registration extends Controller {
         }
     }
 
-    // ~~~ Login
-
     public static void login() throws Throwable {
         Http.Cookie remember = request.cookies.get("rememberme");
         if(remember != null) {
@@ -57,7 +53,7 @@ public class Registration extends Controller {
                 String restOfCookie = remember.value.substring(firstIndex + 1);
                 String username = remember.value.substring(firstIndex + 1, lastIndex);
                 String time = remember.value.substring(lastIndex + 1);
-                Date expirationDate = new Date(Long.parseLong(time)); // surround with try/catch?
+                Date expirationDate = new Date(Long.parseLong(time));
                 Date now = new Date();
                 if (expirationDate == null || expirationDate.before(now)) {
                     logout();
@@ -93,7 +89,6 @@ public class Registration extends Controller {
     }
 
     public static void authenticate(@Required String username, String password, boolean remember) throws Throwable {
-        // Check tokens
         Boolean allowed = Utilisateur.connect(username, password) != null;
         if(validation.hasErrors() || !allowed) {
             flash.keep("url");
@@ -101,9 +96,7 @@ public class Registration extends Controller {
             params.flash();
             login();
         }
-        // Mark user as connected
         session.put("username", username);
-        // Remember if needed
         if(remember) {
             Date expiration = new Date();
             String duration = Play.configuration.getProperty("secure.rememberme.duration","30d"); 
@@ -111,7 +104,6 @@ public class Registration extends Controller {
             response.setCookie("rememberme", Crypto.sign(username + "-" + expiration.getTime()) + "-" + username + "-" + expiration.getTime(), duration);
 
         }
-        // Redirect to the original URL (or /)
         redirectToOriginalURL();
     }
 
@@ -122,10 +114,7 @@ public class Registration extends Controller {
         login();
     }
 
-    // ~~~ Utils
-
-    static void redirectToOriginalURL() throws Throwable {
-        //Security.invoke("onAuthenticated");
+    public static void redirectToOriginalURL() throws Throwable {
         String url = flash.get("url");
         if(url == null) {
             url = Play.ctxPath + "/";
@@ -133,32 +122,18 @@ public class Registration extends Controller {
         redirect(url);
     }
     
-    /**
-     * This method returns the current connected username
-     * @return
-     */
     public static String connected() {
         return session.get("username");
     }
 
-    /**
-     * Indicate if a user is currently connected
-     * @return  true if the user is connected
-     */
     public static boolean isConnected() {
         return session.contains("username");
     }
 
-    static boolean check(String profile) {
-        if("admin".equals(profile)) {
-            return Utilisateur.find("byEmail", connected()).<Utilisateur>first().id == 1;
-        }
-        if("Civil".equals(profile)) {
-        	Utilisateur user = Utilisateur.find("byEmail", connected()).<Utilisateur>first();
-        	Droit getRight = Droit.find("byLibelle", profile).<Droit>first();
-        	return user.droits.contains(getRight);
-        }
-        return false;
+    public static boolean check(String profile) {
+    	Utilisateur user = Utilisateur.find("byEmail", connected()).<Utilisateur>first();
+    	Droit getRight = Droit.find("byLibelle", profile).<Droit>first();
+    	return user.droits.contains(getRight);
     }
 
 
