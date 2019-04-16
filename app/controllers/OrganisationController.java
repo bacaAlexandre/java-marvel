@@ -31,15 +31,27 @@ public class OrganisationController extends Controller {
 	}
 	
 	public static void postCreate(@Valid Organisation organisation) {
+		Long pays = params.get("organisation.pays", Long.class);
+		Long dirigeant = params.get("organisation.dirigeant", Long.class);
+		Long membres = params.get("organisation.membres", Long.class);
+		if(pays == -1) {
+			validation.addError("organisation.pays", "Required", "");
+		}
+		if(dirigeant == -1) {
+			validation.addError("organisation.dirigeant", "Required", "");
+		}
+		if(membres == -1) {
+			validation.addError("organisation.membres", "Required", "");
+		}
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             index();
         }
 		organisation.dateAjout = new Date();
-		organisation.pays = params.data.get("organisation.pays") != null ? Pays.findById(Long.parseLong(params.data.get("organisation.pays")[0])) : null;
-		organisation.dirigeant = params.data.get("organisation.dirigeant") != null ? Civil.findById(Long.parseLong(params.data.get("organisation.dirigeant")[0])) : null;
-		organisation.membres = params.data.get("organisation.membres") != null ? Civil.getByIds(params.data.get("organisation.membres")) : null;
+		organisation.pays = Pays.findById(pays);
+		organisation.dirigeant = Civil.findById(dirigeant);
+		organisation.membres = Civil.getByIds(params.data.get("organisation.membres"));
 		organisation._save();
 		index();
 	}
