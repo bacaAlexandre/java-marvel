@@ -21,16 +21,13 @@ public class OrganisationController extends Controller {
 	
 	@Check({"Civil"})
 	public static void index() {
-        List<Organisation> orgas = Organisation.findAll();
-        List<Civil> civils = Civil.findAll();
-        List<Pays> pays = Pays.findAll();
         String form;
         if(validation.hasErrors()) {
         	form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap());
         } else {
         	form = new Genform(new Organisation(), "/orga/add", "crudform").generate();
         }
-        render(orgas, civils, pays, form);
+        render(form);
 	}
 	
 	public static void postCreate(@Valid Organisation organisation) {
