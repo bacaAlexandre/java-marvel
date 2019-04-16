@@ -27,11 +27,6 @@ public class CivilController extends Controller {
 	public static void create() {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
-        /*for(play.data.validation.Error errro : validation.errors()) {
-        		Logger.info(errro.getKey());
-        		Logger.info(errro.message());
-        		Logger.info("----------------------");
-    	}*/
         String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash);
         render("CivilController/form.html", pays, civilites, form);
     }
@@ -72,20 +67,27 @@ public class CivilController extends Controller {
 	
 	public static void postUpdate(@Valid Civil civil, long id) {
 		civil = Civil.findById(id);
-		civil.paysResidence = params.get("civil.paysResidence", Long.class) != -1 ? Pays.findById(params.get("civil.paysResidence", Long.class)) : null;
-		civil.paysNatal = params.get("civil.paysNatal", Long.class) != -1 ? Pays.findById(params.get("civil.paysNatal", Long.class)) : null;
-		civil.civilite = params.get("civil.civilite", Long.class) != -1 ? GenreSexuel.findById(params.get("civil.civilite", Long.class)) : null;
-		civil.dateModification = new Date();
+		Long paysResidenceID = params.get("civil.paysResidence", Long.class);
+		Long paysNatalID = params.get("civil.paysNatal", Long.class);
+		Long civiliteID = params.get("civil.civilite", Long.class);
+		if(paysResidenceID == -1) {
+			validation.addError("civil.paysResidence", "Required", "");
+		}
+		if(paysNatalID == -1) {
+			validation.addError("civil.paysNatal", "Required", "");
+		}
+		if(civiliteID == -1) {
+			validation.addError("civil.civilite", "Required", "");
+		}
 		if(validation.hasErrors()) {
-			for(play.data.validation.Error error : validation.errors()) {
-				Logger.info(error.getKey());
-				Logger.info(error.message());
-				Logger.info("-----------");
-			}
             params.flash();
             validation.keep();
-            update(civil.id);
+            create();
         }
+		civil.paysResidence = Pays.findById(paysResidenceID);
+		civil.paysNatal = Pays.findById(paysNatalID);
+		civil.civilite = GenreSexuel.findById(civiliteID);
+		civil.dateModification = new Date();
 		civil._save();
 		index();
     }

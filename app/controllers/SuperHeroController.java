@@ -33,7 +33,7 @@ public class SuperHeroController extends Controller {
         List<Civil> civils = Civil.findAll();
         List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
         List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
-        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate();
+        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
         render("SuperHeroController/form.html", civils, avantages, desavantages, form);
     }
 	
@@ -64,7 +64,7 @@ public class SuperHeroController extends Controller {
         List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
         List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
         SurEtre superhero = SurEtre.findById(id);
-        String form = new Genform(superhero, "/superhero/update/"+id, "crudform").generate();
+        String form = new Genform(superhero, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
         render("SuperHeroController/form.html", superhero, civils, avantages, desavantages, form);
 	}
 	
