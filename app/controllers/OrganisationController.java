@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import lib.Check;
 import lib.Genform;
 import play.Logger;
 import play.data.validation.Required;
@@ -15,7 +16,7 @@ import models.Utilisateur;
 import models.GenreSexuel;
 import models.Organisation;
 
-@With(Registration.class)
+@With(AuthController.class)
 public class OrganisationController extends Controller {
 	
 	@Check({"civil"})
@@ -68,7 +69,7 @@ public class OrganisationController extends Controller {
 	}
 	
 	public static void deleteOrga(Long orga) {
-		Utilisateur user = Utilisateur.find("byEmail", Registration.connected()).<Utilisateur>first();
+		Utilisateur user = Utilisateur.find("byEmail", AuthController.connected()).<Utilisateur>first();
 		Organisation organe = Organisation.find("byIdAndDirigeant", orga, user.civil ).<Organisation>first();
 		organe._delete();
 		redirect("/orga");
