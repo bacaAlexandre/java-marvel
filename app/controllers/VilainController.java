@@ -22,31 +22,31 @@ public class VilainController extends Controller {
 	    render(vilains);
 	}
 	
-	public static void newVilain() {
+	public static void create() {
 		List<Caracteristique> caras = Caracteristique.findAll();
         List<Civil> civils = Civil.findAll();
         render(caras, civils);
     }
 	
-	public static void addNewVilain(@Valid Super vilain, Long civil) {
+	public static void postCreate(@Valid Super vilain, Long civil) {
 		if(civil != null) {
 			vilain.civil = Civil.findById(civil);
 		}
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
-            newVilain();
+            create();
         }
 		vilain._save();
 		index();
     }
 
-	public static void updateVilain(long id) {
+	public static void update(long id) {
 		Super vilain = Super.findById(id);
         render(vilain);
     }
 	
-	public static void saveUpdateVilain(@Valid Super vilain, Long civil) {
+	public static void postUpdate(@Valid Super vilain, Long civil) {
 		/*civil.paysResidence = Pays.findById(paysResidence);
 		civil.paysNatal = Pays.findById(paysNatal);
 		civil.civilite = GenreSexuel.findById(civilite);
@@ -60,7 +60,7 @@ public class VilainController extends Controller {
 		index();
     }
 	
-	public static void deleteVilain(long id) {
+	public static void delete(long id) {
 		Super vilain = Super.findById(id);
 		vilain._delete();
 		index();

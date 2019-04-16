@@ -26,8 +26,8 @@
             <td>${orga.getIncidentNumber()}</td>
             <td>${orga.getMissionNumber()}</td>
             <td class="table_cel_action">
-                <a class="table_btn_modifier" href="@{OrganisationController.toUpdate(orga.id)}">Modifier</a> <a
-                    class="table_btn_supprimer" href="@{OrganisationController.deleteOrga(orga.id)}">Supprimer</a>
+                <a class="table_btn_modifier" href="@{OrganisationController.update(orga.id)}">Modifier</a> <a
+                    class="table_btn_supprimer" href="@{OrganisationController.delete(orga.id)}">Supprimer</a>
             </td>
         </tr>
         #{/list}
@@ -37,32 +37,5 @@
 
 
 <p class="margin-top">Creer une organisation : </p>
-<form action="@{OrganisationController.addOrga()}" method="post">
-    <input type="text" name="organisation.nom" value="${flash.get('organisation.nom')}"
-           placeholder="Nom de l'organisation"><br>
-    <input type="text" name="organisation.adresse" value="${flash.get('organisation.adresse')}"
-           placeholder="Adresse"><br>
-    Pays : <select name="pays">
-#{list pays, as:'pay'}
-    <option value="${pay.id}">${pay.libelle}</option>
-#{/list}
-</select><br>
-    Dirigeant : <select name="chef">
-#{list civils, as:'civil'}
-    <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
-#{/list}
-</select><br>
-    Membres : <select multiple name="membres">
-#{list civils, as:'civil'}
-    <option value="${civil.id}">${civil.nom} ${civil.prenom}</option>
-#{/list}
-</select><br>
-    <input type="submit" value="Créer">
-</form>
-
-#{list errors, as:'error'}
-${error}
-#{/list}
-
 
 ${form.raw()}

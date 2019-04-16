@@ -21,14 +21,14 @@
 		    <td>${superhero.commentaire}</td>
 		    <td>
 		    	<ul>
-			    	#{list superhero.getCaracteristiqueType(true), as:'avantage'}
+			    	#{list superhero.avantages, as:'avantage'}
 			    		<li>${avantage.libelle}</li>
 			    	#{/list}
 		    	</ul>
 		    </td>
 		    <td>
 		    	<ul>
-			    	#{list superhero.getCaracteristiqueType(false), as:'desavantage'}
+			    	#{list superhero.desavantages, as:'desavantage'}
 			    		<li>${desavantage.libelle}</li>
 			    	#{/list}
 		    	</ul>
@@ -36,7 +36,7 @@
 		    <td align="center">
 		    	<a href="@{SuperHeroController.update(superhero.id)}">Modifier</a>
 		    	<br/>
-		    	<a href="@{SuperHeroController.postDelete(superhero.id)}" onclick="return confirm('Êtes vous-sûr?');">Supprimer</a>
+		    	<a href="@{SuperHeroController.delete(superhero.id)}" onclick="return confirm('Êtes vous-sûr?');">Supprimer</a>
 		    </td>
 		</tr>
 	#{/list}
