@@ -32,7 +32,7 @@ public class CivilController extends Controller {
         		Logger.info(errro.message());
         		Logger.info("----------------------");
     	}*/
-        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap());
+        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash);
         render("CivilController/form.html", pays, civilites, form);
     }
 	
@@ -66,7 +66,7 @@ public class CivilController extends Controller {
         List<Pays> pays = Pays.findAll();
         List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
-        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap());
+        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);
         render("CivilController/form.html", pays, civilites, form);
     }
 	

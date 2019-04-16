@@ -178,7 +178,7 @@ public class Genform {
 	}
 	
 	private String labelField(Field field) {
-		String chaine = field.getName();
+		String chaine = field.getName().replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 		String finalchaine = chaine.substring(0, 1).toUpperCase()+ chaine.substring(1).toLowerCase();
 		return "<label " + setIdAndName(field, true) + ">" + finalchaine + " : </label>";
 	}
