@@ -1,9 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Organisations' /}
 
-<h2>Index Organisations</h2>
-<table>
-    <thead>
+<h2 class="titre_partie">Liste des organisations</h2>
+<div class="wrappe_tableau">
+    <a class="btn_bleu" href="">Ajouter organisation</a>
+    <table class="tableau">
+        <thead>
         <tr>
             <th>Nom</th>
             <th>Siege social</th>
@@ -13,21 +15,25 @@
             <th>Nbre de missions</th>
             <th>Actions</th>
         </tr>
-    </thead>
-    <tbody>
-	#{list orgas, as:'orga'}
-		<tr>
-		    <td>${orga.nom}</td>
-        <td>${orga.pays.libelle}</td>
-        <td>${orga.dirigeant.nom}</td>
-        <td>${orga.dateAjout}</td>
-        <td>${orga.getIncidentNumber()}</td>
-        <td>${orga.getMissionNumber()}</td>
-        <td><a href="/orga/to_update/${orga.id}">MAJ</a> <a href="/orga/delete?orga=${orga.id}">SUPPR.</a></td>
-		</tr>
-	#{/list}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        #{list orgas, as:'orga'}
+        <tr>
+            <td>${orga.nom}</td>
+            <td>${orga.pays.libelle}</td>
+            <td>${orga.dirigeant.nom}</td>
+            <td>${orga.dateAjout!= null?orga.dateAjout.format('dd/MM/yyyy'):""}</td>
+            <td>${orga.getIncidentNumber()}</td>
+            <td>${orga.getMissionNumber()}</td>
+            <td class="table_cel_action">
+                <a class="table_btn_modifier" href="@{OrganisationController.update(orga.id)}">Modifier</a> <a
+                    class="table_btn_supprimer" href="@{OrganisationController.delete(orga.id)}">Supprimer</a>
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
+</div>
 
 
 <p class="margin-top">Creer une organisation : </p>
