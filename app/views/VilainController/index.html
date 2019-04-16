@@ -1,43 +1,46 @@
 #{extends 'main.html' /}
 #{set title:'Vilains' /}
 
-<h2>Index Vilain</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Identite?</th>
-            <th>Degre malveillance</th>
-            <th>Nombre mefaits</th>
-            <th>Pouvoir(s)</th>
-            <th>Faiblesse(s)</th>
-            <th>Commentaire</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-	#{list vilains, as:'vilain'}
+<h2 class="titre_partie">Index Vilain</h2>
+<div class="wrappe_tableau">
+	<a class="btn_bleu" href="@{VilainController.create()}">Ajouter vilain</a>
+	<table class="tableau">
+		<thead>
 		<tr>
-		    <td>${vilain.nom}</td>
-		    <td>#{if vilain.civil != null} ${vilain.civil.prenom} ${vilain.civil.nom} #{/if}</td>
-		    <td>x%</td>
-		    <td>x</td>
-		    <td>
-		    #{list vilains.avantage, as:'av'}
-		    ${av.libelle};
-		    #{/list}
-		    </td>
-		    <td>
-		    #{list vilains.desavantage, as:'de'}
-		    ${de.libelle};
-		    #{/list}
-		    </td>
-		    <td>${vilain.commentaire}</td>
-		    <td>
-				<a href="@{VilainController.updateVilain(vilain.id)}">Modifier</a> | <a href="@{VilainController.deleteVilain(vilain.id)}">Supprimer</a>
+			<th>Nom</th>
+			<th>Identité</th>
+			<th>Degre malveillance</th>
+			<th>Nombre mefaits</th>
+			<th>Pouvoir(s)</th>
+			<th>Faiblesse(s)</th>
+			<th>Commentaire</th>
+			<th>Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		#{list vilains, as:'vilain'}
+		<tr>
+			<td>${vilain.nom}</td>
+			<td>#{if vilain.civil != null} ${vilain.civil.prenom} ${vilain.civil.nom} #{/if}</td>
+			<td>x%</td>
+			<td>x</td>
+			<td>
+				#{list vilains.avantage, as:'av'}
+				${av.libelle};
+				#{/list}
+			</td>
+			<td>
+				#{list vilains.desavantage, as:'de'}
+				${de.libelle};
+				#{/list}
+			</td>
+			<td>${vilain.commentaire}</td>
+			<td class="table_cel_action">
+				<a href="@{VilainController.update(vilain.id)}">Modifier</a> | <a href="@{VilainController.delete(vilain.id)}">Supprimer</a>
 			</td>
 		</tr>
-	#{/list}
-    </tbody>
-</table>
-<a href="@{VilainController.newVilain()}">Ajouter vilain</a>
+		#{/list}
+		</tbody>
+	</table>
+</div>
+
