@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import lib.Genform;
+import lib.Check;
 import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
@@ -14,7 +15,7 @@ import models.Utilisateur;
 import models.GenreSexuel;
 import models.Organisation;
 
-@With(Registration.class)
+@With(AuthController.class)
 @Check({"civil"})
 public class CivilController extends Controller {
 	
