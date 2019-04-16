@@ -108,7 +108,13 @@ public class Genform {
 		try {
 			List liste = (List) field.getType().getMethod("findAll").invoke(field);
 			for(Object obj : liste) {
-				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
+				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				if(obj == champ.get(this.model )) {
+					input += " selected ";
+				}
+				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
 			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
@@ -124,8 +130,15 @@ public class Genform {
 			ParameterizedType listType= (ParameterizedType) field.getGenericType();
 			Class contentClass = (Class) listType.getActualTypeArguments()[0];
 			List liste = (List) contentClass.getMethod("findAll").invoke(field);
+			List base_list = (List) this.model.getClass().getDeclaredField(field.getName().toString()).get(this.model);
 			for(Object obj : liste) {
-				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
+				input += "<option value=\"" + obj.getClass().getMethod("getIdForDropdown").invoke(obj) + "\"";
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				if(base_list.contains(obj)) {
+					input += " selected ";
+				}
+				input += ">" + obj.getClass().getMethod("getNameForDropdown").invoke(obj) + "</option>";
 			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
