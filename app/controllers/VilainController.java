@@ -1,9 +1,11 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import lib.Genform;
 import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
@@ -23,40 +25,59 @@ public class VilainController extends Controller {
 	}
 	
 	public static void create() {
-		List<Caracteristique> caras = Caracteristique.findAll();
         List<Civil> civils = Civil.findAll();
-        render(caras, civils);
+        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
+        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
+        String form = new Genform(new SurEtre(), "/vilain/add", "crudform").generate();
+        render("VilainController/form.html", civils, avantages, desavantages, form);
     }
 	
-	public static void postCreate(@Valid SurEtre vilain, Long civil) {
-		if(civil != null) {
-			vilain.civil = Civil.findById(civil);
-		}
+	public static void postCreate(@Valid SurEtre suretre) {
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
             create();
         }
-		vilain._save();
+		suretre.civil = Civil.findById(params.get("suretre.civil", Long.class));
+		Long[] avantages = params.get("suretre.avantages", Long[].class);
+		Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+		if (avantages != null) {
+			suretre.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+		}
+		if (desavantages != null) {
+			suretre.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+		}
+		suretre.isHero = false;
+		suretre.save();
 		index();
     }
 
 	public static void update(long id) {
-		SurEtre vilain = SurEtre.findById(id);
-        render(vilain);
-    }
+		List<Civil> civils = Civil.findAll();
+        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
+        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
+        SurEtre vilain = SurEtre.findById(id);
+        String form = new Genform(vilain, "/vilain/update/"+id, "crudform").generate();
+        render("VilainController/form.html", vilain, civils, avantages, desavantages, form);
+	}
 	
-	public static void postUpdate(@Valid SurEtre vilain, Long civil) {
-		/*civil.paysResidence = Pays.findById(paysResidence);
-		civil.paysNatal = Pays.findById(paysNatal);
-		civil.civilite = GenreSexuel.findById(civilite);
+	public static void postUpdate(long id) {
 		if(validation.hasErrors()) {
             params.flash();
             validation.keep();
-            updateCivil(civil.id);
+            update(id);
         }
-		civil.dateModification = new Date();
-		civil._save();*/
+		SurEtre vilain = SurEtre.findById(id);
+		Long[] avantages = params.get("suretre.avantages", Long[].class);
+		Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+		if (avantages != null) {
+			vilain.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+		}
+		if (desavantages != null) {
+			vilain.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+		}
+		vilain.civil = Civil.findById(params.get("suretre.civil", Long.class));
+		vilain.save();
 		index();
     }
 	

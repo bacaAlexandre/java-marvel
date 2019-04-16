@@ -32,10 +32,18 @@ public class CivilController extends Controller {
     }
 	
 	public static void postCreate(@Valid Civil civil) {
+		Logger.info(""+(civil.paysResidence));
 		civil.paysResidence = params.get("civil.paysResidence", Long.class) != -1 ? Pays.findById(params.get("civil.paysResidence", Long.class)) : null;
+		Logger.info(""+(civil.paysResidence));
 		civil.paysNatal = params.get("civil.paysNatal", Long.class) != -1 ? Pays.findById(params.get("civil.paysNatal", Long.class)) : null;
 		civil.civilite = params.get("civil.civilite", Long.class) != -1 ? GenreSexuel.findById(params.get("civil.civilite", Long.class)) : null;
 		if(validation.hasErrors()) {
+			for(play.data.validation.Error error : validation.errors()) {
+				Logger.info(error.getKey());
+				Logger.info(error.message());
+				Logger.info(error.getMessageKey());
+				Logger.info("-----------");
+			}
             params.flash();
             validation.keep();
             create();
@@ -60,6 +68,11 @@ public class CivilController extends Controller {
 		civil.civilite = params.get("civil.civilite", Long.class) != -1 ? GenreSexuel.findById(params.get("civil.civilite", Long.class)) : null;
 		civil.dateModification = new Date();
 		if(validation.hasErrors()) {
+			for(play.data.validation.Error error : validation.errors()) {
+				Logger.info(error.getKey());
+				Logger.info(error.message());
+				Logger.info("-----------");
+			}
             params.flash();
             validation.keep();
             update(civil.id);
