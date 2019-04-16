@@ -25,11 +25,8 @@ public class VilainController extends Controller {
 	}
 	
 	public static void create() {
-        List<Civil> civils = Civil.findAll();
-        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
-        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
         String form = new Genform(new SurEtre(), "/vilain/add", "crudform").generate(validation.errorsMap(), flash);
-        render("VilainController/form.html", civils, avantages, desavantages, form);
+        render("VilainController/form.html", form);
     }
 	
 	public static void postCreate(@Valid SurEtre suretre) {
@@ -53,12 +50,9 @@ public class VilainController extends Controller {
     }
 
 	public static void update(long id) {
-		List<Civil> civils = Civil.findAll();
-        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
-        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
         SurEtre vilain = SurEtre.findById(id);
         String form = new Genform(vilain, "/vilain/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-        render("VilainController/form.html", vilain, civils, avantages, desavantages, form);
+        render("VilainController/form.html", vilain, form);
 	}
 	
 	public static void postUpdate(long id) {

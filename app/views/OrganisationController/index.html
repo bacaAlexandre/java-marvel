@@ -3,7 +3,7 @@
 
 <h2 class="titre_partie">Liste des organisations</h2>
 <div class="wrappe_tableau">
-    <a class="btn_bleu" href="">Ajouter organisation</a>
+    <a class="btn_bleu" href="@{OrganisationController.create()}">Ajouter organisation</a>
     <table class="tableau">
         <thead>
         <tr>
@@ -34,8 +34,3 @@
         </tbody>
     </table>
 </div>
-
-
-<p class="margin-top">Creer une organisation : </p>
-
-${form.raw()}

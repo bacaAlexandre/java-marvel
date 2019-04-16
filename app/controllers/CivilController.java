@@ -25,10 +25,8 @@ public class CivilController extends Controller {
 	}
 	
 	public static void create() {
-        List<Pays> pays = Pays.findAll();
-        List<GenreSexuel> civilites = GenreSexuel.findAll();
         String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash);
-        render("CivilController/form.html", pays, civilites, form);
+        render("CivilController/form.html", form);
     }
 	
 	public static void postCreate(@Valid Civil civil) {
@@ -58,11 +56,9 @@ public class CivilController extends Controller {
     }
 
 	public static void update(long id) {
-        List<Pays> pays = Pays.findAll();
-        List<GenreSexuel> civilites = GenreSexuel.findAll();
         Civil civil = Civil.findById(id);
         String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-        render("CivilController/form.html", pays, civilites, form);
+        render("CivilController/form.html", form);
     }
 	
 	public static void postUpdate(@Valid Civil civil, long id) {

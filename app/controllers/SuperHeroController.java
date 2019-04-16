@@ -30,11 +30,8 @@ public class SuperHeroController extends Controller {
 	}
 	
 	public static void create() {
-        List<Civil> civils = Civil.findAll();
-        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
-        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
         String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
-        render("SuperHeroController/form.html", civils, avantages, desavantages, form);
+        render("SuperHeroController/form.html", form);
     }
 	
 	public static void postCreate(@Valid SurEtre suretre) {
@@ -62,12 +59,9 @@ public class SuperHeroController extends Controller {
     }
 	
 	public static void update(long id) {
-		List<Civil> civils = Civil.findAll();
-        List<Caracteristique> avantages = Caracteristique.getCaracteristiqueType(true);
-        List<Caracteristique> desavantages = Caracteristique.getCaracteristiqueType(false);
         SurEtre superhero = SurEtre.findById(id);
         String form = new Genform(superhero, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-        render("SuperHeroController/form.html", superhero, civils, avantages, desavantages, form);
+        render("SuperHeroController/form.html", superhero, form);
 	}
 	
 	public static void postUpdate(long id) {

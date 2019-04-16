@@ -30,6 +30,7 @@ POST    /vilain/update/{id}                    VilainController.postUpdate
 GET     /vilain/delete                         VilainController.delete
 
 GET     /orga                                  OrganisationController.index
+GET     /orga/add							   OrganisationController.create
 POST    /orga/add							   OrganisationController.postCreate
 GET     /orga/update/{id}                      OrganisationController.update
 POST    /orga/update/{id}                      OrganisationController.postUpdate

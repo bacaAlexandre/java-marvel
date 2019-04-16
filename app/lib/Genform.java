@@ -81,23 +81,29 @@ public class Genform {
 		String input = "<input " + setIdAndName(field, false);
 		input += "type=\"";
 		String type = "text";
+		boolean isDate = false;
 		switch(field.getType().toString()) {
-			case "class java.util.Date":	type = "date";
-							break;
-			case "Integer":	type = "number";
-							break;
-			default: 		type = "text";
-             				break;
+			case "class java.util.Date":	
+				type = "date";
+				isDate = true;
+				break;
+			case "Integer":	
+				type = "number";
+				break;
+			default: 		
+				type = "text";
+				break;
 		}
 		input += type + "\" ";
 		
 		try {
 			if(add_params != null) {
-				input += "value=\"" + add_params + "\" ";
+				input += "value=\"" + (isDate ? add_params.substring(0, 10) : add_params) + "\" ";
 			} else {
 				final Field champ = this.model.getClass().getDeclaredField(field.getName());
 				champ.setAccessible(true);
-				input += "value=\"" + champ.get(this.model).toString() + "\" ";
+				String value = champ.get(this.model).toString();
+				input += "value=\"" + (isDate ? value.substring(0, 10) : value) + "\" ";
 			}
 		} catch(Exception e) {
 			Logger.error(e.toString());
