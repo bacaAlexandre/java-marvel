@@ -13,14 +13,16 @@
 </head>
 <body>
 <header class="main_header">
-    <img class="icone_page" src="@{'/public/images/icone4.jpg'}" alt="">
+    <a href="@{HomeController.index}">
+        <img class="icone_page" src="@{'/public/images/icone4.jpg'}" alt="">
+    </a>
+
 </header>
 <main>
     <nav class="nav">
-        <a href="">Partie admin</a>
         <div class="nav_bloc_gauche">
             <a href="">Mon Compte</a>
-            <a href="@{Registration.logout}">Déconnexion</a>
+            <a href="@{AuthController.logout}">Déconnexion</a>
         </div>
     </nav>
 #{doLayout /}

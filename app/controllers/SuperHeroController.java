@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import lib.Check;
 import models.Caracteristique;
 import models.Civil;
 import models.GenreSexuel;
@@ -17,7 +18,7 @@ import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
 
-@With(Registration.class)
+@With(AuthController.class)
 public class SuperHeroController extends Controller {
 
 	@Check({"civil"})

@@ -7,8 +7,8 @@ import java.util.*;
 
 import models.*;
 
-@With(Registration.class)
-public class Application extends Controller {
+@With(AuthController.class)
+public class HomeController extends Controller {
 
     public static void index() {
         render();

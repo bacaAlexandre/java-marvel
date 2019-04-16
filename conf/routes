@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                                      Application.index
+GET     /                                      HomeController.index
 
 GET     /incident/declaration                  IncidentController.declaration
 POST    /incident/declaration                  IncidentController.declarer
@@ -11,8 +11,8 @@ POST    /incident/declaration                  IncidentController.declarer
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.newCivil
 POST    /civil/add                             CivilController.addNewCivil
-GET     /civil/update                          CivilController.updateCivil
-POST    /civil/update                          CivilController.saveUpdateCivil
+GET     /civil/update/{id}                     CivilController.updateCivil
+POST    /civil/update/{id}                     CivilController.saveUpdateCivil
 GET     /civil/delete                          CivilController.deleteCivil
 
 GET     /vilain                                VilainController.index
@@ -35,10 +35,10 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Import Secure routes
-GET     /login                           		Registration.login
-POST    /login                           		Registration.authenticate
-GET     /logout                          		Registration.logout
-POST	/register							               	Registration.register
+GET     /login                           		AuthController.login
+POST    /login                           		AuthController.authenticate
+GET     /logout                          		AuthController.logout
+POST	/register							    AuthController.register
 
 GET		/superhero								SuperHeroController.index
 GET		/superhero/create						SuperHeroController.create

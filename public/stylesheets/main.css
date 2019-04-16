@@ -26,7 +26,7 @@
     width: 90%;
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .nav_bloc_gauche {
@@ -42,6 +42,7 @@
     color: white;
     padding: 10px 20px;
     background-color: dodgerblue;
+    border-radius: 10px;
 }
 
 .nav a:hover {
@@ -71,9 +72,54 @@ th, td {
     border: none;
     font-size: 36px;
     padding: 50px;
+    border-radius: 10px;
 }
 
 .home_btn_incident a:hover {
     background-color: black;
 
+}
+
+.home_btn_admin {
+    display: flex;
+    min-width: 500px;
+    max-width: 50%;
+    margin: auto;
+    justify-content: space-around;
+}
+
+.home_col_left, .home_col_right {
+    display: flex;
+    flex-direction: column;
+}
+
+.home_btn_admin a {
+    text-decoration: none;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 30px;
+    text-align: center;
+    color: black;
+    border: solid 2px black;
+    border-radius: 10px;
+}
+
+.home_btn_admin a:hover {
+    color: white;
+    background-color: black;
+}
+
+
+/***************FORM*****************/
+.crudform{
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+	justify-content: space-evenly;
+}
+.crudform > div{
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
 }
