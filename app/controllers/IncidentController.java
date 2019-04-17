@@ -6,6 +6,7 @@ import lib.Genform;
 import models.Civil;
 import models.Incident;
 import models.Organisation;
+import models.Pays;
 import models.TypeDelit;
 import models.Utilisateur;
 import play.data.validation.Valid;
@@ -33,18 +34,30 @@ public class IncidentController extends Controller {
 		redirect("/");
 	}
 
-	public static void declarer(@Valid Incident incident, long typeDelit) {
+	public static void declarer(@Valid Incident incident) {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("IncidentController", "create")) {
-			incident.typeDelit = TypeDelit.findById(typeDelit);
-			incident.civil = utilisateur.civil;
+			TypeDelit td = TypeDelit.findById(params.get("incident.typeDelit", Long.class));
+			if(td == null) {
+				validation.addError("incident.typeDelit", "Required", "");
+			}
 			if (validation.hasErrors()) {
 				params.flash();
 				validation.keep();
 				declaration();
 			}
+			incident.typeDelit = td;
+			incident.civil = utilisateur.civil;
 			incident.save();
 		}
 		declaration();
+	}
+	
+	public static void transform(Long id) {
+		
+	}
+	
+	public static void delete(Long id) {
+		
 	}
 }

@@ -8,6 +8,8 @@ GET     /                                      HomeController.index
 GET     /incident               						   IncidentController.index
 GET     /incident/declaration                  IncidentController.declaration
 POST    /incident/declaration                  IncidentController.declarer
+GET			/incident/transform										 IncidentController.transform
+GET			/incident/delete											 IncidentController.delete
 
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.create
