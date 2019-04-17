@@ -24,4 +24,8 @@ public class Caracteristique extends NewModel {
     	List<Caracteristique> caracteristiques = find("byIsAvantage", isAvantage).fetch();
     	return caracteristiques;
     }
+	
+	public String getNameForDropdown() {
+		return this.libelle.toString();
+	}
 }
