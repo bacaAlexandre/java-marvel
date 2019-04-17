@@ -47,6 +47,7 @@ public class IncidentController extends Controller {
 			}
 			incident.civil = utilisateur.civil;
 			incident.save();
+			index();
 		}
 		declaration();
 	}
