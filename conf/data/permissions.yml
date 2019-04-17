@@ -15,6 +15,7 @@ Role(role2):
   libelle: "hero"
 Role(role3):
   libelle: "civil"
+  isDefault: "true"
 
 RolePermission(rolePerm1):
   controller: "HomeController"

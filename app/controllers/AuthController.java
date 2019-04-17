@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import models.*;
 import net.bytebuddy.agent.builder.AgentBuilder.InstallationListener.ErrorSuppressing;
 import play.Logger;
@@ -71,8 +70,10 @@ public class AuthController extends Controller {
     	civil.dateAjout = new Date();
     	civil.save();
     	utilisateur.civil = civil;
+    	utilisateur.role = Role.find("byIsDefault", true).first();
     	utilisateur.save();
-    	redirectToOriginalURL();
+    	flash.success("Vous vous êtes enregistré.");
+    	login();
     }
 
     public static void authenticate(@Required String username, String password, boolean remember) throws Throwable {

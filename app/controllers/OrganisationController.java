@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
+import models.Caracteristique;
 import models.Civil;
 import models.Pays;
 import models.RolePermission;
@@ -48,78 +50,92 @@ public class OrganisationController extends Controller {
 	public static void postCreate(@Valid Organisation organisation) {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("OrganisationController", "create")) {
-			Long pays = params.get("organisation.pays", Long.class);
-			Long dirigeant = params.get("organisation.dirigeant", Long.class);
-			Long[] membres = params.get("organisation.membres", Long[].class);
-			if(pays == -1) {
+			Pays pays = Pays.findById(params.get("organisation.pays", Long.class));
+			Civil dirigeant = Civil.findById(params.get("organisation.dirigeant", Long.class));
+			Long[] membres_id = params.get("organisation.membres", Long[].class);
+			List<Civil> membres = new ArrayList<>();
+			if (membres_id != null) {
+				membres.addAll(Civil.find("id in (?1)", Arrays.asList(membres_id)).fetch());
+			}
+			if(pays == null) {
 				validation.addError("organisation.pays", "Required", "");
 			}
-			if(dirigeant == -1) {
+			if(dirigeant == null) {
 				validation.addError("organisation.dirigeant", "Required", "");
 			}
-			if(membres == null || membres.length <= 0) {
+			if(membres.isEmpty()) {
 				validation.addError("organisation.membres", "Required", "");
 			}
 			if(validation.hasErrors()) {
 	            params.flash();
 	            validation.keep();
-	            index();
+	            create();
 	        }
 			organisation.dateAjout = new Date();
-			organisation.pays = Pays.findById(pays);
-			organisation.dirigeant = Civil.findById(dirigeant);
-			organisation.membres = Civil.getByIds(params.data.get("organisation.membres"));
+			organisation.pays = pays;
+			organisation.dirigeant = dirigeant;
+			organisation.membres = membres;
 			organisation.save();
 		}
 		index();
 	}
 	
 	public static void update(Long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		Organisation orga = Organisation.findById(id);
-		if (utilisateur.can("OrganisationController", "update", orga.dirigeant.id)) {
-	        String form = new Genform(orga, "/orga/update/"+id, "crudform").generate();
-			render("OrganisationController/form.html", form);
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			Organisation orga = Organisation.findById(id);
+			if (orga != null && utilisateur.can("OrganisationController", "update", orga.dirigeant.id)) {
+		        String form = new Genform(orga, "/orga/update/"+id, "crudform").generate();
+				render("OrganisationController/form.html", form);
+			}
 		}
 		index();
 	}
 	
 	public static void postUpdate(Long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		Organisation organisation = Organisation.findById(id);
-		if (utilisateur.can("OrganisationController", "update", organisation.dirigeant.id)) {
-		    Long pays = params.get("organisation.pays", Long.class);
-			Long dirigeant = params.get("organisation.dirigeant", Long.class);
-			Long[] membres = params.get("organisation.membres", Long[].class);
-			if(pays == -1) {
-				validation.addError("organisation.pays", "Required", "");
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			Organisation organisation = Organisation.findById(id);
+			if (utilisateur.can("OrganisationController", "update", organisation.dirigeant.id)) {
+			    Pays pays = Pays.findById(params.get("organisation.pays", Long.class));
+				Civil dirigeant = Civil.findById(params.get("organisation.dirigeant", Long.class));
+				Long[] membres_id = params.get("organisation.membres", Long[].class);
+				List<Civil> membres = new ArrayList<>();
+				if (membres_id != null) {
+					membres.addAll(Civil.find("id in (?1)", Arrays.asList(membres_id)).fetch());
+				}
+				if(pays == null) {
+					validation.addError("organisation.pays", "Required", "");
+				}
+				if(dirigeant == null) {
+					validation.addError("organisation.dirigeant", "Required", "");
+				}
+				if(membres.isEmpty()) {
+					validation.addError("organisation.membres", "Required", "");
+				}
+				if(validation.hasErrors()) {
+		            params.flash();
+		            validation.keep();
+		            index();
+		        }
+				organisation.edit(params.getRootParamNode(), "organisation");
+				organisation.dateModification = new Date();
+				organisation.pays = pays;
+				organisation.dirigeant = dirigeant;
+				organisation.membres = membres;
+				organisation.save();
 			}
-			if(dirigeant == -1) {
-				validation.addError("organisation.dirigeant", "Required", "");
-			}
-			if(membres == null || membres.length <= 0) {
-				validation.addError("organisation.membres", "Required", "");
-			}
-			if(validation.hasErrors()) {
-	            params.flash();
-	            validation.keep();
-	            index();
-	        }
-			organisation.edit(params.getRootParamNode(), "organisation");
-			organisation.dateModification = new Date();
-			organisation.pays = Pays.findById(pays);
-			organisation.dirigeant = Civil.findById(dirigeant);
-			organisation.membres = Civil.getByIds(params.data.get("organisation.membres"));
-			organisation.save();
 		}
 		index();
 	}
 	
 	public static void delete(Long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		Organisation organisation = Organisation.findById(id);
-		if (utilisateur.can("OrganisationController", "delete", organisation.dirigeant.id)) {
-			organisation.delete();
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			Organisation organisation = Organisation.findById(id);
+			if (organisation != null && utilisateur.can("OrganisationController", "delete", organisation.dirigeant.id)) {
+				organisation.delete();
+			}
 		}
     	index();
 	}
