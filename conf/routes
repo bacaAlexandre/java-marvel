@@ -5,6 +5,7 @@
 # Home page
 GET     /                                      HomeController.index
 
+GET     /incident               						   IncidentController.index
 GET     /incident/declaration                  IncidentController.declaration
 POST    /incident/declaration                  IncidentController.declarer
 
@@ -20,7 +21,7 @@ GET		/superhero/add					       SuperHeroController.create
 POST	/superhero/add					       SuperHeroController.postCreate
 GET		/superhero/update/{id}				   SuperHeroController.update
 POST	/superhero/update/{id}				   SuperHeroController.postUpdate
-GET		/superhero/delete					   SuperHeroController.delete	
+GET		/superhero/delete					   SuperHeroController.delete
 
 GET     /vilain                                VilainController.index
 GET     /vilain/add                            VilainController.create
@@ -47,7 +48,7 @@ GET     /login                           		AuthController.login
 POST    /login                           		AuthController.authenticate
 GET     /logout                          		AuthController.logout
 POST	/register							    AuthController.register
-				
+
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
