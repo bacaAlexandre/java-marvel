@@ -39,12 +39,13 @@ public class Genform {
 	}
 	
 	public String generate() {
-		return this.generate(null, null);
+		return this.generate(null, null, "");
 	}
 	
-	public String generate(Map<String, List<Error>> errors, Flash flash) {
+	public String generate(Map<String, List<Error>> errors, Flash flash, String titre) {
 		String form = "<form method=\"post\" action=\"";
 		form += this.action + "\" class=\"" + this.classes + "\">";
+		form += "<h2>"+titre+"</h2>";
 		Class<?> classe = this.model.getClass();
 		for (Field field : classe.getDeclaredFields()) {
 	        field.setAccessible(true);

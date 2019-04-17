@@ -42,7 +42,7 @@ public class SuperHeroController extends Controller {
 	public static void create() {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("SuperHeroController", "create")) {
-	        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
+	        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash, "Ajouter un SuperHero");
 	        render("SuperHeroController/form.html", form);
 		}
         index();
@@ -79,8 +79,8 @@ public class SuperHeroController extends Controller {
 			Utilisateur utilisateur = AuthController.connected();
 			SurEtre suretre = SurEtre.findById(id);
 			if (utilisateur.can("SuperHeroController", "update", suretre.civil.id)) {
-		        String form = new Genform(suretre, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-		        render("SuperHeroController/form.html", suretre, form);
+		        String form = new Genform(suretre, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash, "Modifier informations " + suretre.nom);
+		        render("SuperHeroController/form.html", form);
 			}
 		}
 		index();

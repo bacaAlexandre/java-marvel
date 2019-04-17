@@ -38,7 +38,7 @@ public class CivilController extends Controller {
 	public static void create() {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("CivilController", "create")) {
-	        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash);
+	        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash, "Ajouter un Civil");
 	        render("CivilController/form.html", form);
 		}
 		index();
@@ -75,7 +75,7 @@ public class CivilController extends Controller {
 			Utilisateur utilisateur = AuthController.connected();
 			if (utilisateur.can("CivilController", "update", id)) {
 		        Civil civil = Civil.findById(id);
-		        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);
+		        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash, "Modifier informations " + civil.nom + " " + civil.prenom);
 		        render("CivilController/form.html", form);
 			}
 		}

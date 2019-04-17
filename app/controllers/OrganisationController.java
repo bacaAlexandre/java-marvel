@@ -41,7 +41,7 @@ public class OrganisationController extends Controller {
 	public static void create() {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("OrganisationController", "create")) {
-	        String form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap(), flash);
+	        String form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap(), flash, "Ajouter une Organisation");
 	        render("OrganisationController/form.html", form);
 		}
 		index();
@@ -83,7 +83,7 @@ public class OrganisationController extends Controller {
 			Utilisateur utilisateur = AuthController.connected();
 			Organisation orga = Organisation.findById(id);
 			if (orga != null && utilisateur.can("OrganisationController", "update", orga.dirigeant.id)) {
-		        String form = new Genform(orga, "/orga/update/"+id, "crudform").generate();
+		        String form = new Genform(orga, "/orga/update/"+id, "crudform").generate(validation.errorsMap(), flash, "Modifier informations " + orga.nom);
 				render("OrganisationController/form.html", form);
 			}
 		}

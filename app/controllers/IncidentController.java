@@ -29,7 +29,7 @@ public class IncidentController extends Controller {
 		if (utilisateur.can("IncidentController", "create")) {
 			List<TypeDelit> delits = TypeDelit.findAll();
 			String form = new Genform(new Incident(), "/incident/declaration", "crudform")
-					.generate(validation.errorsMap(), flash);
+					.generate(validation.errorsMap(), flash, "Déclarer un Incident");
 			render("IncidentController/declaration.html", delits, form);
 		}
 		redirect("/");
