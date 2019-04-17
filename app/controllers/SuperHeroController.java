@@ -106,8 +106,7 @@ public class SuperHeroController extends Controller {
 			if (desavantages != null) {
 				superhero.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 			}
-			superhero.nom = params.get("suretre.nom");
-			superhero.commentaire = params.get("suretre.commentaire");
+			superhero.edit(params.getRootParamNode(), "suretre");
 			superhero.civil = Civil.findById(civilID);
 			superhero.save();
 		}

@@ -96,6 +96,7 @@ public class VilainController extends Controller {
 			if (desavantages != null) {
 				vilain.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 			}
+			vilain.edit(params.getRootParamNode(), "suretre");
 			vilain.civil = Civil.findById(params.get("suretre.civil", Long.class));
 			vilain.save();
 		}

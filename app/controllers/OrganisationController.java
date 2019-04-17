@@ -105,6 +105,7 @@ public class OrganisationController extends Controller {
 	            validation.keep();
 	            index();
 	        }
+			organisation.edit(params.getRootParamNode(), "organisation");
 			organisation.dateModification = new Date();
 			organisation.pays = Pays.findById(pays);
 			organisation.dirigeant = Civil.findById(dirigeant);

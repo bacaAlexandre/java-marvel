@@ -104,6 +104,7 @@ public class CivilController extends Controller {
 	            validation.keep();
 	            create();
 	        }
+			civil.edit(params.getRootParamNode(), "civil");
 			civil.paysResidence = Pays.findById(paysResidenceID);
 			civil.paysNatal = Pays.findById(paysNatalID);
 			civil.civilite = GenreSexuel.findById(civiliteID);
