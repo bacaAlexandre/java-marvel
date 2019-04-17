@@ -101,7 +101,7 @@ public class RapportController extends Controller {
 			Utilisateur utilisateur = AuthController.connected();
 			rapport = Rapport.findById(id);
 			if (rapport != null && utilisateur.can("RapportController", "update", rapport.affectation.civil.id)) {
-				SurEtre superhero = SurEtre.findById(params.get("rapport.suretre", Long.class));
+				SurEtre superhero = SurEtre.findById(params.get("rapport.affectation", Long.class));
 				if(superhero == null) {
 					validation.addError("rapport.affectation", "Required", "");
 				}
@@ -111,20 +111,10 @@ public class RapportController extends Controller {
 		            update(id);
 		        }
 				rapport.edit(params.getRootParamNode(), "rapport");
+				rapport.affectation = superhero;
 				rapport.save();
 			}
 		}
 		index();
-	}
-	
-	public static void delete(Long id) {
-		if (id != null) {
-			Utilisateur utilisateur = AuthController.connected();
-			Rapport rapport = Rapport.findById(id);
-			if (rapport != null && utilisateur.can("RapportController", "update", rapport.affectation.civil.id)) {
-				rapport.delete();
-			}
-		}
-    	index();
 	}
 }
