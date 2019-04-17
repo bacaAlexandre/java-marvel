@@ -37,6 +37,10 @@ RolePermission(rolePerm5):
   controller: "OrganisationController"
   permission: perm3
   role: role3
+RolePermission(rolePerm20):
+  controller: "CivilController"
+  permission: perm3
+  role: role3
 
 RolePermission(rolePerm6):
   controller: "HomeController"
@@ -77,12 +81,20 @@ RolePermission(rolePerm22):
   controller: "MissionController"
   permission: perm2
   role: role2
+RolePermission(rolePerm25):
+  controller: "RapportController"
+  permission: perm1
+  role: role2
 RolePermission(rolePerm23):
   controller: "RapportController"
   permission: perm2
   role: role2
 RolePermission(rolePerm24):
   controller: "RapportController"
+  permission: perm3
+  role: role2
+RolePermission(rolePerm21):
+  controller: "CivilController"
   permission: perm3
   role: role2
 
@@ -116,11 +128,11 @@ RolePermission(rolePerm19):
   hasAll: "true"
   permission: perm5
   role: role1
-RolePermission(rolePerm20):
-  controller: "CivilController"
-  permission: perm3
-  role: role3
-RolePermission(rolePerm21):
-  controller: "CivilController"
-  permission: perm3
-  role: role2
+RolePermission(rolePerm26):
+  controller: "MissionController"
+  permission: perm5
+  role: role1
+RolePermission(rolePerm27):
+  controller: "RapportController"
+  permission: perm5
+  role: role1
