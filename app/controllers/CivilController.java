@@ -20,9 +20,8 @@ import models.Organisation;
 @With(AuthController.class)
 public class CivilController extends Controller {
 	
-	private static Utilisateur utilisateur = AuthController.connected();
-	
 	public static void index() {
+		Utilisateur utilisateur = AuthController.connected();
 		RolePermission permission = utilisateur.getPermission("CivilController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			List<Civil> civils = Civil.findAll();
@@ -37,6 +36,7 @@ public class CivilController extends Controller {
 	}
 	
 	public static void create() {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("CivilController", "create")) {
 	        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash);
 	        render("CivilController/form.html", form);
@@ -45,6 +45,7 @@ public class CivilController extends Controller {
     }
 	
 	public static void postCreate(@Valid Civil civil) {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("CivilController", "create")) {
 			civil.paysResidence = Pays.findById(params.get("civil.paysResidence", Long.class));
 			civil.paysNatal = Pays.findById(params.get("civil.paysNatal", Long.class));
@@ -71,6 +72,7 @@ public class CivilController extends Controller {
 
 	public static void update(Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			if (utilisateur.can("CivilController", "update", id)) {
 		        Civil civil = Civil.findById(id);
 		        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);
@@ -82,6 +84,7 @@ public class CivilController extends Controller {
 
 	public static void postUpdate(@Valid Civil civil, Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			if (utilisateur.can("CivilController", "update", id)) {
 				civil = Civil.findById(id);
 				civil.edit(params.getRootParamNode(), "civil");
@@ -111,6 +114,7 @@ public class CivilController extends Controller {
 
 	public static void delete(Long id) {
 		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			if (utilisateur.can("CivilController", "delete", id)) {
 		        Civil civil = Civil.findById(id);
 		        civil.delete();

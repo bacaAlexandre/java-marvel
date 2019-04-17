@@ -23,10 +23,9 @@ import play.mvc.With;
 
 @With(AuthController.class)
 public class SuperHeroController extends Controller {
-	
-	private static Utilisateur utilisateur = AuthController.connected();
 
 	public static void index() {
+		Utilisateur utilisateur = AuthController.connected();
 		RolePermission permission = utilisateur.getPermission("SuperHeroController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			List<SurEtre> superheros = SurEtre.getSurEtreType(true);
@@ -41,6 +40,7 @@ public class SuperHeroController extends Controller {
 	}
 	
 	public static void create() {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("SuperHeroController", "create")) {
 	        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
 	        render("SuperHeroController/form.html", form);
@@ -49,6 +49,7 @@ public class SuperHeroController extends Controller {
     }
 	
 	public static void postCreate(@Valid SurEtre suretre) {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("SuperHeroController", "create")) {
 			suretre.civil = Civil.findById(params.get("suretre.civil", Long.class));
 			if(suretre.civil == null) {
@@ -75,6 +76,7 @@ public class SuperHeroController extends Controller {
 	
 	public static void update(Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			SurEtre suretre = SurEtre.findById(id);
 			if (utilisateur.can("SuperHeroController", "update", suretre.civil.id)) {
 		        String form = new Genform(suretre, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
@@ -86,6 +88,7 @@ public class SuperHeroController extends Controller {
 	
 	public static void postUpdate(@Valid SurEtre suretre, Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			suretre = SurEtre.findById(id);
 			if (utilisateur.can("SuperHeroController", "update", suretre.civil.id)) {
 				suretre.edit(params.getRootParamNode(), "suretre");
@@ -114,6 +117,7 @@ public class SuperHeroController extends Controller {
 	
 	public static void delete(Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			SurEtre superhero = SurEtre.findById(id);
 			if (utilisateur.can("SuperHeroController", "delete", superhero.civil.id)) {
 				superhero.delete();

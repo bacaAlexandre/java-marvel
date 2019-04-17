@@ -22,10 +22,9 @@ import models.Organisation;
 
 @With(AuthController.class)
 public class OrganisationController extends Controller {
-
-	private static Utilisateur utilisateur = AuthController.connected();
 	
 	public static void index() {
+		Utilisateur utilisateur = AuthController.connected();
 		RolePermission permission = utilisateur.getPermission("OrganisationController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			List<Organisation> orgas = Organisation.findAll();
@@ -40,6 +39,7 @@ public class OrganisationController extends Controller {
 	}
 
 	public static void create() {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("OrganisationController", "create")) {
 	        String form = new Genform(new Organisation(), "/orga/add", "crudform").generate(validation.errorsMap(), flash);
 	        render("OrganisationController/form.html", form);
@@ -48,6 +48,7 @@ public class OrganisationController extends Controller {
     }
 	
 	public static void postCreate(@Valid Organisation organisation) {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("OrganisationController", "create")) {
 			organisation.pays = Pays.findById(params.get("organisation.pays", Long.class));
 			organisation.dirigeant = Civil.findById(params.get("organisation.dirigeant", Long.class));
@@ -79,6 +80,7 @@ public class OrganisationController extends Controller {
 	
 	public static void update(Long id) {
 		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			Organisation orga = Organisation.findById(id);
 			if (orga != null && utilisateur.can("OrganisationController", "update", orga.dirigeant.id)) {
 		        String form = new Genform(orga, "/orga/update/"+id, "crudform").generate();
@@ -90,6 +92,7 @@ public class OrganisationController extends Controller {
 	
 	public static void postUpdate(@Valid Organisation organisation, Long id) {
 		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			organisation = Organisation.findById(id);
 			if (utilisateur.can("OrganisationController", "update", organisation.dirigeant.id)) {
 				organisation.edit(params.getRootParamNode(), "organisation");
@@ -124,6 +127,7 @@ public class OrganisationController extends Controller {
 	
 	public static void delete(Long id) {
 		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			Organisation organisation = Organisation.findById(id);
 			if (organisation != null && utilisateur.can("OrganisationController", "delete", organisation.dirigeant.id)) {
 				organisation.delete();
