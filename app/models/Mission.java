@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 
 import lib.To_form;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity

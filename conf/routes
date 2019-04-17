@@ -12,6 +12,7 @@ GET		/incident/delete					   IncidentController.delete
 
 GET		/mission							   MissionController.index
 GET		/mission/transform					   MissionController.transform
+POST		/mission/add/{id_incident}					   MissionController.add
 
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.create
