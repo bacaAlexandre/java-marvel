@@ -8,8 +8,10 @@ GET     /                                      HomeController.index
 GET     /incident               						   IncidentController.index
 GET     /incident/declaration                  IncidentController.declaration
 POST    /incident/declaration                  IncidentController.declarer
-GET			/incident/transform										 IncidentController.transform
 GET			/incident/delete											 IncidentController.delete
+
+GET			/mission															 MissionController.index
+GET			/mission/transform										 MissionController.transform
 
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.create
@@ -18,12 +20,12 @@ GET     /civil/update/{id}                     CivilController.update
 POST    /civil/update/{id}                     CivilController.postUpdate
 GET     /civil/delete                          CivilController.delete
 
-GET		/superhero							   SuperHeroController.index
-GET		/superhero/add					       SuperHeroController.create
-POST	/superhero/add					       SuperHeroController.postCreate
-GET		/superhero/update/{id}				   SuperHeroController.update
-POST	/superhero/update/{id}				   SuperHeroController.postUpdate
-GET		/superhero/delete					   SuperHeroController.delete
+GET		/superhero														   SuperHeroController.index
+GET		/superhero/add					 						     SuperHeroController.create
+POST	/superhero/add					 						     SuperHeroController.postCreate
+GET		/superhero/update/{id}				   				 SuperHeroController.update
+POST	/superhero/update/{id}				   				 SuperHeroController.postUpdate
+GET		/superhero/delete					   						 SuperHeroController.delete
 
 GET     /vilain                                VilainController.index
 GET     /vilain/add                            VilainController.create
@@ -33,11 +35,11 @@ POST    /vilain/update/{id}                    VilainController.postUpdate
 GET     /vilain/delete                         VilainController.delete
 
 GET     /orga                                  OrganisationController.index
-GET     /orga/add							   OrganisationController.create
-POST    /orga/add							   OrganisationController.postCreate
+GET     /orga/add							   							 OrganisationController.create
+POST    /orga/add							  							 OrganisationController.postCreate
 GET     /orga/update/{id}                      OrganisationController.update
 POST    /orga/update/{id}                      OrganisationController.postUpdate
-GET		/orga/delete						   OrganisationController.delete
+GET		/orga/delete						  							 OrganisationController.delete
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -49,7 +51,7 @@ GET     /public/                                staticDir:public
 GET     /login                           		AuthController.login
 POST    /login                           		AuthController.authenticate
 GET     /logout                          		AuthController.logout
-POST	/register							    AuthController.register
+POST	/register							  						  AuthController.register
 
 
 # Catch all

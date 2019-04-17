@@ -104,3 +104,11 @@ RolePermission(rolePerm19):
   hasAll: "true"
   permission: perm5
   role: role1
+RolePermission(rolePerm20):
+  controller: "CivilController"
+  permission: perm3
+  role: role3
+RolePermission(rolePerm21):
+  controller: "CivilController"
+  permission: perm2
+  role: role3
