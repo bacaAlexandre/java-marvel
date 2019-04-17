@@ -6,7 +6,7 @@ Pays(p3):
   libelle: "Chine"
 Pays(p4):
   libelle: "Mère patrie"
-  
+
 GenreSexuel(g1):
   libelle: "Femme"
 GenreSexuel(g2):
@@ -15,7 +15,7 @@ GenreSexuel(g3):
   libelle: "Bresilien.ne"
 GenreSexuel(g4):
   libelle: "Autre"
-  
+
 Civil(c1):
   nom: "Massue"
   prenom: "Brise"
@@ -37,7 +37,7 @@ Civil(c2):
   paysResidence: p1
   paysNatal: p1
   civilite: g2
-  
+
 Utilisateur(u1):
   email: "admin"
   password: "test"
@@ -55,9 +55,46 @@ SurEtre(s2):
   nom: "IronMan"
   isHero: "true"
   civil: c2
-  
+
 TypeDelit(td1):
-  libelle: "Vole"
+  libelle: "Vol"
 
 TypeDelit(td2):
   libelle: "Meurtre"
+
+NatureMission(nm1):
+  labelle: "Sauvetage de l'univers"
+
+NatureMission(nm2):
+  labelle: "Sauvetage du monde"
+
+NatureMission(nm3):
+  labelle: "Sauvetage de chaton"
+
+NiveauGravite(ng1):
+  labelle: "Important"
+
+NiveauGravite(ng2):
+  labelle: "Moyen"
+
+NiveauGravite(ng3):
+  labelle: "Faible"
+
+NiveauUrgence(nu1):
+  labelle: "Important"
+
+NiveauUrgence(nu2):
+  labelle: "Moyen"
+
+NiveauUrgence(nu3):
+  labelle: "Faible"
+
+Caracteristique(ca1):
+  libelle: "Cheveux soyeux"
+  isAvantage: true
+  description: "Des cheveux doux et soyeux charmant les elfes et les poneys"
+
+Caracteristique(ca2):
+  libelle: "MUUUUUUUSCLES"
+  isAvantage: true
+  description: "OUH AH OUH AH OUUUUUUH !!!!"
