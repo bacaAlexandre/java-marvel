@@ -66,5 +66,10 @@ public class Utilisateur extends NewModel {
     	}
     	return null;
     }
+    
+    public SurEtre getHero() {
+    	
+    	return null;
+    }
 
 }

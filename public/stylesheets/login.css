@@ -52,10 +52,22 @@ html, body {
 }
 
 .login .error {
-    background: #c00
+    display: block;
+    padding: 0.5em;
+    text-align: center;
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    margin-top: 10px;
 }
 
 .login .success {
-    background: #008800
+    display: block;
+    padding: 0.5em;
+    text-align: center;
+    color: #67a95c;
+    background-color: #e2f2e0;
+    border: 1px solid #d5ebc9;
+    margin-top: 10px;
 }
 

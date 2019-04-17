@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lib.Genform;
 import models.Civil;
@@ -24,7 +25,18 @@ public class MissionController extends Controller {
 	private static Utilisateur utilisateur = AuthController.connected();
 	
 	public static void index() {
-		
+		if (utilisateur.can("MissionController", "read")) {
+			List<Mission> missions = Mission.findAll();
+			if(!utilisateur.isAdmin) {
+				missions = missions.stream().filter(m -> {
+					return m.superHeros.stream().filter(s -> {
+						return s == utilisateur.getHero();
+					}).findFirst().isPresent();
+				}).collect(Collectors.toList());
+			}
+			render("MissionController/index.html", missions);
+		}
+		redirect("/");
 	}
 
 	public static void transform(Long id_incident) {
@@ -37,7 +49,8 @@ public class MissionController extends Controller {
 	
 	public static void add(@Valid Mission mission, Long id_incident) {
 		if (utilisateur.can("MissionController", "create")) {
-			mission.incident = Incident.findById(id_incident);
+			Incident incident = Incident.findById(id_incident);
+			mission.incident = incident;
 			mission.nature = NatureMission.findById(params.get("mission.nature", Long.class));
 			mission.niveauUrgence = NiveauUrgence.findById(params.get("mission.niveauUrgence", Long.class));
 			mission.niveauGravite = NiveauGravite.findById(params.get("mission.niveauGravite", Long.class));
@@ -68,7 +81,9 @@ public class MissionController extends Controller {
 	            validation.keep();
 	            transform(id_incident);
 	        }
-			mission.save();
+			Mission new_mission = mission.save();
+			incident.mission = new_mission;
+			incident.save();
 		}
 		index();
 	}
