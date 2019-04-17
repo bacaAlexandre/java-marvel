@@ -23,7 +23,7 @@
             <td>${incident.getDeclarant()}</td>
             <td class="table_cel_action">
                 <a class="table_btn_modifier" href="@{MissionController.transform(incident.id)}">Mission</a> 
-                <a class="table_btn_supprimer" href="@{IncidentController.delete(incident.id)}">Supprimer</a>
+                <a class="table_btn_supprimer" onclick="confirmDelete('@{IncidentController.delete(incident.id)}')">Supprimer</a>
             </td>
         </tr>
         #{/list}
