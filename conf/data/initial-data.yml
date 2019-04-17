@@ -16,11 +16,6 @@ GenreSexuel(g3):
 GenreSexuel(g4):
   libelle: "Autre"
   
-Droit(d1):
-  libelle: "admin"
-Droit(d2):
-  libelle: "civil"
-  
 Civil(c1):
   nom: "Massue"
   prenom: "Brise"
