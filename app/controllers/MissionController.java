@@ -38,18 +38,10 @@ public class MissionController extends Controller {
 		}
 		redirect("/");
 	}
-	
-	public static void view(Long id) {
-		if (utilisateur.can("MissionController", "read")) {
-			Mission mission = Mission.findById(id);
-			render("MissionController/view.html", mission);
-		}
-		redirect("/");
-	}
 
 	public static void transform(Long id_incident) {
 		if (utilisateur.can("MissionController", "create")) {
-	        String form = new Genform(new Mission(), "/mission/add/"+id_incident, "crudform").generate(validation.errorsMap(), flash, "Déclarer une Mission");
+	        String form = new Genform(new Mission(), "/mission/add/"+id_incident, "crudform").generate(validation.errorsMap(), flash, "Générer une Mission");
 	        render("MissionController/form.html", form);
 		}
 		index();

@@ -49,14 +49,8 @@ public class IncidentController extends Controller {
 			}
 			incident.civil = utilisateur.civil;
 			incident.save();
-			if(!utilisateur.isHero()) {
-				Logger.info("win");
-		    	flash.success("Votre déclaration a été prise en compte.");
-				redirect("/");
-			} else {
-				Logger.info("lose");
-				index();
-			}
+	    	flash.success("Votre déclaration a été prise en compte.");
+			redirect("/");
 		}
 		declaration();
 	}
