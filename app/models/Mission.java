@@ -6,7 +6,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
