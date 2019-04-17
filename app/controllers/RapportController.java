@@ -15,6 +15,7 @@ import models.Rapport;
 import models.RolePermission;
 import models.SurEtre;
 import models.Utilisateur;
+import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;

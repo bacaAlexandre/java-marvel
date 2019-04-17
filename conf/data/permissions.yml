@@ -50,11 +50,6 @@ RolePermission(rolePerm7):
   controller: "IncidentController"
   permission: perm1
   role: role2
-RolePermission(rolePerm8):
-  controller: "IncidentController"
-  hasAll: "true"
-  permission: perm2
-  role: role2
 RolePermission(rolePerm9):
   controller: "OrganisationController"
   permission: perm1
