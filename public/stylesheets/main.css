@@ -127,11 +127,13 @@
 .tableau .table_btn_modifier:hover {
     color: orange;
     background-color: white;
+    cursor: pointer;
 }
 
 .tableau .table_btn_supprimer:hover {
     color: red;
     background-color: white;
+    cursor: pointer;
 }
 
 /***************HOME*****************/

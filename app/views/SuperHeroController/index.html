@@ -36,7 +36,8 @@
 				</ul>
 			</td>
 			<td class="table_cel_action">
-				<a class="table_btn_modifier" href="@{SuperHeroController.update(superhero.id)}">Modifier</a>  <a class="table_btn_supprimer" href="@{SuperHeroController.delete(superhero.id)}">Supprimer</a>
+				<a class="table_btn_modifier" href="@{SuperHeroController.update(superhero.id)}">Modifier</a>
+				<a class="table_btn_supprimer" onclick="confirmDelete('@{SuperHeroController.delete(superhero.id)}')">Supprimer</a>
 			</td>
 		</tr>
 		#{/list}

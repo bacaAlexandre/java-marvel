@@ -40,7 +40,8 @@
 			</td>
 			<td>${vilain.commentaire}</td>
 			<td class="table_cel_action">
-				<a class="table_btn_modifier" href="@{VilainController.update(vilain.id)}">Modifier</a>  <a class="table_btn_supprimer" href="@{VilainController.delete(vilain.id)}">Supprimer</a>
+				<a class="table_btn_modifier" href="@{VilainController.update(vilain.id)}">Modifier</a>
+				<a class="table_btn_supprimer" onclick="confirmDelete('@{VilainController.delete(vilain.id)}')">Supprimer</a>
 			</td>
 		</tr>
 		#{/list}

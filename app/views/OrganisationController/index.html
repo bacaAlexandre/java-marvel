@@ -26,8 +26,8 @@
             <td>${orga.getIncidentNumber()}</td>
             <td>${orga.getMissionNumber()}</td>
             <td class="table_cel_action">
-                <a class="table_btn_modifier" href="@{OrganisationController.update(orga.id)}">Modifier</a> <a
-                    class="table_btn_supprimer" href="@{OrganisationController.delete(orga.id)}">Supprimer</a>
+                <a class="table_btn_modifier" href="@{OrganisationController.update(orga.id)}">Modifier</a>
+                <a class="table_btn_supprimer" onclick="confirmDelete('@{OrganisationController.delete(orga.id)}')">Supprimer</a>
             </td>
         </tr>
         #{/list}
