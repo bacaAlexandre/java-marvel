@@ -43,10 +43,10 @@ public class RapportController extends Controller {
 		if (mission != null) {
 			RolePermission permission = utilisateur.getPermission("RapportController", "create");
 			if (utilisateur.isAdmin || permission != null) {
-				if ((!utilisateur.isAdmin && !permission.hasAll) || mission.superHeros.stream().filter(s -> {
+				if (utilisateur.isAdmin || permission.hasAll || mission.superHeros.stream().filter(s -> {
 					return s.civil.id == utilisateur.civil.id;
 				}).findFirst().isPresent()) {
-					String form = new Genform(new Rapport(), "/rapport/add", "crudform").generate(validation.errorsMap(), flash);
+					String form = new Genform(new Rapport(), "/rapport/add/" + id, "crudform").generate(validation.errorsMap(), flash);
 			        render("RapportController/form.html", form);
 				}
 			}
@@ -59,10 +59,10 @@ public class RapportController extends Controller {
 		Mission mission = Mission.findById(id);
 		RolePermission permission = utilisateur.getPermission("RapportController", "create");
 		if (utilisateur.isAdmin || permission != null) {
-			if ((!utilisateur.isAdmin && !permission.hasAll) || mission.superHeros.stream().filter(s -> {
+			if (utilisateur.isAdmin || permission.hasAll || mission.superHeros.stream().filter(s -> {
 				return s.civil.id == utilisateur.civil.id;
 			}).findFirst().isPresent()) {
-				SurEtre superhero = SurEtre.findById(params.get("rapport.suretre", Long.class));
+				SurEtre superhero = SurEtre.findById(params.get("rapport.affectation", Long.class));
 				if(superhero == null) {
 					validation.addError("rapport.affectation", "Required", "");
 				}
