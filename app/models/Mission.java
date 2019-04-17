@@ -24,6 +24,9 @@ public class Mission extends NewModel {
     @Column(columnDefinition="datetime",nullable=false)
     public Date dateDebut;
 
+    @Column(columnDefinition="datetime")
+    public Date dateFin;
+
     @Column(columnDefinition="text")
     public String commentaire;
 
