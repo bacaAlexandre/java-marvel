@@ -148,6 +148,9 @@
     height: 80vh;
     align-items: center;
 }
+.home_btn_hero .home_col_right a:first-child{
+    margin-bottom: 40px;
+}
 .home_btn_incident a ,.home_btn_hero a{
     text-decoration: none;
     color: #a80202;
@@ -172,6 +175,7 @@
 .home_col_left, .home_col_right {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 .home_btn_admin a {
