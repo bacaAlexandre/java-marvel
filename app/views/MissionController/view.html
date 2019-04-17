@@ -1,13 +1,17 @@
 #{extends 'main.html' /}
 #{set title:'Mission' /}
 
-<h2>Informations de la mission "${mission.titre}" : </h2>
-<p>Description : </p>
-<p>${mission.commentaire}</p>
-<ul>
-  <li>Nature : ${mission.nature.labelle}</li>
-  <li>Importance : ${mission.niveauUrgence.labelle}</li>
-  <li>Gravité : ${mission.niveauGravite.labelle}</li>
-</ul>
+<div class="bloc_view_mission">
+    <h2>Informations de la mission "${mission.titre}" </h2>
+    <ul>
+        <li><b>Nature : </b>${mission.nature.labelle}</li>
+        <li><b>Importance : </b>${mission.niveauUrgence.labelle}</li>
+        <li><b>Gravité : </b>${mission.niveauGravite.labelle}</li>
+    </ul>
+    <p><b>Description : </b></p>
+    <p>${mission.commentaire}</p>
+    <div>
+        <a class="" href="@{RapportController.create(mission.id)}">Cloturer la mission</a>
+    </div>
+</div>
 
-<a class="" href="@{RapportController.create(mission.id)}">Cloturer la mission</a> 
