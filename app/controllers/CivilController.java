@@ -74,7 +74,9 @@ public class CivilController extends Controller {
     }
 
 	public static void update(long id) {
+		Logger.info(""+id);
 		Utilisateur utilisateur = AuthController.connected();
+		Logger.info(""+utilisateur.can("CivilController", "update", id));
 		if (utilisateur.can("CivilController", "update", id)) {
 	        Civil civil = Civil.findById(id);
 	        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);

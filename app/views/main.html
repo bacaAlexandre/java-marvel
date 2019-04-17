@@ -22,7 +22,7 @@
 #{if controllers.AuthController.isConnected()}
     <nav class="nav">
         <div class="nav_bloc_gauche">
-            <a class="btn_bleu" href="">Mon Compte</a>
+            <a class="btn_bleu" href="@{CivilController.update(controllers.AuthController.connected().civil.id)}">Mon Compte</a>
             <a class="btn_bleu" href="@{AuthController.logout}">Déconnexion</a>
         </div>
     </nav>
