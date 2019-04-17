@@ -142,20 +142,23 @@
     flex-direction: column;
     height: 80vh;
 }
-
-.home_btn_incident a {
+.home_btn_hero{
+    display: flex;
+    justify-content: space-around;
+    height: 80vh;
+    align-items: center;
+}
+.home_btn_incident a ,.home_btn_hero a{
     text-decoration: none;
-    background-color: red;
-    color: white;
-    border: none;
+    color: #a80202;
+    border: solid 2px #a80202;
     font-size: 36px;
     padding: 50px;
     border-radius: 10px;
 }
-
-.home_btn_incident a:hover {
-    background-color: black;
-
+.home_btn_incident a:hover,.home_btn_hero a:hover {
+    color: white;
+    background-color: #a80202;
 }
 
 .home_btn_admin {

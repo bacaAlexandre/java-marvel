@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+#{set title:'Incidents' /}
+
+<h2 class="titre_partie">Liste des incidents</h2>
+<div class="wrappe_tableau">
+    <a class="btn_bleu" href="@{IncidentController.declaration()}">Ajouter incident</a>
+    <table class="tableau">
+        <thead>
+        <tr>
+            <th>Lieu</th>
+            <th>Description</th>
+            <th>Type de délit</th>
+            <th>Déclarant</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        #{list incidents, as:'incident'}
+        <tr>
+            <td>${incident.lieu}</td>
+            <td>${incident.description}</td>
+            <td>${incident.typeDelit.libelle}</td>
+            <td>${incident.getDeclarant()}</td>
+            <td class="table_cel_action">
+                <a class="table_btn_modifier" href="@{IncidentController.transform(incident.id)}">Mission</a> <a
+                    class="table_btn_supprimer" href="@{IncidentController.delete(incident.id)}">Supprimer</a>
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
+</div>
