@@ -15,9 +15,8 @@ public class IncidentController extends Controller {
 	public static void declaration() {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("IncidentController", "create")) {
-			List<TypeDelit> delits = TypeDelit.findAll();
 			String form = new Genform(new Incident(), "/incident/declaration", "crudform").generate(validation.errorsMap(), flash);
-		    render("IncidentController/declaration.html", delits, form);
+		    render("IncidentController/declaration.html", form);
 		}
 		redirect("/");
 	}
