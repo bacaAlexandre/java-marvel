@@ -9,6 +9,7 @@ import models.Organisation;
 import models.Pays;
 import models.TypeDelit;
 import models.Utilisateur;
+import play.Logger;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 
@@ -48,7 +49,14 @@ public class IncidentController extends Controller {
 			}
 			incident.civil = utilisateur.civil;
 			incident.save();
-			index();
+			if(!utilisateur.isHero()) {
+				Logger.info("win");
+		    	flash.success("Votre déclaration a été prise en compte.");
+				redirect("/");
+			} else {
+				Logger.info("lose");
+				index();
+			}
 		}
 		declaration();
 	}

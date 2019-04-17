@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Menu' /}
 
+#{if flash.success}
+<p class="success">
+${messages.get(flash.success)}
+</p>
+#{/if}
 #{if utilisateur.role.libelle.equals("admin")}
 <div class="home_btn_admin">
     <div class="home_col_left">

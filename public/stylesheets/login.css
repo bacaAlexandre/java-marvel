@@ -51,7 +51,7 @@ html, body {
     color: #34c802;
 }
 
-.login .error {
+.error {
     display: block;
     padding: 0.5em;
     text-align: center;
@@ -61,7 +61,7 @@ html, body {
     margin-top: 10px;
 }
 
-.login .success {
+.success {
     display: block;
     padding: 0.5em;
     text-align: center;

@@ -66,10 +66,13 @@ public class Utilisateur extends NewModel {
     	}
     	return null;
     }
-    
+
     public SurEtre getHero() {
-    	
-    	return null;
+    	return SurEtre.find("byCivil", civil).first();
+    }
+    
+    public boolean isHero() {
+    	return getHero() != null;
     }
 
 }
