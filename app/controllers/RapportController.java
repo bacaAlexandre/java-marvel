@@ -24,7 +24,7 @@ public class RapportController extends Controller {
 
 	public static void index() {
 		Utilisateur utilisateur = AuthController.connected();
-		RolePermission permission = utilisateur.getPermission("SuperHeroController", "read");
+		RolePermission permission = utilisateur.getPermission("RapportController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			List<Rapport> rapports = Rapport.findAll();
 			if (!utilisateur.isAdmin && !permission.hasAll) {
@@ -40,9 +40,16 @@ public class RapportController extends Controller {
 	public static void create(long id) {
 		Utilisateur utilisateur = AuthController.connected();
 		Mission mission = Mission.findById(id);
-		if (mission != null && utilisateur.can("OrganisationController", "create", id)) {
-	        String form = new Genform(new Rapport(), "/rapport/add", "crudform").generate(validation.errorsMap(), flash);
-	        render("RapportController/form.html", form);
+		if (mission != null) {
+			RolePermission permission = utilisateur.getPermission("RapportController", "create");
+			if (utilisateur.isAdmin || permission != null) {
+				if ((!utilisateur.isAdmin && !permission.hasAll) || mission.superHeros.stream().filter(s -> {
+					return s.civil.id == utilisateur.civil.id;
+				}).findFirst().isPresent()) {
+					String form = new Genform(new Rapport(), "/rapport/add", "crudform").generate(validation.errorsMap(), flash);
+			        render("RapportController/form.html", form);
+				}
+			}
 		}
 		index();
     }
@@ -50,26 +57,74 @@ public class RapportController extends Controller {
 	public static void postCreate(@Valid Rapport rapport, long id) {
 		Utilisateur utilisateur = AuthController.connected();
 		Mission mission = Mission.findById(id);
-		if (mission != null && utilisateur.can("OrganisationController", "create", id)) {
-			SurEtre superhero = SurEtre.findById(params.get("rapport.suretre", Long.class));
-			if(superhero == null) {
-				validation.addError("rapport.affectation", "Required", "");
+		RolePermission permission = utilisateur.getPermission("RapportController", "create");
+		if (utilisateur.isAdmin || permission != null) {
+			if ((!utilisateur.isAdmin && !permission.hasAll) || mission.superHeros.stream().filter(s -> {
+				return s.civil.id == utilisateur.civil.id;
+			}).findFirst().isPresent()) {
+				SurEtre superhero = SurEtre.findById(params.get("rapport.suretre", Long.class));
+				if(superhero == null) {
+					validation.addError("rapport.affectation", "Required", "");
+				}
+				if(validation.hasErrors()) {
+		            params.flash();
+		            validation.keep();
+		            create(id);
+		        }
+				rapport.affectation = superhero;
+				rapport.mission = mission;
+				rapport.save();
+				List<Rapport> rapports = Rapport.find("byMission", mission).fetch();
+				if (rapports.size() >= mission.superHeros.size()) {
+					mission.dateFin = new Date();
+					mission.save();
+				}
 			}
-			if(validation.hasErrors()) {
-	            params.flash();
-	            validation.keep();
-	            create(id);
-	        }
-			rapport.affectation = superhero;
-			rapport.mission = mission;
-			rapport.save();
-			List<Rapport> rapports = Rapport.find("byMission", mission).fetch();
-			if (rapports.size() >= mission.superHeros.size()) {
-				mission.dateFin = new Date();
-				mission.save();
-			}
-			
 		}
 		index();
+	}
+	
+	public static void update(Long id) {
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			Rapport rapport = Rapport.findById(id);
+			if (rapport != null && utilisateur.can("RapportController", "update", rapport.affectation.civil.id)) {
+				String form = new Genform(rapport, "/rapport/update/"+id, "crudform").generate();
+				render("RapportController/form.html", form);
+			}
+		}
+		index();
+	}
+	
+	public static void postUpdate(@Valid Rapport rapport, Long id) {
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			rapport = Rapport.findById(id);
+			if (rapport != null && utilisateur.can("RapportController", "update", rapport.affectation.civil.id)) {
+				SurEtre superhero = SurEtre.findById(params.get("rapport.suretre", Long.class));
+				if(superhero == null) {
+					validation.addError("rapport.affectation", "Required", "");
+				}
+				if(validation.hasErrors()) {
+		            params.flash();
+		            validation.keep();
+		            update(id);
+		        }
+				rapport.edit(params.getRootParamNode(), "rapport");
+				rapport.save();
+			}
+		}
+		index();
+	}
+	
+	public static void delete(Long id) {
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			Rapport rapport = Rapport.findById(id);
+			if (rapport != null && utilisateur.can("RapportController", "update", rapport.affectation.civil.id)) {
+				rapport.delete();
+			}
+		}
+    	index();
 	}
 }
