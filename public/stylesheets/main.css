@@ -207,6 +207,9 @@
     border: 20px solid #dadada;
     border-radius: 20px;
 }
+.crudform h2 {
+    text-align: center;
+}
 
 .crudform > div > div {
     display: flex;
@@ -236,4 +239,40 @@
 .crudform input[type=submit]:hover {
     background-color: white;
     color: #34c802;
+}
+
+
+/**************Vue mission ************/
+
+.bloc_view_mission{
+    margin: 50px auto 0 auto;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 20px;
+    background-color: rgba(234, 228, 228, 0.64);
+    border: 20px solid #dadada;
+    border-radius: 20px;
+}
+.bloc_view_mission ul li{
+    list-style-type: none;
+}
+.bloc_view_mission>div{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.bloc_view_mission>div>a{
+    text-decoration: none;
+    background: #34c802;
+    padding: 10px 30px 10px 30px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #34c802;
+    text-align: center;
+}
+
+.bloc_view_mission>div>a:hover{
+    background-color: white;
+    color: #34c802
 }
