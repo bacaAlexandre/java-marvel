@@ -15,7 +15,13 @@
 .margin-top {
     margin-top: 50px;
 }
+ul{
+    padding-left: 0;
+}
+ul li{
+    list-style-type: none;
 
+}
 .main_header {
     display: flex;
     align-items: center;
@@ -253,9 +259,7 @@
     border: 20px solid #dadada;
     border-radius: 20px;
 }
-.bloc_view_mission ul li{
-    list-style-type: none;
-}
+
 .bloc_view_mission>div{
     margin-top: 50px;
     display: flex;
