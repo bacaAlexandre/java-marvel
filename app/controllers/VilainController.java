@@ -40,7 +40,7 @@ public class VilainController extends Controller {
 	public static void create() {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("VilainController", "create")) {
-	        String form = new Genform(new SurEtre(), "/vilain/add", "crudform").generate(validation.errorsMap(), flash);
+	        String form = new Genform(new SurEtre(), "/vilain/add", "crudform").generate(validation.errorsMap(), flash, "Ajouter un SuperVilain");
 	        render("VilainController/form.html", form);
 		}
 		index();
@@ -72,10 +72,10 @@ public class VilainController extends Controller {
 	public static void update(Long id) {
 		if(id != null) {
 			Utilisateur utilisateur = AuthController.connected();
-			SurEtre vilain = SurEtre.findById(id);
+			SurEtre suretre = SurEtre.findById(id);
 			if (utilisateur.can("VilainController", "update")) {
-		        String form = new Genform(vilain, "/vilain/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-		        render("VilainController/form.html", vilain, form);
+		        String form = new Genform(suretre, "/vilain/update/"+id, "crudform").generate(validation.errorsMap(), flash, "Modifier informations " + suretre.nom);
+		        render("VilainController/form.html", form);
 			}
 		}
 		index();

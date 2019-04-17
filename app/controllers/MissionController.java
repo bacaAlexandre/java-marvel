@@ -41,7 +41,7 @@ public class MissionController extends Controller {
 
 	public static void transform(Long id_incident) {
 		if (utilisateur.can("MissionController", "create")) {
-	        String form = new Genform(new Mission(), "/mission/add/"+id_incident, "crudform").generate(validation.errorsMap(), flash);
+	        String form = new Genform(new Mission(), "/mission/add/"+id_incident, "crudform").generate(validation.errorsMap(), flash, "Déclarer une Mission");
 	        render("MissionController/form.html", form);
 		}
 		index();

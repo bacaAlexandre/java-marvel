@@ -46,7 +46,7 @@ public class RapportController extends Controller {
 				if (utilisateur.isAdmin || permission.hasAll || mission.superHeros.stream().filter(s -> {
 					return s.civil.id == utilisateur.civil.id;
 				}).findFirst().isPresent()) {
-					String form = new Genform(new Rapport(), "/rapport/add/" + id, "crudform").generate(validation.errorsMap(), flash);
+					String form = new Genform(new Rapport(), "/rapport/add/" + id, "crudform").generate(validation.errorsMap(), flash, "Générer un rapport");
 			        render("RapportController/form.html", form);
 				}
 			}
