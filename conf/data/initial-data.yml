@@ -89,12 +89,14 @@ NiveauUrgence(nu2):
 NiveauUrgence(nu3):
   labelle: "Faible"
 
-Caracteristique(ca1):
+Avantage(ca1):
   libelle: "Cheveux soyeux"
-  isAvantage: true
   description: "Des cheveux doux et soyeux charmant les elfes et les poneys"
 
-Caracteristique(ca2):
+Avantage(ca2):
   libelle: "MUUUUUUUSCLES"
-  isAvantage: true
   description: "OUH AH OUH AH OUUUUUUH !!!!"
+
+Desavantage(da1):
+  libelle: "Allergique à l'eau"
+  description: "va mourir assoifé"

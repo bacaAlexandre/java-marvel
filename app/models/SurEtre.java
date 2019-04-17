@@ -6,6 +6,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -31,11 +32,11 @@ public class SurEtre extends NewModel {
 
 	@To_form
     @ManyToMany
-    public List<Caracteristique> avantages;
+    public List<Avantage> avantages;
 
 	@To_form
     @ManyToMany
-    public List<Caracteristique> desavantages;
+    public List<Desavantage> desavantages;
 
 	@To_form
 	@ManyToOne

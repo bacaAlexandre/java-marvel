@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lib.Genform;
-import models.Caracteristique;
+import models.Avantage;
+import models.Desavantage;
 import models.Civil;
 import models.GenreSexuel;
 import models.Organisation;
@@ -63,10 +64,10 @@ public class SuperHeroController extends Controller {
 			Long[] avantages = params.get("suretre.avantages", Long[].class);
 			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
 			if (avantages != null) {
-				suretre.avantages = (Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+				suretre.avantages = (Avantage.find("id in (?1)", Arrays.asList(avantages)).fetch());
 			}
 			if (desavantages != null) {
-				suretre.desavantages = (Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+				suretre.desavantages = (Desavantage.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 			}
 			suretre.isHero = true;
 			suretre.save();
@@ -104,10 +105,10 @@ public class SuperHeroController extends Controller {
 				Long[] avantages = params.get("suretre.avantages", Long[].class);
 				Long[] desavantages = params.get("suretre.desavantages", Long[].class);
 				if (avantages != null) {
-					suretre.avantages = (Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+					suretre.avantages = (Avantage.find("id in (?1)", Arrays.asList(avantages)).fetch());
 				}
 				if (desavantages != null) {
-					suretre.desavantages = (Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+					suretre.desavantages = (Desavantage.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 				}
 				suretre.save();
 			}

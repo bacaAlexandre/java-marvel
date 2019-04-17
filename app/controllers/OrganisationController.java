@@ -12,7 +12,6 @@ import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
-import models.Caracteristique;
 import models.Civil;
 import models.Pays;
 import models.RolePermission;
