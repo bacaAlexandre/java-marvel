@@ -45,4 +45,8 @@ public class SurEtre extends NewModel {
     	List<SurEtre> superheros = find("byIsHero", isHero).fetch();
     	return superheros;
     }
+	
+	public String getNameForDropdown() {
+		return this.nom.toString();
+	}
 }

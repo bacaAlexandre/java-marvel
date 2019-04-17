@@ -7,28 +7,26 @@
     <table class="tableau">
         <thead>
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Type de délit</th>
+            <th>Titre mission</th>
+            <th>Affectation</th>
+            <th>Interlocuteur</th>
+            <th>Résultat</th>
         </tr>
         </thead>
         <tbody>
+        #{list rapports, as:'rapport'}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>${rapport.mission.incident.typeDelit}</td>
+            <td>${rapport.mission.titre}</td>
+            <td>${rapport.affectation}</td>
+            <td>${rapport.interlocuteur}</td>
+            <td>${rapport.resultat}</td>
             <td class="table_cel_action">
-                <a class="table_btn_modifier" href="">Modifier</a> <a
-                    class="table_btn_supprimer" href="">Supprimer</a>
+                <a class="table_btn_modifier" href="">Modifier</a>
             </td>
         </tr>
+        #{/list}
         </tbody>
     </table>
 </div>
