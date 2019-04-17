@@ -63,10 +63,10 @@ public class SuperHeroController extends Controller {
 			Long[] avantages = params.get("suretre.avantages", Long[].class);
 			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
 			if (avantages != null) {
-				suretre.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+				suretre.avantages = (Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
 			}
 			if (desavantages != null) {
-				suretre.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+				suretre.desavantages = (Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 			}
 			suretre.isHero = true;
 			suretre.save();
@@ -104,10 +104,10 @@ public class SuperHeroController extends Controller {
 				Long[] avantages = params.get("suretre.avantages", Long[].class);
 				Long[] desavantages = params.get("suretre.desavantages", Long[].class);
 				if (avantages != null) {
-					suretre.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+					suretre.avantages = (Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
 				}
 				if (desavantages != null) {
-					suretre.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+					suretre.desavantages = (Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 				}
 				suretre.save();
 			}
