@@ -58,6 +58,13 @@ public class IncidentController extends Controller {
 	}
 	
 	public static void delete(Long id) {
-		
+		if (id != null) {
+			Utilisateur utilisateur = AuthController.connected();
+			Incident incident = Incident.findById(id);
+			if (incident != null && utilisateur.can("IncidentController", "delete")) {
+				incident.delete();
+			}
+		}
+    	index();
 	}
 }
