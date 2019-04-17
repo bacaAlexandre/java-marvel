@@ -57,7 +57,17 @@ public class Genform {
         			add_params = flash.get(this.model.getClass().getSimpleName().toLowerCase() + "." + field.getName());
         		}
 	        	if (field.isAnnotationPresent(Column.class)) {
-	        		form += this.classicField(field, add_params, has_error);
+	        		boolean isTextArea = false;
+	        		for(Annotation an : field.getDeclaredAnnotations()) {
+		        		if(an.toString().contains("columnDefinition=text")) {
+		        			isTextArea = true;
+		        		}
+	        		}
+	        		if(isTextArea) {
+		        		form += this.textareaField(field, add_params, has_error);
+	        		} else {
+		        		form += this.classicField(field, add_params, has_error);
+	        		}
 	        	} else if(field.getType().toString() == "Boolean") {
 	        		form += this.booleanField(field, add_params, has_error);
 	        	} else if (field.isAnnotationPresent(ManyToOne.class) || field.isAnnotationPresent(OneToOne.class)) {
@@ -112,6 +122,27 @@ public class Genform {
 			input += " class=\"" + ERROR_CLASS + "\" ";
 		}
 		input += " />";
+		return input;
+	}
+	
+	private String textareaField(Field field, String add_params, Boolean has_error) {
+		String input = "<textarea " + setIdAndName(field, false);
+		if(has_error) {
+			input += " class=\"" + ERROR_CLASS + "\" ";
+		}
+		input += ">";
+		try {
+			if(add_params != null) {
+				input += add_params;
+			} else {
+				final Field champ = this.model.getClass().getDeclaredField(field.getName());
+				champ.setAccessible(true);
+				input += champ.get(this.model).toString();
+			}
+		} catch(Exception e) {
+			Logger.error(e.toString());
+		}
+		input += "</textarea>";
 		return input;
 	}
 	
