@@ -37,4 +37,16 @@ public class Incident extends NewModel {
 
     @ManyToOne
     public Organisation organisation = null;
+    
+    public String getDeclarant() {
+    	String declarant = "";
+    	if(this.organisation != null) {
+    		declarant = this.organisation.nom;
+    	} else if(this.superHeros != null) {
+    		declarant = this.superHeros.nom;
+    	} else if(this.civil != null) {
+    		declarant = this.civil.nom + " " + this.civil.prenom;
+    	}
+    	return declarant;
+    }
 }
