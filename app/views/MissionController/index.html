@@ -1,2 +1,22 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+
+<h2 class="titre_partie">Liste des missions</h2>
+<div class="wrappe_tableau">
+    <table class="tableau">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Nature</th>
+        </tr>
+        </thead>
+        <tbody>
+        #{list missions, as:'mission'}
+        <tr>
+            <td>${mission.titre}</td>
+            <td>${mission.nature.labelle}</td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
+</div>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lib.Genform;
 import models.Civil;
@@ -24,7 +25,18 @@ public class MissionController extends Controller {
 	private static Utilisateur utilisateur = AuthController.connected();
 	
 	public static void index() {
-		render("MissionController/index.html");
+		if (utilisateur.can("MissionController", "read")) {
+			List<Mission> missions = Mission.findAll();
+			if(!utilisateur.isAdmin) {
+				missions = missions.stream().filter(m -> {
+					return m.superHeros.stream().filter(s -> {
+						return s == utilisateur.getHero();
+					}).findFirst().isPresent();
+				}).collect(Collectors.toList());
+			}
+			render("MissionController/index.html", missions);
+		}
+		redirect("/");
 	}
 
 	public static void transform(Long id_incident) {
