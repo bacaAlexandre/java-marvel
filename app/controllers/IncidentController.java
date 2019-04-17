@@ -53,10 +53,6 @@ public class IncidentController extends Controller {
 		declaration();
 	}
 	
-	public static void transform(Long id) {
-		
-	}
-	
 	public static void delete(Long id) {
 		if (id != null) {
 			Utilisateur utilisateur = AuthController.connected();
