@@ -58,12 +58,24 @@ public class VilainController extends Controller {
 			suretre.civil = Civil.findById(params.get("suretre.civil", Long.class));
 			Long[] avantages = params.get("suretre.avantages", Long[].class);
 			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+			
+			List<Avantage> avantages_list = new ArrayList<>();
+			List<Desavantage> desavantages_list = new ArrayList<>();
+			
 			if (avantages != null) {
-				suretre.avantages = (Avantage.find("id in (?1)", Arrays.asList(avantages)).fetch());
+				avantages_list.addAll(Avantage.find("id in (?1)", Arrays.asList(avantages)).fetch());
 			}
 			if (desavantages != null) {
-				suretre.desavantages = (Desavantage.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+				desavantages_list.addAll(Desavantage.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 			}
+			if (avantages_list.isEmpty()) {
+				validation.addError("suretre.avantages", "Required", "");
+			}
+			if (desavantages_list.isEmpty()) {
+				validation.addError("suretre.desavantages", "Required", "");
+			}
+			suretre.avantages = avantages_list;
+			suretre.desavantages = desavantages_list;
 			suretre.isHero = false;
 			suretre.save();
 		}
@@ -96,12 +108,24 @@ public class VilainController extends Controller {
 		        }
 				Long[] avantages = params.get("suretre.avantages", Long[].class);
 				Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+				
+				List<Avantage> avantages_list = new ArrayList<>();
+				List<Desavantage> desavantages_list = new ArrayList<>();
+				
 				if (avantages != null) {
-					suretre.avantages = (Avantage.find("id in (?1)", Arrays.asList(avantages)).fetch());
+					avantages_list.addAll(Avantage.find("id in (?1)", Arrays.asList(avantages)).fetch());
 				}
 				if (desavantages != null) {
-					suretre.desavantages = (Desavantage.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+					desavantages_list.addAll(Desavantage.find("id in (?1)", Arrays.asList(desavantages)).fetch());
 				}
+				if (avantages_list.isEmpty()) {
+					validation.addError("suretre.avantages", "Required", "");
+				}
+				if (desavantages_list.isEmpty()) {
+					validation.addError("suretre.desavantages", "Required", "");
+				}
+				suretre.avantages = avantages_list;
+				suretre.desavantages = desavantages_list;
 				suretre.save();
 			}
 		}
