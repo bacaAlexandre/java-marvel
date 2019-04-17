@@ -17,6 +17,8 @@ public class Role extends NewModel {
 	@Column(nullable=false)
 	public String libelle;
 	
+	public boolean isDefault = false;
+	
 	@OneToMany(mappedBy = "role")
     public Set<RolePermission> rolePermission = new HashSet<RolePermission>();
 
