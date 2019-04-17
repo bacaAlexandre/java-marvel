@@ -21,10 +21,9 @@ import play.mvc.Controller;
 import play.data.validation.Valid;
 
 public class MissionController extends Controller {
-
-	private static Utilisateur utilisateur = AuthController.connected();
 	
 	public static void index() {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("MissionController", "read")) {
 			List<Mission> missions = Mission.findAll();
 			if(!utilisateur.isAdmin) {
@@ -38,8 +37,18 @@ public class MissionController extends Controller {
 		}
 		redirect("/");
 	}
+	
+	public static void view(Long id){
+		Utilisateur utilisateur = AuthController.connected();
+		if(utilisateur.can("MissionController","read")) {
+			Mission mission = Mission.findById(id);
+			render("MissionController/view.html", mission);
+		}
+		redirect("/");
+	}
 
 	public static void transform(Long id_incident) {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("MissionController", "create")) {
 	        String form = new Genform(new Mission(), "/mission/add/"+id_incident, "crudform").generate(validation.errorsMap(), flash, "Générer une Mission");
 	        render("MissionController/form.html", form);
@@ -48,6 +57,7 @@ public class MissionController extends Controller {
 	}
 	
 	public static void add(@Valid Mission mission, Long id_incident) {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("MissionController", "create")) {
 			Incident incident = Incident.findById(id_incident);
 			mission.incident = incident;
