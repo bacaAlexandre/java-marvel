@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Missions' /}
 
 <h2 class="titre_partie">Liste des missions</h2>
 <div class="wrappe_tableau">
@@ -8,6 +8,7 @@
         <tr>
             <th>Titre</th>
             <th>Nature</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -15,6 +16,9 @@
         <tr>
             <td>${mission.titre}</td>
             <td>${mission.nature.labelle}</td>
+            <td class="table_cel_action">
+                <a class="table_btn_modifier" href="@{MissionController.view(mission.id)}">Voir</a>
+            </td>
         </tr>
         #{/list}
         </tbody>
