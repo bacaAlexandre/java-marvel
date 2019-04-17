@@ -22,10 +22,18 @@ public class IncidentController extends Controller {
 		redirect("/");
 	}
 	
-	public static void declarer(@Valid Incident incident, long typeDelit) {
+	public static void declarer(@Valid Incident incident) {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("IncidentController", "create")) {
-			incident.typeDelit = TypeDelit.findById(typeDelit);
+			/*try {
+				incident.typeDelit = TypeDelit.findById(params.get("incident.typeDelit", Long.class));
+				if(incident.typeDelit == null) {
+					validation.addError("incident.typeDelit", "Required", "");
+				}
+			}
+			catch{
+				
+			}*/
 			incident.civil = utilisateur.civil;
 			if(validation.hasErrors()) {
 	            params.flash();
