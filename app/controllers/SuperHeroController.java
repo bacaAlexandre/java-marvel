@@ -23,9 +23,10 @@ import play.mvc.With;
 
 @With(AuthController.class)
 public class SuperHeroController extends Controller {
+	
+	private static Utilisateur utilisateur = AuthController.connected();
 
 	public static void index() {
-		Utilisateur utilisateur = AuthController.connected();
 		RolePermission permission = utilisateur.getPermission("SuperHeroController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			List<SurEtre> superheros = SurEtre.getSurEtreType(true);
@@ -40,7 +41,6 @@ public class SuperHeroController extends Controller {
 	}
 	
 	public static void create() {
-		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("SuperHeroController", "create")) {
 	        String form = new Genform(new SurEtre(), "/superhero/add", "crudform").generate(validation.errorsMap(), flash);
 	        render("SuperHeroController/form.html", form);
@@ -49,10 +49,9 @@ public class SuperHeroController extends Controller {
     }
 	
 	public static void postCreate(@Valid SurEtre suretre) {
-		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("SuperHeroController", "create")) {
-			Long civilID = params.get("suretre.civil", Long.class);
-			if(civilID == -1) {
+			suretre.civil = Civil.findById(params.get("suretre.civil", Long.class));
+			if(suretre.civil == null) {
 				validation.addError("suretre.civil", "Required", "");
 			}
 			if(validation.hasErrors()) {
@@ -60,7 +59,6 @@ public class SuperHeroController extends Controller {
 	            validation.keep();
 	            create();
 	        }
-			suretre.civil = Civil.findById(civilID);
 			Long[] avantages = params.get("suretre.avantages", Long[].class);
 			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
 			if (avantages != null) {
@@ -75,49 +73,51 @@ public class SuperHeroController extends Controller {
 		index();
     }
 	
-	public static void update(long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		SurEtre superhero = SurEtre.findById(id);
-		if (utilisateur.can("SuperHeroController", "update", superhero.civil.id)) {
-	        String form = new Genform(superhero, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-	        render("SuperHeroController/form.html", superhero, form);
+	public static void update(Long id) {
+		if(id != null) {
+			SurEtre suretre = SurEtre.findById(id);
+			if (utilisateur.can("SuperHeroController", "update", suretre.civil.id)) {
+		        String form = new Genform(suretre, "/superhero/update/"+id, "crudform").generate(validation.errorsMap(), flash);
+		        render("SuperHeroController/form.html", suretre, form);
+			}
 		}
 		index();
 	}
 	
-	public static void postUpdate(long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		SurEtre superhero = SurEtre.findById(id);
-		if (utilisateur.can("SuperHeroController", "update", superhero.civil.id)) {
-			Long civilID = params.get("suretre.civil", Long.class);
-			if(civilID == -1) {
-				validation.addError("suretre.civil", "Required", "");
+	public static void postUpdate(@Valid SurEtre suretre, Long id) {
+		if(id != null) {
+			suretre = SurEtre.findById(id);
+			if (utilisateur.can("SuperHeroController", "update", suretre.civil.id)) {
+				suretre.edit(params.getRootParamNode(), "suretre");
+				suretre.civil = Civil.findById(params.get("suretre.civil", Long.class));
+				if(suretre.civil == null) {
+					validation.addError("suretre.civil", "Required", "");
+				}
+				if(validation.hasErrors()) {
+		            params.flash();
+		            validation.keep();
+		            update(id);
+		        }
+				Long[] avantages = params.get("suretre.avantages", Long[].class);
+				Long[] desavantages = params.get("suretre.desavantages", Long[].class);
+				if (avantages != null) {
+					suretre.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
+				}
+				if (desavantages != null) {
+					suretre.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
+				}
+				suretre.save();
 			}
-			if(validation.hasErrors()) {
-	            params.flash();
-	            validation.keep();
-	            update(id);
-	        }
-			Long[] avantages = params.get("suretre.avantages", Long[].class);
-			Long[] desavantages = params.get("suretre.desavantages", Long[].class);
-			if (avantages != null) {
-				superhero.avantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(avantages)).fetch());
-			}
-			if (desavantages != null) {
-				superhero.desavantages.addAll(Caracteristique.find("id in (?1)", Arrays.asList(desavantages)).fetch());
-			}
-			superhero.edit(params.getRootParamNode(), "suretre");
-			superhero.civil = Civil.findById(civilID);
-			superhero.save();
 		}
 		index();
     }
 	
-	public static void delete(long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		SurEtre superhero = SurEtre.findById(id);
-		if (utilisateur.can("SuperHeroController", "delete", superhero.civil.id)) {
-			superhero.delete();
+	public static void delete(Long id) {
+		if(id != null) {
+			SurEtre superhero = SurEtre.findById(id);
+			if (utilisateur.can("SuperHeroController", "delete", superhero.civil.id)) {
+				superhero.delete();
+			}
 		}
 		index();
 	}

@@ -20,8 +20,9 @@ import models.Organisation;
 @With(AuthController.class)
 public class CivilController extends Controller {
 	
+	private static Utilisateur utilisateur = AuthController.connected();
+	
 	public static void index() {
-		Utilisateur utilisateur = AuthController.connected();
 		RolePermission permission = utilisateur.getPermission("CivilController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			List<Civil> civils = Civil.findAll();
@@ -36,7 +37,6 @@ public class CivilController extends Controller {
 	}
 	
 	public static void create() {
-		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("CivilController", "create")) {
 	        String form = new Genform(new Civil(), "/civil/add", "crudform").generate(validation.errorsMap(), flash);
 	        render("CivilController/form.html", form);
@@ -45,18 +45,17 @@ public class CivilController extends Controller {
     }
 	
 	public static void postCreate(@Valid Civil civil) {
-		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("CivilController", "create")) {
-			Long paysResidenceID = params.get("civil.paysResidence", Long.class);
-			Long paysNatalID = params.get("civil.paysNatal", Long.class);
-			Long civiliteID = params.get("civil.civilite", Long.class);
-			if(paysResidenceID == -1) {
+			civil.paysResidence = Pays.findById(params.get("civil.paysResidence", Long.class));
+			civil.paysNatal = Pays.findById(params.get("civil.paysNatal", Long.class));
+			civil.civilite = GenreSexuel.findById(params.get("civil.civilite", Long.class));
+			if(civil.paysResidence == null) {
 				validation.addError("civil.paysResidence", "Required", "");
 			}
-			if(paysNatalID == -1) {
+			if(civil.paysNatal == null) {
 				validation.addError("civil.paysNatal", "Required", "");
 			}
-			if(civiliteID == -1) {
+			if(civil.civilite == null) {
 				validation.addError("civil.civilite", "Required", "");
 			}
 			if(validation.hasErrors()) {
@@ -64,63 +63,58 @@ public class CivilController extends Controller {
 	            validation.keep();
 	            create();
 	        }
-			civil.paysResidence = Pays.findById(paysResidenceID);
-			civil.paysNatal = Pays.findById(paysNatalID);
-			civil.civilite = GenreSexuel.findById(civiliteID);
 			civil.dateAjout = new Date();
 			civil.save();
 		}
 		index();
     }
 
-	public static void update(long id) {
-		Logger.info(""+id);
-		Utilisateur utilisateur = AuthController.connected();
-		Logger.info(""+utilisateur.can("CivilController", "update", id));
-		if (utilisateur.can("CivilController", "update", id)) {
-	        Civil civil = Civil.findById(id);
-	        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);
-	        render("CivilController/form.html", form);
+	public static void update(Long id) {
+		if(id != null) {
+			if (utilisateur.can("CivilController", "update", id)) {
+		        Civil civil = Civil.findById(id);
+		        String form = new Genform(civil, "/civil/update/"+id, "crudform").generate(validation.errorsMap(), flash);
+		        render("CivilController/form.html", form);
+			}
 		}
 		index();
     }
 
-	public static void postUpdate(@Valid Civil civil, long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		if (utilisateur.can("CivilController", "update", id)) {
-			civil = Civil.findById(id);
-			Long paysResidenceID = params.get("civil.paysResidence", Long.class);
-			Long paysNatalID = params.get("civil.paysNatal", Long.class);
-			Long civiliteID = params.get("civil.civilite", Long.class);
-			if(paysResidenceID == -1) {
-				validation.addError("civil.paysResidence", "Required", "");
+	public static void postUpdate(@Valid Civil civil, Long id) {
+		if(id != null) {
+			if (utilisateur.can("CivilController", "update", id)) {
+				civil = Civil.findById(id);
+				civil.edit(params.getRootParamNode(), "civil");
+				civil.paysResidence = Pays.findById(params.get("civil.paysResidence", Long.class));
+				civil.paysNatal = Pays.findById(params.get("civil.paysNatal", Long.class));
+				civil.civilite = GenreSexuel.findById(params.get("civil.civilite", Long.class));
+				if(civil.paysResidence == null) {
+					validation.addError("civil.paysResidence", "Required", "");
+				}
+				if(civil.paysNatal == null) {
+					validation.addError("civil.paysNatal", "Required", "");
+				}
+				if(civil.civilite == null) {
+					validation.addError("civil.civilite", "Required", "");
+				}
+				if(validation.hasErrors()) {
+		            params.flash();
+		            validation.keep();
+		            create();
+		        }
+				civil.dateModification = new Date();
+				civil.save();
 			}
-			if(paysNatalID == -1) {
-				validation.addError("civil.paysNatal", "Required", "");
-			}
-			if(civiliteID == -1) {
-				validation.addError("civil.civilite", "Required", "");
-			}
-			if(validation.hasErrors()) {
-	            params.flash();
-	            validation.keep();
-	            create();
-	        }
-			civil.edit(params.getRootParamNode(), "civil");
-			civil.paysResidence = Pays.findById(paysResidenceID);
-			civil.paysNatal = Pays.findById(paysNatalID);
-			civil.civilite = GenreSexuel.findById(civiliteID);
-			civil.dateModification = new Date();
-			civil.save();
 		}
 		index();
     }
 
-	public static void delete(long id) {
-		Utilisateur utilisateur = AuthController.connected();
-		if (utilisateur.can("CivilController", "delete", id)) {
-	        Civil civil = Civil.findById(id);
-	        civil.delete();
+	public static void delete(Long id) {
+		if (id != null) {
+			if (utilisateur.can("CivilController", "delete", id)) {
+		        Civil civil = Civil.findById(id);
+		        civil.delete();
+			}
 		}
 		index();
 	}
