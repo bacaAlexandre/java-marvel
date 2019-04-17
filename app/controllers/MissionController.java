@@ -38,6 +38,14 @@ public class MissionController extends Controller {
 		}
 		redirect("/");
 	}
+	
+	public static void view(Long id) {
+		if (utilisateur.can("MissionController", "read")) {
+			Mission mission = Mission.findById(id);
+			render("MissionController/view.html", mission);
+		}
+		redirect("/");
+	}
 
 	public static void transform(Long id_incident) {
 		if (utilisateur.can("MissionController", "create")) {

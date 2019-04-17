@@ -12,6 +12,7 @@ GET		/incident/delete					   IncidentController.delete
 
 GET		/mission							   MissionController.index
 GET		/mission/transform					   MissionController.transform
+GET		/mission/view					   MissionController.view
 POST		/mission/add/{id_incident}					   MissionController.add
 
 GET		/rapport							   RapportController.index

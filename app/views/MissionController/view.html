@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Mission' /}
+
+<h2>Informations de la mission "${mission.titre}" : </h2>
+<p>Description : </p>
+<p>${mission.description}</p>
+<ul>
+  <li>Nature : ${mission.nature.labelle}</li>
+  <li>Importance : ${mission.niveauUrgence.labelle}</li>
+  <li>Gravité : ${mission.niveauGravite.labelle}</li>
+</ul>
