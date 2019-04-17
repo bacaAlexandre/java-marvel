@@ -16,7 +16,48 @@ GenreSexuel(g3):
 GenreSexuel(g4):
   libelle: "Autre"
 
+Avantage(av1):
+  libelle: "Cheveux soyeux"
+  description: "Des cheveux doux et soyeux charmant les elfes et les poneys"
+Avantage(av2):
+  libelle: "MUUUUUUUSCLES"
+  description: "OUH AH OUH AH OUUUUUUH !!!!"
+Avantage(av3):
+  libelle: "Armure"
+  description: "Elle briiille !!"
+Avantage(av4):
+  libelle: "Argent"
+  description: "L'argent fait pas tout mais il aide"
+
+Desavantage(da1):
+  libelle: "Allergique à l'eau"
+  description: "va mourir assoifé"
+Desavantage(da2):
+  libelle: "Alcool"
+  description: "Glouglouglou"
+
 Civil(c1):
+  nom: "Lee"
+  prenom: "Stan"
+  adresse: ""
+  tel: "0606060606"
+  dateNaissance: 1922-12-28
+  dateAjout: 2018-03-16
+  dateDeces: 2018-11-12
+  paysResidence: p1
+  paysNatal: p1
+  civilite: g2
+Civil(c2):
+  nom: "Stark"
+  prenom: "Tony"
+  adresse: ""
+  tel: "0606060606"
+  dateNaissance: 1986-09-11
+  dateAjout: 2019-03-21
+  paysResidence: p1
+  paysNatal: p1
+  civilite: g2
+Civil(c3):
   nom: "Massue"
   prenom: "Brise"
   adresse: "Cesi Mont Saint Aignan"
@@ -27,76 +68,53 @@ Civil(c1):
   paysNatal: p4
   civilite: g2
 
-Civil(c2):
-  nom: "Tony"
-  prenom: "Stark"
-  adresse: ""
-  tel: "0606060606"
-  dateNaissance: 1986-09-11
-  dateAjout: 2019-03-21
-  paysResidence: p1
-  paysNatal: p1
-  civilite: g2
-
 Utilisateur(u1):
-  email: "admin"
-  password: "test"
+  email: "stan.lee@marvel.com"
+  password: "excelsior"
   civil: c1
   role: role1
   isAdmin: "true"
-
 Utilisateur(u2):
-  email: "tony.stark@jarvis.com"
-  password: "warmachine"
+  email: "tony.stark@avengers.com"
+  password: "jarvis"
   civil: c2
   role: role2
+Utilisateur(u3):
+  email: "brise.massue@cesi.fr"
+  password: "cesi"
+  civil: c3
+  role: role3
 
 SurEtre(s2):
   nom: "IronMan"
   isHero: "true"
   civil: c2
+  avantages: [av3, av4]
+  desavantages: [da2]
 
 TypeDelit(td1):
   libelle: "Vol"
-
 TypeDelit(td2):
   libelle: "Meurtre"
 
 NatureMission(nm1):
   labelle: "Sauvetage de l'univers"
-
 NatureMission(nm2):
   labelle: "Sauvetage du monde"
-
 NatureMission(nm3):
   labelle: "Sauvetage de chaton"
 
 NiveauGravite(ng1):
   labelle: "Important"
-
 NiveauGravite(ng2):
   labelle: "Moyen"
-
 NiveauGravite(ng3):
   labelle: "Faible"
 
 NiveauUrgence(nu1):
   labelle: "Important"
-
 NiveauUrgence(nu2):
   labelle: "Moyen"
-
 NiveauUrgence(nu3):
   labelle: "Faible"
 
-Avantage(ca1):
-  libelle: "Cheveux soyeux"
-  description: "Des cheveux doux et soyeux charmant les elfes et les poneys"
-
-Avantage(ca2):
-  libelle: "MUUUUUUUSCLES"
-  description: "OUH AH OUH AH OUUUUUUH !!!!"
-
-Desavantage(da1):
-  libelle: "Allergique à l'eau"
-  description: "va mourir assoifé"
