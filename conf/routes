@@ -14,6 +14,10 @@ GET		/mission							   MissionController.index
 GET		/mission/transform					   MissionController.transform
 POST		/mission/add/{id_incident}					   MissionController.add
 
+GET		/rapport							   RapportController.index
+GET		/rapport/add/{id}					   RapportController.create
+POST	/rapport/add/{id}					   RapportController.postCreate
+
 GET     /civil                                 CivilController.index
 GET     /civil/add                             CivilController.create
 POST    /civil/add                             CivilController.postCreate
