@@ -10,4 +10,9 @@ public class NiveauGravite extends NewModel {
 
     @Column(nullable=false)
     public String labelle;
+
+    
+    public String getNameForDropdown() {
+		return this.labelle.toString();
+	}
 }
