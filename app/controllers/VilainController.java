@@ -22,9 +22,8 @@ import play.mvc.With;
 @With(AuthController.class)
 public class VilainController extends Controller {
 	
-	private static Utilisateur utilisateur = AuthController.connected();
-	
 	public static void index() {
+		Utilisateur utilisateur = AuthController.connected();
 		RolePermission permission = utilisateur.getPermission("VilainController", "read");
 		if (utilisateur.isAdmin || permission != null) {
 			 List<SurEtre> vilains = SurEtre.getSurEtreType(false);
@@ -39,6 +38,7 @@ public class VilainController extends Controller {
 	}
 	
 	public static void create() {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("VilainController", "create")) {
 	        String form = new Genform(new SurEtre(), "/vilain/add", "crudform").generate(validation.errorsMap(), flash);
 	        render("VilainController/form.html", form);
@@ -47,6 +47,7 @@ public class VilainController extends Controller {
     }
 	
 	public static void postCreate(@Valid SurEtre suretre) {
+		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("VilainController", "create")) {
 			if(validation.hasErrors()) {
 	            params.flash();
@@ -70,6 +71,7 @@ public class VilainController extends Controller {
 
 	public static void update(Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			SurEtre vilain = SurEtre.findById(id);
 			if (utilisateur.can("VilainController", "update")) {
 		        String form = new Genform(vilain, "/vilain/update/"+id, "crudform").generate(validation.errorsMap(), flash);
@@ -81,6 +83,7 @@ public class VilainController extends Controller {
 	
 	public static void postUpdate(@Valid SurEtre suretre, Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			suretre = SurEtre.findById(id);
 			if (utilisateur.can("SuperHeroController", "update")) {
 				suretre.edit(params.getRootParamNode(), "suretre");
@@ -106,6 +109,7 @@ public class VilainController extends Controller {
 	
 	public static void delete(Long id) {
 		if(id != null) {
+			Utilisateur utilisateur = AuthController.connected();
 			SurEtre vilain = SurEtre.findById(id);
 			if (utilisateur.can("VilainController", "delete")) {
 				vilain.delete();
