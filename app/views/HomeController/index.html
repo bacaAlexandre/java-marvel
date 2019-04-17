@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Menu' /}
 
-#{if utilisateur.can("HomeController", "create")}
+#{if utilisateur.role.libelle.equals("admin")}
 <div class="home_btn_admin">
     <div class="home_col_left">
         <a href="@{CivilController.index}">Civils</a>
@@ -13,9 +13,18 @@
         <a href="">Incidents</a>
         <a href="">Missions</a>
     </div>
-
 </div>
 #{/if}
+#{elseif utilisateur.role.libelle.equals("hero")}
+<div class="home_btn_hero">
+    <div class="home_col_left">
+        <a href="@{IncidentController.declaration()}" >Signaler un incident</a>
+    </div>
+    <div class="home_col_right">
+        <a href="" >Vos missions</a>
+    </div>
+</div>
+#{/elseif}
 #{else}
 <div class="home_btn_incident">
     <h2>Bienvenue  ${utilisateur.civil.nom}</h2>
