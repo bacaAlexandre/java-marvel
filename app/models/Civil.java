@@ -69,22 +69,6 @@ public class Civil extends NewModel {
 	@ManyToOne
 	public GenreSexuel civilite;
 	
-	public static List<Civil> getByIds(List<Long> ids) {
-		List<Civil> liste = new ArrayList<Civil>();
-		for(Long id : ids) {
-			liste.add(Civil.findById(id));
-		}
-		return liste;
-	}
-
-	public static List<Civil> getByIds(String[] strings) {
-		List<Civil> liste = new ArrayList<Civil>();
-		for(String id : strings) {
-			liste.add(Civil.findById(Long.parseLong(id)));
-		}
-		return liste;
-	}
-	
 	public String getNameForDropdown() {
 		return this.nom.toString() + " " + this.prenom.toString();
 	}
