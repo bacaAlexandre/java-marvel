@@ -51,10 +51,6 @@ public class IncidentController extends Controller {
 		declaration();
 	}
 	
-	public static void transform(Long id) {
-		
-	}
-	
 	public static void delete(Long id) {
 		if (id != null) {
 			Incident incident = Incident.findById(id);
