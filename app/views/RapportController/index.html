@@ -21,7 +21,7 @@
             <td>${rapport.mission.incident.typeDelit.libelle}</td>
             <td>${rapport.mission.titre}</td>
             <td>${rapport.affectation.nom}</td>
-            <td>${rapport.mission.incident.civil.nom}</td>
+            <td>${rapport.mission.incident.civil.prenom} ${rapport.mission.incident.civil.nom}</td>
             <td>${rapport.resultat}</td>
             <td class="table_cel_action">
                 <a class="table_btn_modifier" href="@{RapportController.update(rapport.id)}">Modifier</a>

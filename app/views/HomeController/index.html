@@ -10,7 +10,7 @@ ${messages.get(flash.success)}
 <div class="home_btn_admin">
     <div class="home_col_left">
         <a href="@{CivilController.index}">Civils</a>
-        <a href="@{OrganisationController.index}">Organisation</a>
+        <a href="@{OrganisationController.index}">Organisations</a>
         <a href="@{SuperHeroController.index}">Super héros</a>
         <a href="@{VilainController.index}">Super vilains</a>
     </div>
@@ -28,13 +28,13 @@ ${messages.get(flash.success)}
     </div>
     <div class="home_col_right">
         <a href="@{MissionController.index}" >Vos missions</a>
-        <a href="@{RapportController.index}" >Vos rapport</a>
+        <a href="@{RapportController.index}" >Vos rapports</a>
     </div>
 </div>
 #{/elseif}
 #{else}
 <div class="home_btn_incident">
-    <h2>Bienvenue  ${utilisateur.civil.nom}</h2>
+    <h2>Bienvenue ${utilisateur.civil.prenom} ${utilisateur.civil.nom}</h2>
     <a href="@{IncidentController.declaration()}" >Signaler un incident</a>
 </div>
 #{/else}

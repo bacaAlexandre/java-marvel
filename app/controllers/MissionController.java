@@ -25,7 +25,7 @@ public class MissionController extends Controller {
 	public static void index() {
 		Utilisateur utilisateur = AuthController.connected();
 		if (utilisateur.can("MissionController", "read")) {
-			List<Mission> missions = Mission.findAll();
+			List<Mission> missions = Mission.find("byDateFinIsNull").fetch();
 			if(!utilisateur.isAdmin) {
 				missions = missions.stream().filter(m -> {
 					return m.superHeros.stream().filter(s -> {

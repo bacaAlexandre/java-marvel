@@ -7,9 +7,16 @@
         <li><b>Nature : </b>${mission.nature.labelle}</li>
         <li><b>Importance : </b>${mission.niveauUrgence.labelle}</li>
         <li><b>Gravité : </b>${mission.niveauGravite.labelle}</li>
+        <li><b>Date début mission : </b>${mission.dateDebut.format('dd/MM/yyyy')}</li>
     </ul>
     <p><b>Description : </b></p>
     <p>${mission.commentaire}</p>
+    <p><b>Héro(s) : </b></p>
+    <ul>
+    #{list mission.superHeros, as:'hero'}
+    <li>${hero.nom}</li>
+    #{/list}
+    </ul>
     <div>
         <a class="" href="@{RapportController.create(mission.id)}">Cloturer la mission</a>
     </div>
